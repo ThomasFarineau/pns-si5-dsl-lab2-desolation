@@ -1,0 +1,42 @@
+{
+  "elements": [
+    {
+      "type": "Tempo",
+      "tempo": 120
+    },
+    {
+      "type": "Signature",
+      "numerator": 4,
+      "denominator": 4
+    },
+    {
+      "type": "Track",
+      "elements": [
+        {
+          "type": "PatternInvocation",
+          "patternId": "motif A"
+        }
+      ],
+      "patterns": [
+        {
+          "motif A": {
+            "elements": [
+              {
+                "type": "Note",
+                "note": 0,
+                "octave": 4,
+                "duration": 3,
+                "keySignature": 0
+              }
+            ],
+            "id": "motif A"
+          }
+        }
+      ],
+      "id": 1,
+      "instrument": 1
+    }
+  ],
+  "patterns": {},
+  "notation": 0
+}

@@ -5,6 +5,10 @@ import Pattern from "./Pattern";
 
 let trackNumber: number = 0;
 
+type PatternMap = {
+    [id: string]: Pattern
+}
+
 class Track implements MusicElementI {
     type = "Track";
 
