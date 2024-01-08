@@ -9,3 +9,5 @@ langium/MidiDSL/node_modules/
 *.iml
 
 *.DS_Store
+
+*.vscode/
