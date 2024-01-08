@@ -2,13 +2,20 @@
   "name": "example",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "tsc && node src/index.js",
+    "reload": "npm uninstall desolation-kernel && npm install desolation-kernel@file:../kernel"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "desolation-kernel": "file:../kernel"
-  }
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  },
+  "files": [
+    "src/**/*"
+  ]
 }

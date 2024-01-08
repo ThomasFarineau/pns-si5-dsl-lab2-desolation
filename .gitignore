@@ -7,3 +7,5 @@ example/node_modules/
 
 langium/MidiDSL/node_modules/
 *.iml
+
+*.DS_Store

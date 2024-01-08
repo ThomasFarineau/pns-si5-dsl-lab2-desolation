@@ -1,1 +1,5 @@
-console.log("Coucou les loulous !")
+function test () {
+  console.log('test')
+}
+
+export default test
