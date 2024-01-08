@@ -11,7 +11,7 @@ class Track implements MusicElementI {
     id: number;
     instrument: Instrument;
     elements: TrackElementI[] = [];
-    patterns: Map<string, Pattern> = new Map<string, Pattern>();
+    patterns: { [id: string]: Pattern} = {};
 
     constructor(instrument: Instrument) {
         this.id = ++trackNumber;
@@ -23,7 +23,7 @@ class Track implements MusicElementI {
     }
 
     addPattern(pattern: Pattern) {
-        this.patterns.set(pattern.id, pattern);
+        this.patterns[pattern.id] = pattern;
     }
 }
 

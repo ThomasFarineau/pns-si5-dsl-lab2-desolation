@@ -5,7 +5,7 @@ import Pattern from "./Pattern";
 class Music {
     elements: MusicElementI[] = [];
     notation: NotationType;
-    patterns: Map<string, Pattern> = new Map<string, Pattern>();
+    patterns: { [id: string]: Pattern} = {};
 
     constructor(notation: NotationType) {
         this.notation = notation;
@@ -15,8 +15,8 @@ class Music {
         this.elements.push(musicElement);
     }
 
-    addPattern(pattern:Pattern) {
-        this.patterns.set(pattern.id, pattern);
+    addPattern(pattern: Pattern) {
+        this.patterns[pattern.id] = pattern;
     }
 }
 
