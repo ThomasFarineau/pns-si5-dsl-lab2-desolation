@@ -4,9 +4,8 @@
   "description": "kernel pns-si5-dsl-lab2-desolation",
   "main": "src/index.js",
   "scripts": {
-    "build": "tsc",
     "watch": "tsc -w",
-    "build": "npm run build"
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -19,5 +18,8 @@
   },
   "files": [
     "src/**/*"
-  ]
+  ],
+  "dependencies": {
+    "midi-writer-js": "^3.1.1"
+  }
 }
