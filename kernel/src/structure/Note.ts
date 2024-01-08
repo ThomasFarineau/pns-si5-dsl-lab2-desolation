@@ -1,7 +1,10 @@
 import Duration from "./Duration";
 import KeySignature from "./KeySignature";
+import TrackElementI from "./TrackElement.i";
+import PatternElementI from "./PatternElement.i";
 
-class Note {
+class Note implements TrackElementI, PatternElementI {
+    type = "Note"
     note: NoteName;
     octave: number;
     duration: Duration;
