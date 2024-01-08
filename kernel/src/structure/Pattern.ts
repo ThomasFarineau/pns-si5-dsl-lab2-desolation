@@ -1,10 +1,6 @@
-import MusicElementI from "./MusicElement.i";
-import TrackElementI from "./TrackElement.i";
 import PatternElementI from "./PatternElement.i";
 
-class Pattern implements MusicElementI, TrackElementI {
-    type = "Pattern";
-
+class Pattern {
     id: string
     elements: PatternElementI[] = [];
 

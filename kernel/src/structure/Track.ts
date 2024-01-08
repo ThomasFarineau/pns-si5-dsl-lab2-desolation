@@ -22,7 +22,7 @@ class Track implements MusicElementI {
         this.elements.push(element);
     }
 
-    addPattern(pattern:Pattern) {
+    addPattern(pattern: Pattern) {
         this.patterns.set(pattern.id, pattern);
     }
 }
