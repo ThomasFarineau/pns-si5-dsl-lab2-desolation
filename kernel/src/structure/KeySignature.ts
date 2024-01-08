@@ -1,4 +1,5 @@
 enum KeySignature {
+    default,
     sharp,
     flat
 }

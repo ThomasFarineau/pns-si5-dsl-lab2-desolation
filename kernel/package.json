@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "watch": "tsc -w",
-    "build": "tsc"
+    "build": "tsc",
+    "start": "nodemon src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -14,6 +15,8 @@
   "author": "thomasfarineau",
   "license": "ISC",
   "devDependencies": {
+    "nodemon": "^3.0.2",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "files": [

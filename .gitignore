@@ -13,3 +13,5 @@ example/package-lock.json
 *.DS_Store
 
 *.vscode/
+
+kernel/src/**/*.js
