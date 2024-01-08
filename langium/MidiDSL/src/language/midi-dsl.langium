@@ -1,16 +1,19 @@
 grammar MidiDsl
 
 entry Music:
-    (elements=Element | pattern=Pattern | tempo=Tempo | timeSignature=TimeSignature)*;
+    (elements=Element | pattern=Pattern | tempo=Tempo | timeSignature=TimeSignature)* name=ID;
 
-NoteEvent:
-    'note' pitch+=PITCH duration=DURATION? velocity=VELOCITY? repeat=REPEAT? channel=CHANNEL? sequential=SEQUENTIAL? wait=WAIT? name=ID;
+Note:
+    'note' pitch=PITCH duration=DURATION? velocity=VELOCITY? repeat=INT? channel=INT? sequential=SEQUENTIAL? name=ID;
+
+Chord:
+    'chord' notes+=Note+;
 
 Pattern:
-    'pattern' noteEvent+=[NoteEvent] name=ID;
+    'pattern' elements+=(Note | Chord | Wait)+ name=ID;
 
 Track:
-    'track' track+=[Pattern:ID] name=ID timeSignature=TimeSignature? instrument=INT;
+    'track' track+=[Pattern:ID] name=ID timeSignature=TimeSignature? instrument=INT Pattern+=Pattern*;
 
 TimeSignature:
     'timeSignature' numerator=INT denominator=INT;
@@ -20,6 +23,9 @@ Tempo:
 
 Element:
     'element' tempo=Tempo | timeSignature=TimeSignature track+=Track id=ID;
+
+Wait:
+    '|' wait=WAIT;
 
 
 
@@ -34,18 +40,14 @@ hidden terminal ML_COMMENT: /\/\*[\s\S]*?\*\//;
 hidden terminal SL_COMMENT: /\/\/[^\n\r]*/;
 
 terminal NOTE_NAME: (A | B | C | D | E | F | G) (SHARP | FLAT)? ;
-terminal DURATION: '1' | '2' | 'd2' | 'dd2' | '4' | '4t' | 'd4' | 'dd4' | '8' | '8t' | 'd8' | 'dd8' | '16' | '16t' | '32' | '64' | '128';
+terminal DURATION: 'q' | 'w' | 'h' | 'e' | 's';
 terminal OCTAVE: /[1-8]/;
 
 terminal WAIT: DURATION;
 terminal PITCH: NOTE_NAME OCTAVE;
 terminal VELOCITY: /[1-9][0-9]? | 100/;
-terminal REPEAT: INT;
-terminal CHANNEL: INT;
 terminal SEQUENTIAL: BOOLEAN;
 terminal TICK: INT;
-
-terminal NOTE_EVENT: PITCH+ DURATION? VELOCITY? REPEAT? CHANNEL? SEQUENTIAL? WAIT?;
 
 terminal A: 'a' | 'A' | 'do' | 'DO' | 'Do';
 terminal B: 'b' | 'B' | 're' | 'RE' | 'Re';

@@ -1,4 +1,4 @@
-import type { Model } from '../language/generated/ast.js';
+import type { Music } from '../language/generated/ast.js';
 import chalk from 'chalk';
 import { Command } from 'commander';
 import { MidiDslLanguageMetaData } from '../language/generated/module.js';
@@ -16,8 +16,8 @@ const packageContent = await fs.readFile(packagePath, 'utf-8');
 
 export const generateAction = async (fileName: string, opts: GenerateOptions): Promise<void> => {
     const services = createMidiDslServices(NodeFileSystem).MidiDsl;
-    const model = await extractAstNode<Model>(fileName, services);
-    const generatedFilePath = generateJavaScript(model, fileName, opts.destination);
+    const music = await extractAstNode<Music>(fileName, services);
+    const generatedFilePath = generateJavaScript(music, fileName, opts.destination);
     console.log(chalk.green(`JavaScript code generated successfully: ${generatedFilePath}`));
 };
 

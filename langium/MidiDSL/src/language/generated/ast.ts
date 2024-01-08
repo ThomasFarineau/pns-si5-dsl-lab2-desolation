@@ -10,56 +10,158 @@ import { AbstractAstReflection } from 'langium';
 export const MidiDslTerminals = {
     WS: /\s+/,
     ID: /[_a-zA-Z][\w_]*/,
+    INT: /[0-9]+/,
     ML_COMMENT: /\/\*[\s\S]*?\*\//,
     SL_COMMENT: /\/\/[^\n\r]*/,
+    DURATION: /((((q|w)|h)|e)|s)/,
+    WAIT: /(((((q|w)|h)|e)|s))/,
+    PITCH: /((((((((((((((a|A)|do)|DO)|Do))|(((((b|B)|re)|RE)|Re)))|(((((c|C)|mi)|MI)|Mi)))|(((((d|D)|fa)|FA)|Fa)))|(((((e|E)|sol)|SOL)|Sol)))|(((((f|F)|la)|LA)|La)))|(((((g|G)|si)|SI)|Si)))((#)|(b))?))([1-8]))/,
+    VELOCITY: /[1-9][0-9]? | 100/,
+    SEQUENTIAL: /((true|false))/,
 };
 
-export interface Greeting extends AstNode {
-    readonly $container: Model;
-    readonly $type: 'Greeting';
-    person: Reference<Person>
+export interface Chord extends AstNode {
+    readonly $container: Pattern;
+    readonly $type: 'Chord';
+    notes: Array<Note>
 }
 
-export const Greeting = 'Greeting';
+export const Chord = 'Chord';
 
-export function isGreeting(item: unknown): item is Greeting {
-    return reflection.isInstance(item, Greeting);
+export function isChord(item: unknown): item is Chord {
+    return reflection.isInstance(item, Chord);
 }
 
-export interface Model extends AstNode {
-    readonly $type: 'Model';
-    greetings: Array<Greeting>
-    persons: Array<Person>
+export interface Element extends AstNode {
+    readonly $container: Music;
+    readonly $type: 'Element';
+    id?: string
+    tempo?: Tempo
+    timeSignature?: TimeSignature
+    track: Array<Track>
 }
 
-export const Model = 'Model';
+export const Element = 'Element';
 
-export function isModel(item: unknown): item is Model {
-    return reflection.isInstance(item, Model);
+export function isElement(item: unknown): item is Element {
+    return reflection.isInstance(item, Element);
 }
 
-export interface Person extends AstNode {
-    readonly $container: Model;
-    readonly $type: 'Person';
+export interface Music extends AstNode {
+    readonly $type: 'Music';
+    elements?: Element
+    name: string
+    pattern?: Pattern
+    tempo?: Tempo
+    timeSignature?: TimeSignature
+}
+
+export const Music = 'Music';
+
+export function isMusic(item: unknown): item is Music {
+    return reflection.isInstance(item, Music);
+}
+
+export interface Note extends AstNode {
+    readonly $container: Chord | Pattern;
+    readonly $type: 'Note';
+    channel?: number
+    duration?: string
+    name: string
+    pitch: string
+    repeat?: number
+    sequential?: string
+    velocity?: string
+}
+
+export const Note = 'Note';
+
+export function isNote(item: unknown): item is Note {
+    return reflection.isInstance(item, Note);
+}
+
+export interface Pattern extends AstNode {
+    readonly $container: Music | Track;
+    readonly $type: 'Pattern';
+    elements: Array<Chord | Note | Wait>
     name: string
 }
 
-export const Person = 'Person';
+export const Pattern = 'Pattern';
 
-export function isPerson(item: unknown): item is Person {
-    return reflection.isInstance(item, Person);
+export function isPattern(item: unknown): item is Pattern {
+    return reflection.isInstance(item, Pattern);
+}
+
+export interface Tempo extends AstNode {
+    readonly $container: Element | Music;
+    readonly $type: 'Tempo';
+    tempo: number
+}
+
+export const Tempo = 'Tempo';
+
+export function isTempo(item: unknown): item is Tempo {
+    return reflection.isInstance(item, Tempo);
+}
+
+export interface TimeSignature extends AstNode {
+    readonly $container: Element | Music | Track;
+    readonly $type: 'TimeSignature';
+    denominator: number
+    numerator: number
+}
+
+export const TimeSignature = 'TimeSignature';
+
+export function isTimeSignature(item: unknown): item is TimeSignature {
+    return reflection.isInstance(item, TimeSignature);
+}
+
+export interface Track extends AstNode {
+    readonly $container: Element;
+    readonly $type: 'Track';
+    instrument: number
+    name: string
+    Pattern: Array<Pattern>
+    timeSignature?: TimeSignature
+    track: Array<Reference<Pattern>>
+}
+
+export const Track = 'Track';
+
+export function isTrack(item: unknown): item is Track {
+    return reflection.isInstance(item, Track);
+}
+
+export interface Wait extends AstNode {
+    readonly $container: Pattern;
+    readonly $type: 'Wait';
+    wait: string
+}
+
+export const Wait = 'Wait';
+
+export function isWait(item: unknown): item is Wait {
+    return reflection.isInstance(item, Wait);
 }
 
 export type MidiDslAstType = {
-    Greeting: Greeting
-    Model: Model
-    Person: Person
+    Chord: Chord
+    Element: Element
+    Music: Music
+    Note: Note
+    Pattern: Pattern
+    Tempo: Tempo
+    TimeSignature: TimeSignature
+    Track: Track
+    Wait: Wait
 }
 
 export class MidiDslAstReflection extends AbstractAstReflection {
 
     getAllTypes(): string[] {
-        return ['Greeting', 'Model', 'Person'];
+        return ['Chord', 'Element', 'Music', 'Note', 'Pattern', 'Tempo', 'TimeSignature', 'Track', 'Wait'];
     }
 
     protected override computeIsSubtype(subtype: string, supertype: string): boolean {
@@ -73,8 +175,8 @@ export class MidiDslAstReflection extends AbstractAstReflection {
     getReferenceType(refInfo: ReferenceInfo): string {
         const referenceId = `${refInfo.container.$type}:${refInfo.property}`;
         switch (referenceId) {
-            case 'Greeting:person': {
-                return Person;
+            case 'Track:track': {
+                return Pattern;
             }
             default: {
                 throw new Error(`${referenceId} is not a valid reference id.`);
@@ -84,12 +186,36 @@ export class MidiDslAstReflection extends AbstractAstReflection {
 
     getTypeMetaData(type: string): TypeMetaData {
         switch (type) {
-            case 'Model': {
+            case 'Chord': {
                 return {
-                    name: 'Model',
+                    name: 'Chord',
                     mandatory: [
-                        { name: 'greetings', type: 'array' },
-                        { name: 'persons', type: 'array' }
+                        { name: 'notes', type: 'array' }
+                    ]
+                };
+            }
+            case 'Element': {
+                return {
+                    name: 'Element',
+                    mandatory: [
+                        { name: 'track', type: 'array' }
+                    ]
+                };
+            }
+            case 'Pattern': {
+                return {
+                    name: 'Pattern',
+                    mandatory: [
+                        { name: 'elements', type: 'array' }
+                    ]
+                };
+            }
+            case 'Track': {
+                return {
+                    name: 'Track',
+                    mandatory: [
+                        { name: 'Pattern', type: 'array' },
+                        { name: 'track', type: 'array' }
                     ]
                 };
             }
