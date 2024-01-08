@@ -1,13 +1,28 @@
 grammar MidiDsl
 
-entry Model:
-    (persons+=Person | greetings+=Greeting)*;
+entry Music:
+    (elements=Element | pattern=Pattern | tempo=Tempo | timeSignature=TimeSignature)*;
 
-Person:
-    'person' name=ID;
+NoteEvent:
+    'note' pitch+=PITCH duration=DURATION? velocity=VELOCITY? repeat=REPEAT? channel=CHANNEL? sequential=SEQUENTIAL? wait=WAIT? name=ID;
 
-Greeting:
-    'Hello' person=[Person:ID] '!';
+Pattern:
+    'pattern' noteEvent+=[NoteEvent] name=ID;
+
+Track:
+    'track' track+=[Pattern:ID] name=ID timeSignature=TimeSignature? instrument=INT;
+
+TimeSignature:
+    'timeSignature' numerator=INT denominator=INT;
+
+Tempo:
+    'tempo' tempo=INT;
+
+Element:
+    'element' tempo=Tempo | timeSignature=TimeSignature track+=Track id=ID;
+
+
+
 
 hidden terminal WS: /\s+/;
 terminal ID: /[_a-zA-Z][\w_]*/;
