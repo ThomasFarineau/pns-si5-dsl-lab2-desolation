@@ -2,3 +2,7 @@
 kernel/node_modules/
 
 kernel/kernel.iml
+
+example/node_modules/
+
+*.iml
