@@ -1,0 +1,23 @@
+{
+  "name": "desolation-kernel",
+  "version": "1.0.0",
+  "description": "kernel pns-si5-dsl-lab2-desolation",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "build": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ThomasFarineau/pns-si5-dsl-lab2-desolation"
+  },
+  "author": "thomasfarineau",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  },
+  "files": [
+    "src/**/*"
+  ]
+}

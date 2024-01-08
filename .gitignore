@@ -1,1 +1,4 @@
 .idea
+kernel/node_modules/
+
+kernel/kernel.iml
