@@ -13,13 +13,13 @@ export const MidiDslTerminals = {
     INT: /[0-9]+/,
     ML_COMMENT: /\/\*[\s\S]*?\*\//,
     SL_COMMENT: /\/\/[^\n\r]*/,
-    DURATION: /((((q|w)|h)|e)|s)/,
+    DURATION: /[qwhes]/,
     OCTAVE: /[1-8]/,
-    WAIT: /(((((q|w)|h)|e)|s))/,
+    WAIT: /([qwhes])/,
     VELOCITY: /[1-9][0-9]? | 100/,
     SEQUENTIAL: /((true|false))/,
     ACCIDENTAL: /((#)|(b))/,
-    A: /((((a|A)|do)|DO)|Do)/,
+    DO: /(a|A)/,
     B: /((((b|B)|re)|RE)|Re)/,
     C: /((((c|C)|mi)|MI)|Mi)/,
     D: /((((d|D)|fa)|FA)|Fa)/,
@@ -27,6 +27,18 @@ export const MidiDslTerminals = {
     F: /((((f|F)|la)|LA)|La)/,
     G: /((((g|G)|si)|SI)|Si)/,
 };
+
+export interface Channel extends AstNode {
+    readonly $container: Note;
+    readonly $type: 'Channel';
+    channel: number
+}
+
+export const Channel = 'Channel';
+
+export function isChannel(item: unknown): item is Channel {
+    return reflection.isInstance(item, Channel);
+}
 
 export interface Chord extends AstNode {
     readonly $container: Pattern;
@@ -38,6 +50,18 @@ export const Chord = 'Chord';
 
 export function isChord(item: unknown): item is Chord {
     return reflection.isInstance(item, Chord);
+}
+
+export interface Duration extends AstNode {
+    readonly $container: Note;
+    readonly $type: 'Duration';
+    duration: string
+}
+
+export const Duration = 'Duration';
+
+export function isDuration(item: unknown): item is Duration {
+    return reflection.isInstance(item, Duration);
 }
 
 export interface Element extends AstNode {
@@ -73,13 +97,12 @@ export function isMusic(item: unknown): item is Music {
 export interface Note extends AstNode {
     readonly $container: Chord | Pattern;
     readonly $type: 'Note';
-    channel?: number
-    duration?: string
-    name: string
+    channel?: Channel
+    duration?: Duration
     pitch: Pitch
-    repeat?: number
-    sequential?: string
-    velocity?: string
+    repeat?: Repeat
+    sequential?: Sequential
+    velocity?: Velocity
 }
 
 export const Note = 'Note';
@@ -127,6 +150,30 @@ export function isPitch(item: unknown): item is Pitch {
     return reflection.isInstance(item, Pitch);
 }
 
+export interface Repeat extends AstNode {
+    readonly $container: Note;
+    readonly $type: 'Repeat';
+    repeat: number
+}
+
+export const Repeat = 'Repeat';
+
+export function isRepeat(item: unknown): item is Repeat {
+    return reflection.isInstance(item, Repeat);
+}
+
+export interface Sequential extends AstNode {
+    readonly $container: Note;
+    readonly $type: 'Sequential';
+    sequential: string
+}
+
+export const Sequential = 'Sequential';
+
+export function isSequential(item: unknown): item is Sequential {
+    return reflection.isInstance(item, Sequential);
+}
+
 export interface Tempo extends AstNode {
     readonly $container: Element | Music;
     readonly $type: 'Tempo';
@@ -168,6 +215,18 @@ export function isTrack(item: unknown): item is Track {
     return reflection.isInstance(item, Track);
 }
 
+export interface Velocity extends AstNode {
+    readonly $container: Note;
+    readonly $type: 'Velocity';
+    velocity: string
+}
+
+export const Velocity = 'Velocity';
+
+export function isVelocity(item: unknown): item is Velocity {
+    return reflection.isInstance(item, Velocity);
+}
+
 export interface Wait extends AstNode {
     readonly $container: Pattern;
     readonly $type: 'Wait';
@@ -181,23 +240,28 @@ export function isWait(item: unknown): item is Wait {
 }
 
 export type MidiDslAstType = {
+    Channel: Channel
     Chord: Chord
+    Duration: Duration
     Element: Element
     Music: Music
     Note: Note
     NoteName: NoteName
     Pattern: Pattern
     Pitch: Pitch
+    Repeat: Repeat
+    Sequential: Sequential
     Tempo: Tempo
     TimeSignature: TimeSignature
     Track: Track
+    Velocity: Velocity
     Wait: Wait
 }
 
 export class MidiDslAstReflection extends AbstractAstReflection {
 
     getAllTypes(): string[] {
-        return ['Chord', 'Element', 'Music', 'Note', 'NoteName', 'Pattern', 'Pitch', 'Tempo', 'TimeSignature', 'Track', 'Wait'];
+        return ['Channel', 'Chord', 'Duration', 'Element', 'Music', 'Note', 'NoteName', 'Pattern', 'Pitch', 'Repeat', 'Sequential', 'Tempo', 'TimeSignature', 'Track', 'Velocity', 'Wait'];
     }
 
     protected override computeIsSubtype(subtype: string, supertype: string): boolean {

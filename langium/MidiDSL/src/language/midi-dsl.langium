@@ -4,13 +4,28 @@ entry Music:
     (elements=Element | pattern=Pattern | tempo=Tempo | timeSignature=TimeSignature | name=ID)+ ;
 
 Note:
-    'note' pitch=Pitch duration=DURATION? velocity=VELOCITY? repeat=INT? channel=INT? sequential=SEQUENTIAL? name=ID;
+    'note' pitch=Pitch duration=Duration? (velocity=Velocity)? repeat=Repeat? channel=Channel? sequential=Sequential?;
+
+Duration:
+    'duration' duration=DURATION;
+
+Velocity:
+    'velocity' velocity=VELOCITY;
+
+Repeat:
+    'repeat' repeat=INT;
+
+Channel:
+    'channel' channel=INT;
+
+Sequential:
+    'sequential' sequential=SEQUENTIAL;
 
 Pitch: 
-    noteName=NoteName octave=OCTAVE;
+    '('noteName=NoteName ')' octave=OCTAVE;
 
 NoteName:
-    note=(A | B | C | D | E | F | G) accidental=ACCIDENTAL?;
+    note=(DO | B | C | D | E | F | G) accidental=ACCIDENTAL?;
 
 Chord:
     'chord' notes+=Note+;
@@ -19,7 +34,7 @@ Pattern:
     'pattern' elements+=(Note | Chord | Wait)+ name=ID;
 
 Track:
-    'track'  timeSignature=TimeSignature? instrument=INT Pattern+=Pattern* track+=[Pattern:ID] name=ID;
+    'track'  timeSignature=TimeSignature?  Pattern+=Pattern* instrument=INT track+=[Pattern:ID] name=ID;
 
 TimeSignature:
     'timeSignature' numerator=INT denominator=INT;
@@ -45,8 +60,8 @@ terminal STRING: /"(\\.|[^"\\])*"|'(\\.|[^'\\])*'/;
 hidden terminal ML_COMMENT: /\/\*[\s\S]*?\*\//;
 hidden terminal SL_COMMENT: /\/\/[^\n\r]*/;
 
-terminal NOTE: (A | B | C | D | E | F | G);
-terminal DURATION: 'q' | 'w' | 'h' | 'e' | 's';
+terminal NOTE: (DO | B | C | D | E | F | G);
+terminal DURATION: /[qwhes]/;
 terminal OCTAVE: /[1-8]/;
 
 terminal WAIT: DURATION;
@@ -56,7 +71,7 @@ terminal TICK: INT;
 
 terminal ACCIDENTAL: SHARP | FLAT;
 
-terminal A: 'a' | 'A' | 'do' | 'DO' | 'Do';
+terminal DO: 'a' | 'A' ;
 terminal B: 'b' | 'B' | 're' | 'RE' | 'Re';
 terminal C: 'c' | 'C' | 'mi' | 'MI' | 'Mi';
 terminal D: 'd' | 'D' | 'fa' | 'FA' | 'Fa';

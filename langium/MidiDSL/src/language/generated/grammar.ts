@@ -26,7 +26,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@9"
+                "$ref": "#/rules@14"
               },
               "arguments": []
             }
@@ -38,7 +38,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@5"
+                "$ref": "#/rules@10"
               },
               "arguments": []
             }
@@ -50,7 +50,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@8"
+                "$ref": "#/rules@13"
               },
               "arguments": []
             }
@@ -62,7 +62,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@7"
+                "$ref": "#/rules@12"
               },
               "arguments": []
             }
@@ -74,7 +74,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@12"
+                "$ref": "#/rules@17"
               },
               "arguments": []
             }
@@ -105,7 +105,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@2"
+                "$ref": "#/rules@7"
               },
               "arguments": []
             }
@@ -117,7 +117,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@19"
+                "$ref": "#/rules@2"
               },
               "arguments": []
             },
@@ -130,7 +130,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@22"
+                "$ref": "#/rules@3"
               },
               "arguments": []
             },
@@ -143,7 +143,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@13"
+                "$ref": "#/rules@4"
               },
               "arguments": []
             },
@@ -156,7 +156,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@13"
+                "$ref": "#/rules@5"
               },
               "arguments": []
             },
@@ -169,20 +169,163 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@23"
+                "$ref": "#/rules@6"
               },
               "arguments": []
             },
             "cardinality": "?"
+          }
+        ]
+      },
+      "definesHiddenTokens": false,
+      "entry": false,
+      "fragment": false,
+      "hiddenTokens": [],
+      "parameters": [],
+      "wildcard": false
+    },
+    {
+      "$type": "ParserRule",
+      "name": "Duration",
+      "definition": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "duration"
           },
           {
             "$type": "Assignment",
-            "feature": "name",
+            "feature": "duration",
             "operator": "=",
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@12"
+                "$ref": "#/rules@24"
+              },
+              "arguments": []
+            }
+          }
+        ]
+      },
+      "definesHiddenTokens": false,
+      "entry": false,
+      "fragment": false,
+      "hiddenTokens": [],
+      "parameters": [],
+      "wildcard": false
+    },
+    {
+      "$type": "ParserRule",
+      "name": "Velocity",
+      "definition": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "velocity"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "velocity",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@27"
+              },
+              "arguments": []
+            }
+          }
+        ]
+      },
+      "definesHiddenTokens": false,
+      "entry": false,
+      "fragment": false,
+      "hiddenTokens": [],
+      "parameters": [],
+      "wildcard": false
+    },
+    {
+      "$type": "ParserRule",
+      "name": "Repeat",
+      "definition": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "repeat"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "repeat",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@18"
+              },
+              "arguments": []
+            }
+          }
+        ]
+      },
+      "definesHiddenTokens": false,
+      "entry": false,
+      "fragment": false,
+      "hiddenTokens": [],
+      "parameters": [],
+      "wildcard": false
+    },
+    {
+      "$type": "ParserRule",
+      "name": "Channel",
+      "definition": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "channel"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "channel",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@18"
+              },
+              "arguments": []
+            }
+          }
+        ]
+      },
+      "definesHiddenTokens": false,
+      "entry": false,
+      "fragment": false,
+      "hiddenTokens": [],
+      "parameters": [],
+      "wildcard": false
+    },
+    {
+      "$type": "ParserRule",
+      "name": "Sequential",
+      "definition": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "sequential"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "sequential",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@28"
               },
               "arguments": []
             }
@@ -203,16 +346,24 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
         "$type": "Group",
         "elements": [
           {
+            "$type": "Keyword",
+            "value": "("
+          },
+          {
             "$type": "Assignment",
             "feature": "noteName",
             "operator": "=",
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@3"
+                "$ref": "#/rules@8"
               },
               "arguments": []
             }
+          },
+          {
+            "$type": "Keyword",
+            "value": ")"
           },
           {
             "$type": "Assignment",
@@ -221,7 +372,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@20"
+                "$ref": "#/rules@25"
               },
               "arguments": []
             }
@@ -251,41 +402,6 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
                 {
                   "$type": "RuleCall",
                   "rule": {
-                    "$ref": "#/rules@26"
-                  },
-                  "arguments": []
-                },
-                {
-                  "$type": "RuleCall",
-                  "rule": {
-                    "$ref": "#/rules@27"
-                  },
-                  "arguments": []
-                },
-                {
-                  "$type": "RuleCall",
-                  "rule": {
-                    "$ref": "#/rules@28"
-                  },
-                  "arguments": []
-                },
-                {
-                  "$type": "RuleCall",
-                  "rule": {
-                    "$ref": "#/rules@29"
-                  },
-                  "arguments": []
-                },
-                {
-                  "$type": "RuleCall",
-                  "rule": {
-                    "$ref": "#/rules@30"
-                  },
-                  "arguments": []
-                },
-                {
-                  "$type": "RuleCall",
-                  "rule": {
                     "$ref": "#/rules@31"
                   },
                   "arguments": []
@@ -294,6 +410,41 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
                   "$type": "RuleCall",
                   "rule": {
                     "$ref": "#/rules@32"
+                  },
+                  "arguments": []
+                },
+                {
+                  "$type": "RuleCall",
+                  "rule": {
+                    "$ref": "#/rules@33"
+                  },
+                  "arguments": []
+                },
+                {
+                  "$type": "RuleCall",
+                  "rule": {
+                    "$ref": "#/rules@34"
+                  },
+                  "arguments": []
+                },
+                {
+                  "$type": "RuleCall",
+                  "rule": {
+                    "$ref": "#/rules@35"
+                  },
+                  "arguments": []
+                },
+                {
+                  "$type": "RuleCall",
+                  "rule": {
+                    "$ref": "#/rules@36"
+                  },
+                  "arguments": []
+                },
+                {
+                  "$type": "RuleCall",
+                  "rule": {
+                    "$ref": "#/rules@37"
                   },
                   "arguments": []
                 }
@@ -307,7 +458,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@25"
+                "$ref": "#/rules@30"
               },
               "arguments": []
             },
@@ -381,14 +532,14 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
                 {
                   "$type": "RuleCall",
                   "rule": {
-                    "$ref": "#/rules@4"
+                    "$ref": "#/rules@9"
                   },
                   "arguments": []
                 },
                 {
                   "$type": "RuleCall",
                   "rule": {
-                    "$ref": "#/rules@10"
+                    "$ref": "#/rules@15"
                   },
                   "arguments": []
                 }
@@ -403,7 +554,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@12"
+                "$ref": "#/rules@17"
               },
               "arguments": []
             }
@@ -434,23 +585,11 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@7"
+                "$ref": "#/rules@12"
               },
               "arguments": []
             },
             "cardinality": "?"
-          },
-          {
-            "$type": "Assignment",
-            "feature": "instrument",
-            "operator": "=",
-            "terminal": {
-              "$type": "RuleCall",
-              "rule": {
-                "$ref": "#/rules@13"
-              },
-              "arguments": []
-            }
           },
           {
             "$type": "Assignment",
@@ -459,11 +598,23 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@5"
+                "$ref": "#/rules@10"
               },
               "arguments": []
             },
             "cardinality": "*"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "instrument",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@18"
+              },
+              "arguments": []
+            }
           },
           {
             "$type": "Assignment",
@@ -472,12 +623,12 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "CrossReference",
               "type": {
-                "$ref": "#/rules@5"
+                "$ref": "#/rules@10"
               },
               "terminal": {
                 "$type": "RuleCall",
                 "rule": {
-                  "$ref": "#/rules@12"
+                  "$ref": "#/rules@17"
                 },
                 "arguments": []
               },
@@ -491,7 +642,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@12"
+                "$ref": "#/rules@17"
               },
               "arguments": []
             }
@@ -522,7 +673,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@13"
+                "$ref": "#/rules@18"
               },
               "arguments": []
             }
@@ -534,7 +685,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@13"
+                "$ref": "#/rules@18"
               },
               "arguments": []
             }
@@ -565,7 +716,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@13"
+                "$ref": "#/rules@18"
               },
               "arguments": []
             }
@@ -599,7 +750,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
                 "terminal": {
                   "$type": "RuleCall",
                   "rule": {
-                    "$ref": "#/rules@8"
+                    "$ref": "#/rules@13"
                   },
                   "arguments": []
                 }
@@ -611,7 +762,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
                 "terminal": {
                   "$type": "RuleCall",
                   "rule": {
-                    "$ref": "#/rules@7"
+                    "$ref": "#/rules@12"
                   },
                   "arguments": []
                 }
@@ -623,7 +774,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
                 "terminal": {
                   "$type": "RuleCall",
                   "rule": {
-                    "$ref": "#/rules@6"
+                    "$ref": "#/rules@11"
                   },
                   "arguments": []
                 }
@@ -638,7 +789,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@12"
+                "$ref": "#/rules@17"
               },
               "arguments": []
             }
@@ -669,7 +820,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@21"
+                "$ref": "#/rules@26"
               },
               "arguments": []
             }
@@ -796,13 +947,13 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
                               {
                                 "$type": "TerminalRuleCall",
                                 "rule": {
-                                  "$ref": "#/rules@26"
+                                  "$ref": "#/rules@31"
                                 }
                               },
                               {
                                 "$type": "TerminalRuleCall",
                                 "rule": {
-                                  "$ref": "#/rules@27"
+                                  "$ref": "#/rules@32"
                                 }
                               }
                             ]
@@ -810,7 +961,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
                           {
                             "$type": "TerminalRuleCall",
                             "rule": {
-                              "$ref": "#/rules@28"
+                              "$ref": "#/rules@33"
                             }
                           }
                         ]
@@ -818,7 +969,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
                       {
                         "$type": "TerminalRuleCall",
                         "rule": {
-                          "$ref": "#/rules@29"
+                          "$ref": "#/rules@34"
                         }
                       }
                     ]
@@ -826,7 +977,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
                   {
                     "$type": "TerminalRuleCall",
                     "rule": {
-                      "$ref": "#/rules@30"
+                      "$ref": "#/rules@35"
                     }
                   }
                 ]
@@ -834,7 +985,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
               {
                 "$type": "TerminalRuleCall",
                 "rule": {
-                  "$ref": "#/rules@31"
+                  "$ref": "#/rules@36"
                 }
               }
             ]
@@ -842,7 +993,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
           {
             "$type": "TerminalRuleCall",
             "rule": {
-              "$ref": "#/rules@32"
+              "$ref": "#/rules@37"
             }
           }
         ]
@@ -854,59 +1005,8 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
       "$type": "TerminalRule",
       "name": "DURATION",
       "definition": {
-        "$type": "TerminalAlternatives",
-        "elements": [
-          {
-            "$type": "TerminalAlternatives",
-            "elements": [
-              {
-                "$type": "TerminalAlternatives",
-                "elements": [
-                  {
-                    "$type": "TerminalAlternatives",
-                    "elements": [
-                      {
-                        "$type": "CharacterRange",
-                        "left": {
-                          "$type": "Keyword",
-                          "value": "q"
-                        }
-                      },
-                      {
-                        "$type": "CharacterRange",
-                        "left": {
-                          "$type": "Keyword",
-                          "value": "w"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "$type": "CharacterRange",
-                    "left": {
-                      "$type": "Keyword",
-                      "value": "h"
-                    }
-                  }
-                ]
-              },
-              {
-                "$type": "CharacterRange",
-                "left": {
-                  "$type": "Keyword",
-                  "value": "e"
-                }
-              }
-            ]
-          },
-          {
-            "$type": "CharacterRange",
-            "left": {
-              "$type": "Keyword",
-              "value": "s"
-            }
-          }
-        ]
+        "$type": "RegexToken",
+        "regex": "/[qwhes]/"
       },
       "fragment": false,
       "hidden": false
@@ -927,7 +1027,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
       "definition": {
         "$type": "TerminalRuleCall",
         "rule": {
-          "$ref": "#/rules@19"
+          "$ref": "#/rules@24"
         }
       },
       "fragment": false,
@@ -949,7 +1049,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
       "definition": {
         "$type": "TerminalRuleCall",
         "rule": {
-          "$ref": "#/rules@14"
+          "$ref": "#/rules@19"
         }
       },
       "fragment": false,
@@ -961,7 +1061,7 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
       "definition": {
         "$type": "TerminalRuleCall",
         "rule": {
-          "$ref": "#/rules@13"
+          "$ref": "#/rules@18"
         }
       },
       "fragment": false,
@@ -976,13 +1076,13 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
           {
             "$type": "TerminalRuleCall",
             "rule": {
-              "$ref": "#/rules@33"
+              "$ref": "#/rules@38"
             }
           },
           {
             "$type": "TerminalRuleCall",
             "rule": {
-              "$ref": "#/rules@34"
+              "$ref": "#/rules@39"
             }
           }
         ]
@@ -992,58 +1092,22 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
     },
     {
       "$type": "TerminalRule",
-      "name": "A",
+      "name": "DO",
       "definition": {
         "$type": "TerminalAlternatives",
         "elements": [
           {
-            "$type": "TerminalAlternatives",
-            "elements": [
-              {
-                "$type": "TerminalAlternatives",
-                "elements": [
-                  {
-                    "$type": "TerminalAlternatives",
-                    "elements": [
-                      {
-                        "$type": "CharacterRange",
-                        "left": {
-                          "$type": "Keyword",
-                          "value": "a"
-                        }
-                      },
-                      {
-                        "$type": "CharacterRange",
-                        "left": {
-                          "$type": "Keyword",
-                          "value": "A"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "$type": "CharacterRange",
-                    "left": {
-                      "$type": "Keyword",
-                      "value": "do"
-                    }
-                  }
-                ]
-              },
-              {
-                "$type": "CharacterRange",
-                "left": {
-                  "$type": "Keyword",
-                  "value": "DO"
-                }
-              }
-            ]
+            "$type": "CharacterRange",
+            "left": {
+              "$type": "Keyword",
+              "value": "a"
+            }
           },
           {
             "$type": "CharacterRange",
             "left": {
               "$type": "Keyword",
-              "value": "Do"
+              "value": "A"
             }
           }
         ]
