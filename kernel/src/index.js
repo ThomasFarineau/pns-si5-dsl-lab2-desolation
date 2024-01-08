@@ -1,2 +1,6 @@
 "use strict";
-console.log("Coucou les loulous !");
+Object.defineProperty(exports, "__esModule", { value: true });
+function test() {
+    console.log('test');
+}
+exports.default = test;
