@@ -36,6 +36,7 @@ export interface Element extends AstNode {
     readonly $container: Music;
     readonly $type: 'Element';
     id?: string
+    tempo?: Tempo
     timeSignature?: TimeSignature
     track: Array<Track>
 }
@@ -49,7 +50,9 @@ export function isElement(item: unknown): item is Element {
 export interface Music extends AstNode {
     readonly $type: 'Music';
     elements: Array<Element>
+    name: string
     pattern: Array<Pattern>
+    tempo?: Tempo
     timeSignature?: TimeSignature
 }
 
@@ -91,6 +94,7 @@ export function isPattern(item: unknown): item is Pattern {
 }
 
 export interface Tempo extends AstNode {
+    readonly $container: Element | Music;
     readonly $type: 'Tempo';
     tempo: number
 }

@@ -1,7 +1,7 @@
 grammar MidiDsl
 
 entry Music:
-    (elements+=Element | pattern+=Pattern* | timeSignature=TimeSignature)*;
+    (elements+=Element | pattern+=Pattern* | tempo=Tempo | timeSignature=TimeSignature)* name=ID;
 
 Note:
     'note' pitch=PITCH duration=DURATION? velocity=VELOCITY? repeat=INT? channel=INT? sequential=SEQUENTIAL? name=ID;
@@ -22,7 +22,7 @@ Tempo:
     'tempo' tempo=INT;
 
 Element:
-    'element' (timeSignature=TimeSignature? | track+=Track | id=ID)*;
+    'element' (tempo=Tempo? | timeSignature=TimeSignature? | track+=Track | id=ID)*;
 
 Wait:
     '|' wait=WAIT;
