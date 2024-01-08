@@ -5,17 +5,13 @@ import Pattern from "./Pattern";
 
 let trackNumber: number = 0;
 
-type PatternMap = {
-    [id: string]: Pattern
-}
-
 class Track implements MusicElementI {
     type = "Track";
 
     id: number;
     instrument: Instrument;
     elements: TrackElementI[] = [];
-    patterns: { [id: string]: Pattern} = {};
+    patterns: { [id: string]: Pattern } = {};
 
     constructor(instrument: Instrument) {
         this.id = ++trackNumber;

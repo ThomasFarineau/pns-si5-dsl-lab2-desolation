@@ -18,6 +18,13 @@ class Music {
     addPattern(pattern: Pattern) {
         this.patterns[pattern.id] = pattern;
     }
+
+    static fromJSON(parse: any) {
+        let music = new Music(parse.notation);
+        music.elements = parse.elements;
+        music.patterns = parse.patterns;
+        return music;
+    }
 }
 
 export default Music;
