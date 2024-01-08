@@ -1,5 +1,11 @@
 enum NoteName {
-    A,B, C, D, E, F, G
+    A = "A",
+    B = "B",
+    C = "C",
+    D = "D",
+    E = "E",
+    F = "F",
+    G = "G"
 }
 
 export default NoteName;

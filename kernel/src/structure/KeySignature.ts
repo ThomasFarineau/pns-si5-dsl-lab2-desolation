@@ -1,7 +1,7 @@
 enum KeySignature {
-    default,
-    sharp,
-    flat
+    default = "",
+    sharp = "#",
+    flat = "b"
 }
 
 export default KeySignature;
