@@ -15,8 +15,10 @@ class Track implements MusicElementI {
         this.id = ++trackNumber;
         this.instrument = instrument;
     }
-    
+
     addElement(element: MusicElementI) {
         this.elements.push(element);
     }
 }
+
+export default Track;

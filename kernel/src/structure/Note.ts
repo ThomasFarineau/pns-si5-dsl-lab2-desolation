@@ -1,7 +1,7 @@
 import Duration from "./Duration";
 import KeySignature from "./KeySignature";
-import TrackElementI from "./TrackElement.i";
 import PatternElementI from "./PatternElement.i";
+import NoteName from "./NoteName";
 
 class Note implements TrackElementI, PatternElementI {
     type = "Note"
