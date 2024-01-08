@@ -6,3 +6,5 @@ kernel/kernel.iml
 example/node_modules/
 
 *.iml
+
+example/package-lock.json
