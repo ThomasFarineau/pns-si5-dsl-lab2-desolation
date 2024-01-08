@@ -18682,7 +18682,7 @@ function startLanguageClient(context) {
   };
   const client2 = new import_node.LanguageClient(
     "midi-dsl",
-    "MidiDSL",
+    "MidiDsl",
     serverOptions,
     clientOptions
   );
