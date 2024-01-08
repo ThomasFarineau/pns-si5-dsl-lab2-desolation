@@ -13,8 +13,8 @@ const packagePath = path.resolve(__dirname, '..', '..', 'package.json');
 const packageContent = await fs.readFile(packagePath, 'utf-8');
 export const generateAction = async (fileName, opts) => {
     const services = createMidiDslServices(NodeFileSystem).MidiDsl;
-    const model = await extractAstNode(fileName, services);
-    const generatedFilePath = generateJavaScript(model, fileName, opts.destination);
+    const music = await extractAstNode(fileName, services);
+    const generatedFilePath = generateJavaScript(music, fileName, opts.destination);
     console.log(chalk.green(`JavaScript code generated successfully: ${generatedFilePath}`));
 };
 export default function () {

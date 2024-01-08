@@ -17,75 +17,47 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
       "name": "Music",
       "entry": true,
       "definition": {
-        "$type": "Group",
+        "$type": "Alternatives",
         "elements": [
           {
-            "$type": "Alternatives",
-            "elements": [
-              {
-                "$type": "Assignment",
-                "feature": "elements",
-                "operator": "=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "rule": {
-                    "$ref": "#/rules@7"
-                  },
-                  "arguments": []
-                }
+            "$type": "Assignment",
+            "feature": "elements",
+            "operator": "+=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@7"
               },
-              {
-                "$type": "Assignment",
-                "feature": "pattern",
-                "operator": "=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "rule": {
-                    "$ref": "#/rules@3"
-                  },
-                  "arguments": []
-                }
+              "arguments": []
+            }
+          },
+          {
+            "$type": "Assignment",
+            "feature": "pattern",
+            "operator": "+=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@3"
               },
-              {
-                "$type": "Assignment",
-                "feature": "tempo",
-                "operator": "=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "rule": {
-                    "$ref": "#/rules@6"
-                  },
-                  "arguments": []
-                }
-              },
-              {
-                "$type": "Assignment",
-                "feature": "timeSignature",
-                "operator": "=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "rule": {
-                    "$ref": "#/rules@5"
-                  },
-                  "arguments": []
-                }
-              }
-            ],
+              "arguments": []
+            },
             "cardinality": "*"
           },
           {
             "$type": "Assignment",
-            "feature": "name",
+            "feature": "timeSignature",
             "operator": "=",
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@10"
+                "$ref": "#/rules@5"
               },
               "arguments": []
             }
           }
-        ]
+        ],
+        "cardinality": "*"
       },
       "definesHiddenTokens": false,
       "fragment": false,
@@ -462,31 +434,14 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
       "$type": "ParserRule",
       "name": "Element",
       "definition": {
-        "$type": "Alternatives",
+        "$type": "Group",
         "elements": [
           {
-            "$type": "Group",
-            "elements": [
-              {
-                "$type": "Keyword",
-                "value": "element"
-              },
-              {
-                "$type": "Assignment",
-                "feature": "tempo",
-                "operator": "=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "rule": {
-                    "$ref": "#/rules@6"
-                  },
-                  "arguments": []
-                }
-              }
-            ]
+            "$type": "Keyword",
+            "value": "element"
           },
           {
-            "$type": "Group",
+            "$type": "Alternatives",
             "elements": [
               {
                 "$type": "Assignment",
@@ -498,7 +453,8 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
                     "$ref": "#/rules@5"
                   },
                   "arguments": []
-                }
+                },
+                "cardinality": "?"
               },
               {
                 "$type": "Assignment",
@@ -524,7 +480,8 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
                   "arguments": []
                 }
               }
-            ]
+            ],
+            "cardinality": "*"
           }
         ]
       },

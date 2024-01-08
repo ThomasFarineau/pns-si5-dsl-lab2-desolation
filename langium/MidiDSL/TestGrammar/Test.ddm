@@ -1,0 +1,25 @@
+tempo 12
+
+timeSignature 4 4
+tempo 12
+
+element 
+  track myTrack
+    pattern
+      note C4 q 80
+      note E4 e 90
+      chord
+        note G4 h 75
+        note B4 s 85
+    timeSignature 4 4
+  
+  myElement
+
+  track anotherTrack
+    pattern
+      note D4 q 70
+      wait |
+      note G4 e 95
+    timeSignature 3 4
+
+myComposition

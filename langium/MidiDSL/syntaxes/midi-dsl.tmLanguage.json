@@ -10,7 +10,7 @@
     },
     {
       "name": "keyword.control.midi-dsl",
-      "match": "\\b(chord|element|note|pattern|tempo|timeSignature|track)\\b"
+      "match": "\\b(chord|element|note|pattern|timeSignature|track)\\b"
     },
     {
       "name": "string.quoted.double.midi-dsl",

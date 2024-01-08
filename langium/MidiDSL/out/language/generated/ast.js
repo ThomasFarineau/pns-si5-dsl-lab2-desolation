@@ -6,24 +6,54 @@ import { AbstractAstReflection } from 'langium';
 export const MidiDslTerminals = {
     WS: /\s+/,
     ID: /[_a-zA-Z][\w_]*/,
+    INT: /[0-9]+/,
     ML_COMMENT: /\/\*[\s\S]*?\*\//,
     SL_COMMENT: /\/\/[^\n\r]*/,
+    DURATION: /((((q|w)|h)|e)|s)/,
+    WAIT: /(((((q|w)|h)|e)|s))/,
+    PITCH: /((((((((((((((a|A)|do)|DO)|Do))|(((((b|B)|re)|RE)|Re)))|(((((c|C)|mi)|MI)|Mi)))|(((((d|D)|fa)|FA)|Fa)))|(((((e|E)|sol)|SOL)|Sol)))|(((((f|F)|la)|LA)|La)))|(((((g|G)|si)|SI)|Si)))((#)|(b))?))([1-8]))/,
+    VELOCITY: /[1-9][0-9]? | 100/,
+    SEQUENTIAL: /((true|false))/,
 };
-export const Greeting = 'Greeting';
-export function isGreeting(item) {
-    return reflection.isInstance(item, Greeting);
+export const Chord = 'Chord';
+export function isChord(item) {
+    return reflection.isInstance(item, Chord);
 }
-export const Model = 'Model';
-export function isModel(item) {
-    return reflection.isInstance(item, Model);
+export const Element = 'Element';
+export function isElement(item) {
+    return reflection.isInstance(item, Element);
 }
-export const Person = 'Person';
-export function isPerson(item) {
-    return reflection.isInstance(item, Person);
+export const Music = 'Music';
+export function isMusic(item) {
+    return reflection.isInstance(item, Music);
+}
+export const Note = 'Note';
+export function isNote(item) {
+    return reflection.isInstance(item, Note);
+}
+export const Pattern = 'Pattern';
+export function isPattern(item) {
+    return reflection.isInstance(item, Pattern);
+}
+export const Tempo = 'Tempo';
+export function isTempo(item) {
+    return reflection.isInstance(item, Tempo);
+}
+export const TimeSignature = 'TimeSignature';
+export function isTimeSignature(item) {
+    return reflection.isInstance(item, TimeSignature);
+}
+export const Track = 'Track';
+export function isTrack(item) {
+    return reflection.isInstance(item, Track);
+}
+export const Wait = 'Wait';
+export function isWait(item) {
+    return reflection.isInstance(item, Wait);
 }
 export class MidiDslAstReflection extends AbstractAstReflection {
     getAllTypes() {
-        return ['Greeting', 'Model', 'Person'];
+        return ['Chord', 'Element', 'Music', 'Note', 'Pattern', 'Tempo', 'TimeSignature', 'Track', 'Wait'];
     }
     computeIsSubtype(subtype, supertype) {
         switch (subtype) {
@@ -35,8 +65,8 @@ export class MidiDslAstReflection extends AbstractAstReflection {
     getReferenceType(refInfo) {
         const referenceId = `${refInfo.container.$type}:${refInfo.property}`;
         switch (referenceId) {
-            case 'Greeting:person': {
-                return Person;
+            case 'Track:track': {
+                return Pattern;
             }
             default: {
                 throw new Error(`${referenceId} is not a valid reference id.`);
@@ -45,12 +75,36 @@ export class MidiDslAstReflection extends AbstractAstReflection {
     }
     getTypeMetaData(type) {
         switch (type) {
-            case 'Model': {
+            case 'Chord': {
                 return {
-                    name: 'Model',
+                    name: 'Chord',
                     mandatory: [
-                        { name: 'greetings', type: 'array' },
-                        { name: 'persons', type: 'array' }
+                        { name: 'notes', type: 'array' }
+                    ]
+                };
+            }
+            case 'Element': {
+                return {
+                    name: 'Element',
+                    mandatory: [
+                        { name: 'track', type: 'array' }
+                    ]
+                };
+            }
+            case 'Pattern': {
+                return {
+                    name: 'Pattern',
+                    mandatory: [
+                        { name: 'elements', type: 'array' }
+                    ]
+                };
+            }
+            case 'Track': {
+                return {
+                    name: 'Track',
+                    mandatory: [
+                        { name: 'Pattern', type: 'array' },
+                        { name: 'track', type: 'array' }
                     ]
                 };
             }
