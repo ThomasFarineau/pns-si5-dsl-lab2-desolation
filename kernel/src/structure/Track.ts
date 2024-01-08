@@ -1,6 +1,7 @@
 import MusicElementI from "./MusicElement.i";
 import TrackElementI from "./TrackElement.i";
 import Instrument from "./Instrument";
+import Pattern from "./Pattern";
 
 let trackNumber: number = 0;
 
@@ -10,6 +11,7 @@ class Track implements MusicElementI {
     id: number;
     instrument: Instrument;
     elements: TrackElementI[] = [];
+    patterns: Map<string, Pattern> = new Map<string, Pattern>();
 
     constructor(instrument: Instrument) {
         this.id = ++trackNumber;
@@ -18,6 +20,10 @@ class Track implements MusicElementI {
 
     addElement(element: MusicElementI) {
         this.elements.push(element);
+    }
+
+    addPattern(pattern:Pattern) {
+        this.patterns.set(pattern.id, pattern);
     }
 }
 
