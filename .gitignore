@@ -5,4 +5,5 @@ kernel/kernel.iml
 
 example/node_modules/
 
+langium/MidiDSL/node_modules/
 *.iml
