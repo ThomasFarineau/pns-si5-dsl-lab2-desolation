@@ -1,5 +1,3 @@
-function test () {
-  console.log('test')
-}
-
-export default test
+const build = (data: any) => {
+  console.log('build', data)
+};
