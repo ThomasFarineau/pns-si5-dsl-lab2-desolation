@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -15,6 +38,7 @@ const Note_1 = __importDefault(require("./structure/Note"));
 const NoteName_1 = __importDefault(require("./structure/NoteName"));
 const Duration_1 = __importDefault(require("./structure/Duration"));
 const KeySignature_1 = __importDefault(require("./structure/KeySignature"));
+const fs = __importStar(require("fs"));
 const build = (data) => {
     console.log('build', data);
 };
@@ -27,4 +51,10 @@ pattern.addElement(new Note_1.default(NoteName_1.default.A, 4, Duration_1.defaul
 track.addPattern(pattern);
 track.addElement(new PatternInvocation_1.default(pattern.id));
 music.addMusicElement(track);
-console.log(JSON.stringify(music, null, 2));
+let str = JSON.stringify(music, null, 2);
+// write str to file
+fs.writeFile('music.json', str, (err) => {
+    if (err)
+        throw err;
+    console.log('The file has been saved!');
+});
