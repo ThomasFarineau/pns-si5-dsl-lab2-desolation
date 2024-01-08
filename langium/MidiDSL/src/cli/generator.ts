@@ -11,15 +11,19 @@ export function generateJavaScript(music: Music, filePath: string, destination: 
     const fileNode = new CompositeGeneratorNode();
     fileNode.append('"use strict";', NL, NL);
 
-    music.elements.forEach(element => {
-        element.track.forEach(track => {
-            fileNode.append(`console.log('Track ${track.name}');`, NL);
-            track.Pattern.forEach(note => {
-                fileNode.append(`console.log('Note ${note.name}');`, NL);
-            });
-            fileNode.append(NL);
-        });
-    });
+    // if (music.tempo) {
+    //     fileNode.append(`const tempo = ${music.tempo};`, NL, NL);
+    // }
+
+    // music.elements.forEach(element => {
+    //     element.track.forEach(track => {
+    //         fileNode.append(`console.log('Track ${track.name}');`, NL);
+    //         track.Pattern.forEach(note => {
+    //             fileNode.append(`console.log('Note ${note.name}');`, NL);
+    //         });
+    //         fileNode.append(NL);
+    //     });
+    // });
 
     if (!fs.existsSync(data.destination)) {
         fs.mkdirSync(data.destination, { recursive: true });

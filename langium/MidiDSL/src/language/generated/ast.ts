@@ -14,10 +14,18 @@ export const MidiDslTerminals = {
     ML_COMMENT: /\/\*[\s\S]*?\*\//,
     SL_COMMENT: /\/\/[^\n\r]*/,
     DURATION: /((((q|w)|h)|e)|s)/,
+    OCTAVE: /[1-8]/,
     WAIT: /(((((q|w)|h)|e)|s))/,
-    PITCH: /((((((((((((((a|A)|do)|DO)|Do))|(((((b|B)|re)|RE)|Re)))|(((((c|C)|mi)|MI)|Mi)))|(((((d|D)|fa)|FA)|Fa)))|(((((e|E)|sol)|SOL)|Sol)))|(((((f|F)|la)|LA)|La)))|(((((g|G)|si)|SI)|Si)))((#)|(b))?))([1-8]))/,
     VELOCITY: /[1-9][0-9]? | 100/,
     SEQUENTIAL: /((true|false))/,
+    ACCIDENTAL: /((#)|(b))/,
+    A: /((((a|A)|do)|DO)|Do)/,
+    B: /((((b|B)|re)|RE)|Re)/,
+    C: /((((c|C)|mi)|MI)|Mi)/,
+    D: /((((d|D)|fa)|FA)|Fa)/,
+    E: /((((e|E)|sol)|SOL)|Sol)/,
+    F: /((((f|F)|la)|LA)|La)/,
+    G: /((((g|G)|si)|SI)|Si)/,
 };
 
 export interface Chord extends AstNode {
@@ -35,7 +43,7 @@ export function isChord(item: unknown): item is Chord {
 export interface Element extends AstNode {
     readonly $container: Music;
     readonly $type: 'Element';
-    id?: string
+    id: string
     tempo?: Tempo
     timeSignature?: TimeSignature
     track: Array<Track>
@@ -49,9 +57,9 @@ export function isElement(item: unknown): item is Element {
 
 export interface Music extends AstNode {
     readonly $type: 'Music';
-    elements: Array<Element>
-    name: string
-    pattern: Array<Pattern>
+    elements?: Element
+    name?: string
+    pattern?: Pattern
     tempo?: Tempo
     timeSignature?: TimeSignature
 }
@@ -68,7 +76,7 @@ export interface Note extends AstNode {
     channel?: number
     duration?: string
     name: string
-    pitch: string
+    pitch: Pitch
     repeat?: number
     sequential?: string
     velocity?: string
@@ -78,6 +86,19 @@ export const Note = 'Note';
 
 export function isNote(item: unknown): item is Note {
     return reflection.isInstance(item, Note);
+}
+
+export interface NoteName extends AstNode {
+    readonly $container: Pitch;
+    readonly $type: 'NoteName';
+    accidental?: string
+    note: string
+}
+
+export const NoteName = 'NoteName';
+
+export function isNoteName(item: unknown): item is NoteName {
+    return reflection.isInstance(item, NoteName);
 }
 
 export interface Pattern extends AstNode {
@@ -91,6 +112,19 @@ export const Pattern = 'Pattern';
 
 export function isPattern(item: unknown): item is Pattern {
     return reflection.isInstance(item, Pattern);
+}
+
+export interface Pitch extends AstNode {
+    readonly $container: Note;
+    readonly $type: 'Pitch';
+    noteName: NoteName
+    octave: string
+}
+
+export const Pitch = 'Pitch';
+
+export function isPitch(item: unknown): item is Pitch {
+    return reflection.isInstance(item, Pitch);
 }
 
 export interface Tempo extends AstNode {
@@ -151,7 +185,9 @@ export type MidiDslAstType = {
     Element: Element
     Music: Music
     Note: Note
+    NoteName: NoteName
     Pattern: Pattern
+    Pitch: Pitch
     Tempo: Tempo
     TimeSignature: TimeSignature
     Track: Track
@@ -161,7 +197,7 @@ export type MidiDslAstType = {
 export class MidiDslAstReflection extends AbstractAstReflection {
 
     getAllTypes(): string[] {
-        return ['Chord', 'Element', 'Music', 'Note', 'Pattern', 'Tempo', 'TimeSignature', 'Track', 'Wait'];
+        return ['Chord', 'Element', 'Music', 'Note', 'NoteName', 'Pattern', 'Pitch', 'Tempo', 'TimeSignature', 'Track', 'Wait'];
     }
 
     protected override computeIsSubtype(subtype: string, supertype: string): boolean {
@@ -199,15 +235,6 @@ export class MidiDslAstReflection extends AbstractAstReflection {
                     name: 'Element',
                     mandatory: [
                         { name: 'track', type: 'array' }
-                    ]
-                };
-            }
-            case 'Music': {
-                return {
-                    name: 'Music',
-                    mandatory: [
-                        { name: 'elements', type: 'array' },
-                        { name: 'pattern', type: 'array' }
                     ]
                 };
             }

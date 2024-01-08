@@ -4,9 +4,10 @@ timeSignature 4 4
 tempo 12
 
 element 
+  tempo 12
   track myTrack
     pattern
-      note C4 q 80
+      note A 4 q 80
       note E4 e 90
       chord
         note G4 h 75
@@ -18,7 +19,7 @@ element
   track anotherTrack
     pattern
       note D4 q 70
-      wait |
+      | 14
       note G4 e 95
     timeSignature 3 4
 
