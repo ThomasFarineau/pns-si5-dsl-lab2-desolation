@@ -8,6 +8,8 @@ example/node_modules/
 langium/MidiDSL/node_modules/
 *.iml
 
+example/package-lock.json
+
 *.DS_Store
 
 *.vscode/
