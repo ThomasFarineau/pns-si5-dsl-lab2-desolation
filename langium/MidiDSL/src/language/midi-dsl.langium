@@ -1,16 +1,40 @@
 grammar MidiDsl
 
 entry Music:
-    (elements=Element | pattern=Pattern | tempo=Tempo | timeSignature=TimeSignature)*;
+    (elements=Element | pattern=Pattern | tempo=Tempo | timeSignature=TimeSignature | name=ID)+ ;
 
-NoteEvent:
-    'note' pitch+=PITCH duration=DURATION? velocity=VELOCITY? repeat=REPEAT? channel=CHANNEL? sequential=SEQUENTIAL? wait=WAIT? name=ID;
+Note:
+    'note' pitch=Pitch duration=Duration? (velocity=Velocity)? repeat=Repeat? channel=Channel? sequential=Sequential?;
+
+Duration:
+    'duration' duration=DURATION;
+
+Velocity:
+    'velocity' velocity=VELOCITY;
+
+Repeat:
+    'repeat' repeat=INT;
+
+Channel:
+    'channel' channel=INT;
+
+Sequential:
+    'sequential' sequential=SEQUENTIAL;
+
+Pitch: 
+    '('noteName=NoteName ')' octave=OCTAVE;
+
+NoteName:
+    note=(DO | B | C | D | E | F | G) accidental=ACCIDENTAL?;
+
+Chord:
+    'chord' notes+=Note+;
 
 Pattern:
-    'pattern' noteEvent+=[NoteEvent] name=ID;
+    'pattern' elements+=(Note | Chord | Wait)+ name=ID;
 
 Track:
-    'track' track+=[Pattern:ID] name=ID timeSignature=TimeSignature? instrument=INT;
+    'track'  timeSignature=TimeSignature?  Pattern+=Pattern* instrument=INT track+=[Pattern:ID] name=ID;
 
 TimeSignature:
     'timeSignature' numerator=INT denominator=INT;
@@ -19,7 +43,10 @@ Tempo:
     'tempo' tempo=INT;
 
 Element:
-    'element' tempo=Tempo | timeSignature=TimeSignature track+=Track id=ID;
+    'element' (tempo=Tempo | timeSignature=TimeSignature | track+=Track)* id=ID;
+
+Wait:
+    '|' wait=WAIT;
 
 
 
@@ -33,21 +60,18 @@ terminal STRING: /"(\\.|[^"\\])*"|'(\\.|[^'\\])*'/;
 hidden terminal ML_COMMENT: /\/\*[\s\S]*?\*\//;
 hidden terminal SL_COMMENT: /\/\/[^\n\r]*/;
 
-terminal NOTE_NAME: (A | B | C | D | E | F | G) (SHARP | FLAT)? ;
-terminal DURATION: '1' | '2' | 'd2' | 'dd2' | '4' | '4t' | 'd4' | 'dd4' | '8' | '8t' | 'd8' | 'dd8' | '16' | '16t' | '32' | '64' | '128';
+terminal NOTE: (DO | B | C | D | E | F | G);
+terminal DURATION: /[qwhes]/;
 terminal OCTAVE: /[1-8]/;
 
 terminal WAIT: DURATION;
-terminal PITCH: NOTE_NAME OCTAVE;
 terminal VELOCITY: /[1-9][0-9]? | 100/;
-terminal REPEAT: INT;
-terminal CHANNEL: INT;
 terminal SEQUENTIAL: BOOLEAN;
 terminal TICK: INT;
 
-terminal NOTE_EVENT: PITCH+ DURATION? VELOCITY? REPEAT? CHANNEL? SEQUENTIAL? WAIT?;
+terminal ACCIDENTAL: SHARP | FLAT;
 
-terminal A: 'a' | 'A' | 'do' | 'DO' | 'Do';
+terminal DO: 'a' | 'A' ;
 terminal B: 'b' | 'B' | 're' | 'RE' | 'Re';
 terminal C: 'c' | 'C' | 'mi' | 'MI' | 'Mi';
 terminal D: 'd' | 'D' | 'fa' | 'FA' | 'Fa';

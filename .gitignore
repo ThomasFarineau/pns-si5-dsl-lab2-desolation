@@ -16,3 +16,5 @@ example/package-lock.json
 
 kernel/src/**/*.js
 kernel/music.json
+
+langium/MidiDSL/out/

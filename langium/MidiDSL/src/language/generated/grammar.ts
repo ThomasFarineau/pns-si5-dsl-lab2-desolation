@@ -14,37 +14,73 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
   "rules": [
     {
       "$type": "ParserRule",
-      "name": "Model",
+      "name": "Music",
       "entry": true,
       "definition": {
         "$type": "Alternatives",
         "elements": [
           {
             "$type": "Assignment",
-            "feature": "persons",
-            "operator": "+=",
+            "feature": "elements",
+            "operator": "=",
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@1"
+                "$ref": "#/rules@14"
               },
               "arguments": []
             }
           },
           {
             "$type": "Assignment",
-            "feature": "greetings",
-            "operator": "+=",
+            "feature": "pattern",
+            "operator": "=",
             "terminal": {
               "$type": "RuleCall",
               "rule": {
-                "$ref": "#/rules@2"
+                "$ref": "#/rules@10"
+              },
+              "arguments": []
+            }
+          },
+          {
+            "$type": "Assignment",
+            "feature": "tempo",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@13"
+              },
+              "arguments": []
+            }
+          },
+          {
+            "$type": "Assignment",
+            "feature": "timeSignature",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@12"
+              },
+              "arguments": []
+            }
+          },
+          {
+            "$type": "Assignment",
+            "feature": "name",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@17"
               },
               "arguments": []
             }
           }
         ],
-        "cardinality": "*"
+        "cardinality": "+"
       },
       "definesHiddenTokens": false,
       "fragment": false,
@@ -54,22 +90,118 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
     },
     {
       "$type": "ParserRule",
-      "name": "Person",
+      "name": "Note",
       "definition": {
         "$type": "Group",
         "elements": [
           {
             "$type": "Keyword",
-            "value": "person"
+            "value": "note"
           },
           {
             "$type": "Assignment",
-            "feature": "name",
+            "feature": "pitch",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@7"
+              },
+              "arguments": []
+            }
+          },
+          {
+            "$type": "Assignment",
+            "feature": "duration",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@2"
+              },
+              "arguments": []
+            },
+            "cardinality": "?"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "velocity",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@3"
+              },
+              "arguments": []
+            },
+            "cardinality": "?"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "repeat",
             "operator": "=",
             "terminal": {
               "$type": "RuleCall",
               "rule": {
                 "$ref": "#/rules@4"
+              },
+              "arguments": []
+            },
+            "cardinality": "?"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "channel",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@5"
+              },
+              "arguments": []
+            },
+            "cardinality": "?"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "sequential",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@6"
+              },
+              "arguments": []
+            },
+            "cardinality": "?"
+          }
+        ]
+      },
+      "definesHiddenTokens": false,
+      "entry": false,
+      "fragment": false,
+      "hiddenTokens": [],
+      "parameters": [],
+      "wildcard": false
+    },
+    {
+      "$type": "ParserRule",
+      "name": "Duration",
+      "definition": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "duration"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "duration",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@24"
               },
               "arguments": []
             }
@@ -85,27 +217,418 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
     },
     {
       "$type": "ParserRule",
-      "name": "Greeting",
+      "name": "Velocity",
       "definition": {
         "$type": "Group",
         "elements": [
           {
             "$type": "Keyword",
-            "value": "Hello"
+            "value": "velocity"
           },
           {
             "$type": "Assignment",
-            "feature": "person",
+            "feature": "velocity",
             "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@27"
+              },
+              "arguments": []
+            }
+          }
+        ]
+      },
+      "definesHiddenTokens": false,
+      "entry": false,
+      "fragment": false,
+      "hiddenTokens": [],
+      "parameters": [],
+      "wildcard": false
+    },
+    {
+      "$type": "ParserRule",
+      "name": "Repeat",
+      "definition": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "repeat"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "repeat",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@18"
+              },
+              "arguments": []
+            }
+          }
+        ]
+      },
+      "definesHiddenTokens": false,
+      "entry": false,
+      "fragment": false,
+      "hiddenTokens": [],
+      "parameters": [],
+      "wildcard": false
+    },
+    {
+      "$type": "ParserRule",
+      "name": "Channel",
+      "definition": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "channel"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "channel",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@18"
+              },
+              "arguments": []
+            }
+          }
+        ]
+      },
+      "definesHiddenTokens": false,
+      "entry": false,
+      "fragment": false,
+      "hiddenTokens": [],
+      "parameters": [],
+      "wildcard": false
+    },
+    {
+      "$type": "ParserRule",
+      "name": "Sequential",
+      "definition": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "sequential"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "sequential",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@28"
+              },
+              "arguments": []
+            }
+          }
+        ]
+      },
+      "definesHiddenTokens": false,
+      "entry": false,
+      "fragment": false,
+      "hiddenTokens": [],
+      "parameters": [],
+      "wildcard": false
+    },
+    {
+      "$type": "ParserRule",
+      "name": "Pitch",
+      "definition": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "("
+          },
+          {
+            "$type": "Assignment",
+            "feature": "noteName",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@8"
+              },
+              "arguments": []
+            }
+          },
+          {
+            "$type": "Keyword",
+            "value": ")"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "octave",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@25"
+              },
+              "arguments": []
+            }
+          }
+        ]
+      },
+      "definesHiddenTokens": false,
+      "entry": false,
+      "fragment": false,
+      "hiddenTokens": [],
+      "parameters": [],
+      "wildcard": false
+    },
+    {
+      "$type": "ParserRule",
+      "name": "NoteName",
+      "definition": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Assignment",
+            "feature": "note",
+            "operator": "=",
+            "terminal": {
+              "$type": "Alternatives",
+              "elements": [
+                {
+                  "$type": "RuleCall",
+                  "rule": {
+                    "$ref": "#/rules@31"
+                  },
+                  "arguments": []
+                },
+                {
+                  "$type": "RuleCall",
+                  "rule": {
+                    "$ref": "#/rules@32"
+                  },
+                  "arguments": []
+                },
+                {
+                  "$type": "RuleCall",
+                  "rule": {
+                    "$ref": "#/rules@33"
+                  },
+                  "arguments": []
+                },
+                {
+                  "$type": "RuleCall",
+                  "rule": {
+                    "$ref": "#/rules@34"
+                  },
+                  "arguments": []
+                },
+                {
+                  "$type": "RuleCall",
+                  "rule": {
+                    "$ref": "#/rules@35"
+                  },
+                  "arguments": []
+                },
+                {
+                  "$type": "RuleCall",
+                  "rule": {
+                    "$ref": "#/rules@36"
+                  },
+                  "arguments": []
+                },
+                {
+                  "$type": "RuleCall",
+                  "rule": {
+                    "$ref": "#/rules@37"
+                  },
+                  "arguments": []
+                }
+              ]
+            }
+          },
+          {
+            "$type": "Assignment",
+            "feature": "accidental",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@30"
+              },
+              "arguments": []
+            },
+            "cardinality": "?"
+          }
+        ]
+      },
+      "definesHiddenTokens": false,
+      "entry": false,
+      "fragment": false,
+      "hiddenTokens": [],
+      "parameters": [],
+      "wildcard": false
+    },
+    {
+      "$type": "ParserRule",
+      "name": "Chord",
+      "definition": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "chord"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "notes",
+            "operator": "+=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@1"
+              },
+              "arguments": []
+            },
+            "cardinality": "+"
+          }
+        ]
+      },
+      "definesHiddenTokens": false,
+      "entry": false,
+      "fragment": false,
+      "hiddenTokens": [],
+      "parameters": [],
+      "wildcard": false
+    },
+    {
+      "$type": "ParserRule",
+      "name": "Pattern",
+      "definition": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "pattern"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "elements",
+            "operator": "+=",
+            "terminal": {
+              "$type": "Alternatives",
+              "elements": [
+                {
+                  "$type": "RuleCall",
+                  "rule": {
+                    "$ref": "#/rules@1"
+                  },
+                  "arguments": []
+                },
+                {
+                  "$type": "RuleCall",
+                  "rule": {
+                    "$ref": "#/rules@9"
+                  },
+                  "arguments": []
+                },
+                {
+                  "$type": "RuleCall",
+                  "rule": {
+                    "$ref": "#/rules@15"
+                  },
+                  "arguments": []
+                }
+              ]
+            },
+            "cardinality": "+"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "name",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@17"
+              },
+              "arguments": []
+            }
+          }
+        ]
+      },
+      "definesHiddenTokens": false,
+      "entry": false,
+      "fragment": false,
+      "hiddenTokens": [],
+      "parameters": [],
+      "wildcard": false
+    },
+    {
+      "$type": "ParserRule",
+      "name": "Track",
+      "definition": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "track"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "timeSignature",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@12"
+              },
+              "arguments": []
+            },
+            "cardinality": "?"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "Pattern",
+            "operator": "+=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@10"
+              },
+              "arguments": []
+            },
+            "cardinality": "*"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "instrument",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@18"
+              },
+              "arguments": []
+            }
+          },
+          {
+            "$type": "Assignment",
+            "feature": "track",
+            "operator": "+=",
             "terminal": {
               "$type": "CrossReference",
               "type": {
-                "$ref": "#/rules@1"
+                "$ref": "#/rules@10"
               },
               "terminal": {
                 "$type": "RuleCall",
                 "rule": {
-                  "$ref": "#/rules@4"
+                  "$ref": "#/rules@17"
                 },
                 "arguments": []
               },
@@ -113,8 +636,194 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
             }
           },
           {
+            "$type": "Assignment",
+            "feature": "name",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@17"
+              },
+              "arguments": []
+            }
+          }
+        ]
+      },
+      "definesHiddenTokens": false,
+      "entry": false,
+      "fragment": false,
+      "hiddenTokens": [],
+      "parameters": [],
+      "wildcard": false
+    },
+    {
+      "$type": "ParserRule",
+      "name": "TimeSignature",
+      "definition": {
+        "$type": "Group",
+        "elements": [
+          {
             "$type": "Keyword",
-            "value": "!"
+            "value": "timeSignature"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "numerator",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@18"
+              },
+              "arguments": []
+            }
+          },
+          {
+            "$type": "Assignment",
+            "feature": "denominator",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@18"
+              },
+              "arguments": []
+            }
+          }
+        ]
+      },
+      "definesHiddenTokens": false,
+      "entry": false,
+      "fragment": false,
+      "hiddenTokens": [],
+      "parameters": [],
+      "wildcard": false
+    },
+    {
+      "$type": "ParserRule",
+      "name": "Tempo",
+      "definition": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "tempo"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "tempo",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@18"
+              },
+              "arguments": []
+            }
+          }
+        ]
+      },
+      "definesHiddenTokens": false,
+      "entry": false,
+      "fragment": false,
+      "hiddenTokens": [],
+      "parameters": [],
+      "wildcard": false
+    },
+    {
+      "$type": "ParserRule",
+      "name": "Element",
+      "definition": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "element"
+          },
+          {
+            "$type": "Alternatives",
+            "elements": [
+              {
+                "$type": "Assignment",
+                "feature": "tempo",
+                "operator": "=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "rule": {
+                    "$ref": "#/rules@13"
+                  },
+                  "arguments": []
+                }
+              },
+              {
+                "$type": "Assignment",
+                "feature": "timeSignature",
+                "operator": "=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "rule": {
+                    "$ref": "#/rules@12"
+                  },
+                  "arguments": []
+                }
+              },
+              {
+                "$type": "Assignment",
+                "feature": "track",
+                "operator": "+=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "rule": {
+                    "$ref": "#/rules@11"
+                  },
+                  "arguments": []
+                }
+              }
+            ],
+            "cardinality": "*"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "id",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@17"
+              },
+              "arguments": []
+            }
+          }
+        ]
+      },
+      "definesHiddenTokens": false,
+      "entry": false,
+      "fragment": false,
+      "hiddenTokens": [],
+      "parameters": [],
+      "wildcard": false
+    },
+    {
+      "$type": "ParserRule",
+      "name": "Wait",
+      "definition": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "|"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "wait",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "rule": {
+                "$ref": "#/rules@26"
+              },
+              "arguments": []
+            }
           }
         ]
       },
@@ -161,6 +870,31 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
     },
     {
       "$type": "TerminalRule",
+      "name": "BOOLEAN",
+      "definition": {
+        "$type": "TerminalAlternatives",
+        "elements": [
+          {
+            "$type": "CharacterRange",
+            "left": {
+              "$type": "Keyword",
+              "value": "true"
+            }
+          },
+          {
+            "$type": "CharacterRange",
+            "left": {
+              "$type": "Keyword",
+              "value": "false"
+            }
+          }
+        ]
+      },
+      "fragment": false,
+      "hidden": false
+    },
+    {
+      "$type": "TerminalRule",
       "name": "STRING",
       "definition": {
         "$type": "RegexToken",
@@ -188,6 +922,590 @@ export const MidiDslGrammar = (): Grammar => loadedMidiDslGrammar ?? (loadedMidi
         "regex": "/\\\\/\\\\/[^\\\\n\\\\r]*/"
       },
       "fragment": false
+    },
+    {
+      "$type": "TerminalRule",
+      "name": "NOTE",
+      "definition": {
+        "$type": "TerminalAlternatives",
+        "elements": [
+          {
+            "$type": "TerminalAlternatives",
+            "elements": [
+              {
+                "$type": "TerminalAlternatives",
+                "elements": [
+                  {
+                    "$type": "TerminalAlternatives",
+                    "elements": [
+                      {
+                        "$type": "TerminalAlternatives",
+                        "elements": [
+                          {
+                            "$type": "TerminalAlternatives",
+                            "elements": [
+                              {
+                                "$type": "TerminalRuleCall",
+                                "rule": {
+                                  "$ref": "#/rules@31"
+                                }
+                              },
+                              {
+                                "$type": "TerminalRuleCall",
+                                "rule": {
+                                  "$ref": "#/rules@32"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "$type": "TerminalRuleCall",
+                            "rule": {
+                              "$ref": "#/rules@33"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "$type": "TerminalRuleCall",
+                        "rule": {
+                          "$ref": "#/rules@34"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$type": "TerminalRuleCall",
+                    "rule": {
+                      "$ref": "#/rules@35"
+                    }
+                  }
+                ]
+              },
+              {
+                "$type": "TerminalRuleCall",
+                "rule": {
+                  "$ref": "#/rules@36"
+                }
+              }
+            ]
+          },
+          {
+            "$type": "TerminalRuleCall",
+            "rule": {
+              "$ref": "#/rules@37"
+            }
+          }
+        ]
+      },
+      "fragment": false,
+      "hidden": false
+    },
+    {
+      "$type": "TerminalRule",
+      "name": "DURATION",
+      "definition": {
+        "$type": "RegexToken",
+        "regex": "/[qwhes]/"
+      },
+      "fragment": false,
+      "hidden": false
+    },
+    {
+      "$type": "TerminalRule",
+      "name": "OCTAVE",
+      "definition": {
+        "$type": "RegexToken",
+        "regex": "/[1-8]/"
+      },
+      "fragment": false,
+      "hidden": false
+    },
+    {
+      "$type": "TerminalRule",
+      "name": "WAIT",
+      "definition": {
+        "$type": "TerminalRuleCall",
+        "rule": {
+          "$ref": "#/rules@24"
+        }
+      },
+      "fragment": false,
+      "hidden": false
+    },
+    {
+      "$type": "TerminalRule",
+      "name": "VELOCITY",
+      "definition": {
+        "$type": "RegexToken",
+        "regex": "/[1-9][0-9]? | 100/"
+      },
+      "fragment": false,
+      "hidden": false
+    },
+    {
+      "$type": "TerminalRule",
+      "name": "SEQUENTIAL",
+      "definition": {
+        "$type": "TerminalRuleCall",
+        "rule": {
+          "$ref": "#/rules@19"
+        }
+      },
+      "fragment": false,
+      "hidden": false
+    },
+    {
+      "$type": "TerminalRule",
+      "name": "TICK",
+      "definition": {
+        "$type": "TerminalRuleCall",
+        "rule": {
+          "$ref": "#/rules@18"
+        }
+      },
+      "fragment": false,
+      "hidden": false
+    },
+    {
+      "$type": "TerminalRule",
+      "name": "ACCIDENTAL",
+      "definition": {
+        "$type": "TerminalAlternatives",
+        "elements": [
+          {
+            "$type": "TerminalRuleCall",
+            "rule": {
+              "$ref": "#/rules@38"
+            }
+          },
+          {
+            "$type": "TerminalRuleCall",
+            "rule": {
+              "$ref": "#/rules@39"
+            }
+          }
+        ]
+      },
+      "fragment": false,
+      "hidden": false
+    },
+    {
+      "$type": "TerminalRule",
+      "name": "DO",
+      "definition": {
+        "$type": "TerminalAlternatives",
+        "elements": [
+          {
+            "$type": "CharacterRange",
+            "left": {
+              "$type": "Keyword",
+              "value": "a"
+            }
+          },
+          {
+            "$type": "CharacterRange",
+            "left": {
+              "$type": "Keyword",
+              "value": "A"
+            }
+          }
+        ]
+      },
+      "fragment": false,
+      "hidden": false
+    },
+    {
+      "$type": "TerminalRule",
+      "name": "B",
+      "definition": {
+        "$type": "TerminalAlternatives",
+        "elements": [
+          {
+            "$type": "TerminalAlternatives",
+            "elements": [
+              {
+                "$type": "TerminalAlternatives",
+                "elements": [
+                  {
+                    "$type": "TerminalAlternatives",
+                    "elements": [
+                      {
+                        "$type": "CharacterRange",
+                        "left": {
+                          "$type": "Keyword",
+                          "value": "b"
+                        }
+                      },
+                      {
+                        "$type": "CharacterRange",
+                        "left": {
+                          "$type": "Keyword",
+                          "value": "B"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$type": "CharacterRange",
+                    "left": {
+                      "$type": "Keyword",
+                      "value": "re"
+                    }
+                  }
+                ]
+              },
+              {
+                "$type": "CharacterRange",
+                "left": {
+                  "$type": "Keyword",
+                  "value": "RE"
+                }
+              }
+            ]
+          },
+          {
+            "$type": "CharacterRange",
+            "left": {
+              "$type": "Keyword",
+              "value": "Re"
+            }
+          }
+        ]
+      },
+      "fragment": false,
+      "hidden": false
+    },
+    {
+      "$type": "TerminalRule",
+      "name": "C",
+      "definition": {
+        "$type": "TerminalAlternatives",
+        "elements": [
+          {
+            "$type": "TerminalAlternatives",
+            "elements": [
+              {
+                "$type": "TerminalAlternatives",
+                "elements": [
+                  {
+                    "$type": "TerminalAlternatives",
+                    "elements": [
+                      {
+                        "$type": "CharacterRange",
+                        "left": {
+                          "$type": "Keyword",
+                          "value": "c"
+                        }
+                      },
+                      {
+                        "$type": "CharacterRange",
+                        "left": {
+                          "$type": "Keyword",
+                          "value": "C"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$type": "CharacterRange",
+                    "left": {
+                      "$type": "Keyword",
+                      "value": "mi"
+                    }
+                  }
+                ]
+              },
+              {
+                "$type": "CharacterRange",
+                "left": {
+                  "$type": "Keyword",
+                  "value": "MI"
+                }
+              }
+            ]
+          },
+          {
+            "$type": "CharacterRange",
+            "left": {
+              "$type": "Keyword",
+              "value": "Mi"
+            }
+          }
+        ]
+      },
+      "fragment": false,
+      "hidden": false
+    },
+    {
+      "$type": "TerminalRule",
+      "name": "D",
+      "definition": {
+        "$type": "TerminalAlternatives",
+        "elements": [
+          {
+            "$type": "TerminalAlternatives",
+            "elements": [
+              {
+                "$type": "TerminalAlternatives",
+                "elements": [
+                  {
+                    "$type": "TerminalAlternatives",
+                    "elements": [
+                      {
+                        "$type": "CharacterRange",
+                        "left": {
+                          "$type": "Keyword",
+                          "value": "d"
+                        }
+                      },
+                      {
+                        "$type": "CharacterRange",
+                        "left": {
+                          "$type": "Keyword",
+                          "value": "D"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$type": "CharacterRange",
+                    "left": {
+                      "$type": "Keyword",
+                      "value": "fa"
+                    }
+                  }
+                ]
+              },
+              {
+                "$type": "CharacterRange",
+                "left": {
+                  "$type": "Keyword",
+                  "value": "FA"
+                }
+              }
+            ]
+          },
+          {
+            "$type": "CharacterRange",
+            "left": {
+              "$type": "Keyword",
+              "value": "Fa"
+            }
+          }
+        ]
+      },
+      "fragment": false,
+      "hidden": false
+    },
+    {
+      "$type": "TerminalRule",
+      "name": "E",
+      "definition": {
+        "$type": "TerminalAlternatives",
+        "elements": [
+          {
+            "$type": "TerminalAlternatives",
+            "elements": [
+              {
+                "$type": "TerminalAlternatives",
+                "elements": [
+                  {
+                    "$type": "TerminalAlternatives",
+                    "elements": [
+                      {
+                        "$type": "CharacterRange",
+                        "left": {
+                          "$type": "Keyword",
+                          "value": "e"
+                        }
+                      },
+                      {
+                        "$type": "CharacterRange",
+                        "left": {
+                          "$type": "Keyword",
+                          "value": "E"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$type": "CharacterRange",
+                    "left": {
+                      "$type": "Keyword",
+                      "value": "sol"
+                    }
+                  }
+                ]
+              },
+              {
+                "$type": "CharacterRange",
+                "left": {
+                  "$type": "Keyword",
+                  "value": "SOL"
+                }
+              }
+            ]
+          },
+          {
+            "$type": "CharacterRange",
+            "left": {
+              "$type": "Keyword",
+              "value": "Sol"
+            }
+          }
+        ]
+      },
+      "fragment": false,
+      "hidden": false
+    },
+    {
+      "$type": "TerminalRule",
+      "name": "F",
+      "definition": {
+        "$type": "TerminalAlternatives",
+        "elements": [
+          {
+            "$type": "TerminalAlternatives",
+            "elements": [
+              {
+                "$type": "TerminalAlternatives",
+                "elements": [
+                  {
+                    "$type": "TerminalAlternatives",
+                    "elements": [
+                      {
+                        "$type": "CharacterRange",
+                        "left": {
+                          "$type": "Keyword",
+                          "value": "f"
+                        }
+                      },
+                      {
+                        "$type": "CharacterRange",
+                        "left": {
+                          "$type": "Keyword",
+                          "value": "F"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$type": "CharacterRange",
+                    "left": {
+                      "$type": "Keyword",
+                      "value": "la"
+                    }
+                  }
+                ]
+              },
+              {
+                "$type": "CharacterRange",
+                "left": {
+                  "$type": "Keyword",
+                  "value": "LA"
+                }
+              }
+            ]
+          },
+          {
+            "$type": "CharacterRange",
+            "left": {
+              "$type": "Keyword",
+              "value": "La"
+            }
+          }
+        ]
+      },
+      "fragment": false,
+      "hidden": false
+    },
+    {
+      "$type": "TerminalRule",
+      "name": "G",
+      "definition": {
+        "$type": "TerminalAlternatives",
+        "elements": [
+          {
+            "$type": "TerminalAlternatives",
+            "elements": [
+              {
+                "$type": "TerminalAlternatives",
+                "elements": [
+                  {
+                    "$type": "TerminalAlternatives",
+                    "elements": [
+                      {
+                        "$type": "CharacterRange",
+                        "left": {
+                          "$type": "Keyword",
+                          "value": "g"
+                        }
+                      },
+                      {
+                        "$type": "CharacterRange",
+                        "left": {
+                          "$type": "Keyword",
+                          "value": "G"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "$type": "CharacterRange",
+                    "left": {
+                      "$type": "Keyword",
+                      "value": "si"
+                    }
+                  }
+                ]
+              },
+              {
+                "$type": "CharacterRange",
+                "left": {
+                  "$type": "Keyword",
+                  "value": "SI"
+                }
+              }
+            ]
+          },
+          {
+            "$type": "CharacterRange",
+            "left": {
+              "$type": "Keyword",
+              "value": "Si"
+            }
+          }
+        ]
+      },
+      "fragment": false,
+      "hidden": false
+    },
+    {
+      "$type": "TerminalRule",
+      "name": "SHARP",
+      "definition": {
+        "$type": "CharacterRange",
+        "left": {
+          "$type": "Keyword",
+          "value": "#"
+        }
+      },
+      "fragment": false,
+      "hidden": false
+    },
+    {
+      "$type": "TerminalRule",
+      "name": "FLAT",
+      "definition": {
+        "$type": "CharacterRange",
+        "left": {
+          "$type": "Keyword",
+          "value": "b"
+        }
+      },
+      "fragment": false,
+      "hidden": false
     }
   ],
   "definesHiddenTokens": false,
