@@ -25,21 +25,21 @@
               "note": 0,
               "octave": 4,
               "duration": 0,
-              "keySignature": 0
+              "accidentalType": 0
             },
             {
               "type": "Note",
               "note": 3,
               "octave": 4,
               "duration": 0,
-              "keySignature": 0
+              "accidentalType": 0
             },
             {
               "type": "Note",
               "note": 3,
               "octave": 4,
               "duration": 0,
-              "keySignature": 0
+              "accidentalType": 0
             },
             {
               "type": "Chord",
@@ -49,14 +49,14 @@
                   "note": 2,
                   "octave": 4,
                   "duration": 0,
-                  "keySignature": 2
+                  "accidentalType": 2
                 },
                 {
                   "type": "Note",
                   "note": 2,
                   "octave": 4,
                   "duration": 0,
-                  "keySignature": 1
+                  "accidentalType": 1
                 }
               ]
             }
@@ -70,21 +70,21 @@
               "note": 0,
               "octave": 4,
               "duration": 0,
-              "keySignature": 0
+              "accidentalType": 0
             },
             {
               "type": "Note",
               "note": 3,
               "octave": 4,
               "duration": 0,
-              "keySignature": 0
+              "accidentalType": 0
             },
             {
               "type": "Note",
               "note": 3,
               "octave": 4,
               "duration": 0,
-              "keySignature": 0
+              "accidentalType": 0
             }
           ],
           "id": "motif B"
@@ -92,6 +92,90 @@
       },
       "id": 1,
       "instrument": 1
+    },
+    {
+      "type": "Track",
+      "elements": [
+        {
+          "type": "PatternInvocation",
+          "patternId": "motif A"
+        }
+      ],
+      "patterns": {
+        "motif A": {
+          "elements": [
+            {
+              "type": "Note",
+              "note": 0,
+              "octave": 4,
+              "duration": 0,
+              "accidentalType": 0
+            },
+            {
+              "type": "Note",
+              "note": 3,
+              "octave": 4,
+              "duration": 0,
+              "accidentalType": 0
+            },
+            {
+              "type": "Note",
+              "note": 3,
+              "octave": 4,
+              "duration": 0,
+              "accidentalType": 0
+            },
+            {
+              "type": "Chord",
+              "notes": [
+                {
+                  "type": "Note",
+                  "note": 2,
+                  "octave": 4,
+                  "duration": 0,
+                  "accidentalType": 2
+                },
+                {
+                  "type": "Note",
+                  "note": 2,
+                  "octave": 4,
+                  "duration": 0,
+                  "accidentalType": 1
+                }
+              ]
+            }
+          ],
+          "id": "motif A"
+        },
+        "motif B": {
+          "elements": [
+            {
+              "type": "Note",
+              "note": 0,
+              "octave": 4,
+              "duration": 0,
+              "accidentalType": 0
+            },
+            {
+              "type": "Note",
+              "note": 3,
+              "octave": 4,
+              "duration": 0,
+              "accidentalType": 0
+            },
+            {
+              "type": "Note",
+              "note": 3,
+              "octave": 4,
+              "duration": 0,
+              "accidentalType": 0
+            }
+          ],
+          "id": "motif B"
+        }
+      },
+      "id": 2,
+      "instrument": 41
     }
   ],
   "patterns": {},

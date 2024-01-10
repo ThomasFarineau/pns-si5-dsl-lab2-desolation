@@ -1,21 +1,33 @@
 import Duration from "./Duration";
-import KeySignature from "./KeySignature";
 import PatternElementI from "./PatternElement.i";
 import NoteName from "./NoteName";
 import TrackElementI from "./TrackElement.i";
+
+import MidiWriter from 'midi-writer-js';
+import AccidentalType from "./AccidentalType";
 
 class Note implements TrackElementI, PatternElementI {
     type = "Note"
     note: NoteName;
     octave: number;
     duration: Duration;
-    keySignature: KeySignature;
+    accidentalType: AccidentalType;
 
-    constructor(note: NoteName, octave: number, duration: Duration, keySignature: KeySignature) {
+    constructor(note: NoteName, octave: number, duration: Duration, keySignature: AccidentalType) {
         this.note = note;
         this.octave = octave;
         this.duration = duration;
-        this.keySignature = keySignature;
+        this.accidentalType = keySignature;
+    }
+
+    get parsedNote() {
+        return this.note + (this.accidentalType) + this.octave;
+    }
+
+    get noteEvent() {
+        return new MidiWriter.NoteEvent({
+            pitch: [this.parsedNote], duration: this.duration,
+        });
     }
 }
 
