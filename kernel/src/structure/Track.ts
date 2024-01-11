@@ -5,6 +5,7 @@ import Pattern from "./Pattern";
 import MidiWriter from 'midi-writer-js';
 import {music} from "../index";
 import Tempo from "./Tempo";
+import Music from "./Music";
 
 let trackNumber: number = 0;
 
@@ -30,15 +31,25 @@ class Track implements MusicElementI {
     }
 
     get tempo() {
-        return this.elements.find(element => element.type === "Tempo") ? <Tempo>this.elements.find(element => element.type === "Tempo") : music.hasTempo() ? music.tempo : music.defaultTempo;
+        return music.tempo;
+        //return this.elements.find(element => element.type === "Tempo") ? <Tempo>this.elements.find(element => element.type === "Tempo") : music.hasTempo() ? music.tempo : music.defaultTempo;
+    }
+
+    get signature() {
+        return music.signature;
     }
 
     get midiTrack() {
         let track = new MidiWriter.Track();
-        //track.setTempo(this.tempo.tempo, 0);
-        track.addTrackName(`Track ${this.id}`);
-        track.addEvent(new MidiWriter.ProgramChangeEvent({instrument: this.instrument}));
-        track.addInstrumentName(this.instrument.toString());
+        let signature = this.signature;
+
+        track.addTrackName(`Track ${this.id}`)
+            .addEvent(new MidiWriter.ProgramChangeEvent({instrument: this.instrument}))
+            .addInstrumentName(this.instrument.toString())
+            .setTempo(this.tempo.tempo)
+            // Parameters 3 and 4 ?
+            .setTimeSignature(signature.numerator, signature.denominator, 0, 0);
+
         track.addEvent([new MidiWriter.NoteEvent({
             pitch: ['E4', 'D4'], duration: '4'
         }), new MidiWriter.NoteEvent({pitch: ['C4'], duration: '2'}), new MidiWriter.NoteEvent({
