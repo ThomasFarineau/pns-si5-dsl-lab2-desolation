@@ -3,8 +3,9 @@ import PatternElementI from "./PatternElement.i";
 import TrackElementI from "./TrackElement.i";
 
 import MidiWriter from 'midi-writer-js';
+import NoteEventElement from "./NoteEventElement";
 
-class Chord implements TrackElementI, PatternElementI {
+class Chord implements TrackElementI, PatternElementI, NoteEventElement {
     type = "Chord"
     notes: Note[] = [];
 
@@ -16,7 +17,7 @@ class Chord implements TrackElementI, PatternElementI {
         this.notes.push(note);
     }
 
-    get noteEvent() {
+    noteEvent() {
         return new MidiWriter.NoteEvent({
             pitch: this.notes.map(note => [note.parsedNote]), duration: this.notes[0].duration,
         });

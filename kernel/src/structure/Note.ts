@@ -5,8 +5,9 @@ import TrackElementI from "./TrackElement.i";
 
 import MidiWriter from 'midi-writer-js';
 import AccidentalType from "./AccidentalType";
+import NoteEventElement from "./NoteEventElement";
 
-class Note implements TrackElementI, PatternElementI {
+class Note implements TrackElementI, PatternElementI, NoteEventElement {
     type = "Note"
     note: NoteName;
     octave: number;
@@ -24,7 +25,7 @@ class Note implements TrackElementI, PatternElementI {
         return this.note + (this.accidentalType) + this.octave;
     }
 
-    get noteEvent() {
+    noteEvent() {
         return new MidiWriter.NoteEvent({
             pitch: [this.parsedNote], duration: this.duration,
         });

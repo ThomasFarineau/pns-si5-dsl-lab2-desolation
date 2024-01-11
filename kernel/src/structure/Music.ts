@@ -56,7 +56,15 @@ class Music {
     }
 
     get tempo() {
-        return <Tempo>this.elements.find(element => element.type === "Tempo");
+        if (this.hasTempo())
+            return <Tempo>this.elements.find(element => element.type === "Tempo");
+        else
+            return this.defaultTempo;
+    }
+
+    get signature() {
+        // Assumes there is a signature element because grammar should assert it
+        return <Signature>this.elements.find(element => element.type === "Signature");
     }
 }
 
