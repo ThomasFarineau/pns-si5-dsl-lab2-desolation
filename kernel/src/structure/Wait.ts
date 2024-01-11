@@ -2,8 +2,9 @@ import TrackElementI from "./TrackElement.i";
 import PatternElementI from "./PatternElement.i";
 import Duration from "./Duration";
 import MidiWriter from "midi-writer-js";
+import NoteEventElementI from "./NoteEventElement.i";
 
-class Wait implements TrackElementI, PatternElementI{
+class Wait implements TrackElementI, PatternElementI, NoteEventElementI {
     type = "Wait"
     duration: Duration;
 
@@ -11,7 +12,7 @@ class Wait implements TrackElementI, PatternElementI{
         this.duration = duration;
     }
 
-    get noteEvent() {
+    noteEvent() {
         return new MidiWriter.NoteEvent({
             wait: this.duration
         });

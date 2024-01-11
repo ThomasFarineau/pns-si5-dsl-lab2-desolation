@@ -7,10 +7,11 @@ import {music} from "../index";
 import Note from "./Note";
 import Chord from "./Chord";
 import PatternInvocation from "./PatternInvocation";
-import pattern from "./Pattern";
 import Tempo from "./Tempo";
 import Signature from "./Signature";
 import Wait from "./Wait";
+import {NoteEvent} from "midi-writer-js/build/types/midi-events/note-event";
+import NoteEventElementI from "./NoteEventElement.i";
 
 let trackNumber: number = 0;
 
@@ -88,19 +89,13 @@ class Track implements MusicElementI {
         return track;
     }
 
-    getNoteEvent(element: TrackElementI) {
+    getNoteEvent(element: TrackElementI): NoteEvent {
         switch (element.type) {
             case "Note":
-                let note = element as Note;
-                return note.noteEvent;
-
             case "Chord":
-                let chord = element as Chord;
-                return chord.noteEvent;
-                
             case "Wait":
-                let wait = element as Wait;
-                return wait.noteEvent;
+                let e = element as NoteEventElementI;
+                return e.noteEvent();
 
             case "PatternInvocation":
                 let patternInvoc = element as PatternInvocation;
@@ -109,7 +104,7 @@ class Track implements MusicElementI {
                 break;
 
             default:
-                throw ""
+                throw "Bad element type";
         }
     }
 }
