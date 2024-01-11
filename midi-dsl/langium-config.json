@@ -1,0 +1,15 @@
+{
+    "projectName": "MidiDsl",
+    "languages": [{
+        "id": "midi-dsl",
+        "grammar": "src/language/midi-dsl.langium",
+        "fileExtensions": [".mdd", ".mididsl", ".midi-dsl"],
+        "textMate": {
+            "out": "syntaxes/midi-dsl.tmLanguage.json"
+        },
+        "monarch": {
+            "out": "syntaxes/midi-dsl.monarch.ts"
+        }
+    }],
+    "out": "src/language/generated"
+}
