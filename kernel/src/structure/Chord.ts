@@ -3,9 +3,9 @@ import PatternElementI from "./PatternElement.i";
 import TrackElementI from "./TrackElement.i";
 
 import MidiWriter from 'midi-writer-js';
-import NoteEventElementI from "./NoteEventElement.i";
+import NoteEventElement from "./NoteEventElement";
 
-class Chord implements TrackElementI, PatternElementI, NoteEventElementI {
+class Chord implements TrackElementI, PatternElementI, NoteEventElement {
     type = "Chord"
     notes: Note[] = [];
 

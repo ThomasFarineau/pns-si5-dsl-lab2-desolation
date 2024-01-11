@@ -5,9 +5,9 @@ import TrackElementI from "./TrackElement.i";
 
 import MidiWriter from 'midi-writer-js';
 import AccidentalType from "./AccidentalType";
-import NoteEventElementI from "./NoteEventElement.i";
+import NoteEventElement from "./NoteEventElement";
 
-class Note implements TrackElementI, PatternElementI, NoteEventElementI {
+class Note implements TrackElementI, PatternElementI, NoteEventElement {
     type = "Note"
     note: NoteName;
     octave: number;
