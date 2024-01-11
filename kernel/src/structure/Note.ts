@@ -2,13 +2,10 @@ import Duration from "./Duration";
 import PatternElementI from "./PatternElement.i";
 import NoteName from "./NoteName";
 import TrackElementI from "./TrackElement.i";
-
-import MidiWriter from 'midi-writer-js';
 import AccidentalType from "./AccidentalType";
-import NoteEventElement from "./NoteEventElement";
 
-class Note implements TrackElementI, PatternElementI, NoteEventElement {
-    type = "Note"
+class Note implements TrackElementI, PatternElementI {
+    type = "Note";
     note: NoteName;
     octave: number;
     duration: Duration;
@@ -19,16 +16,6 @@ class Note implements TrackElementI, PatternElementI, NoteEventElement {
         this.octave = octave;
         this.duration = duration;
         this.accidentalType = keySignature;
-    }
-
-    get parsedNote() {
-        return this.note + (this.accidentalType) + this.octave;
-    }
-
-    noteEvent() {
-        return new MidiWriter.NoteEvent({
-            pitch: [this.parsedNote], duration: this.duration,
-        });
     }
 }
 
