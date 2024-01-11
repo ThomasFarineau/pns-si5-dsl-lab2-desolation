@@ -8,6 +8,9 @@ import Note from "./Note";
 import Chord from "./Chord";
 import PatternInvocation from "./PatternInvocation";
 import pattern from "./Pattern";
+import Tempo from "./Tempo";
+import Signature from "./Signature";
+import Wait from "./Wait";
 
 let trackNumber: number = 0;
 
@@ -18,6 +21,8 @@ class Track implements MusicElementI {
     instrument: Instrument;
     elements: TrackElementI[] = [];
     patterns: { [id: string]: Pattern } = {};
+    defaultMidiClocksPerTick: number = 24;
+    defaultNotesPerMidiClock: number = 8;
 
     constructor(instrument: Instrument) {
         this.id = ++trackNumber;
@@ -58,10 +63,17 @@ class Track implements MusicElementI {
             .addInstrumentName(this.instrument.toString())
             .setTempo(this.tempo.tempo)
             // Parameters 3 and 4 ?
-            .setTimeSignature(signature.numerator, signature.denominator, 24, 8);
+            .setTimeSignature(signature.numerator, signature.denominator, this.defaultMidiClocksPerTick, this.defaultNotesPerMidiClock);
 
         for (let element of this.elements) {
-            track.addEvent(this.getNoteEvent(element));
+            if (element.type === "Tempo")
+                track.setTempo((element as Tempo).tempo);
+            else if (element.type === "Signature") {
+                let s = element as Signature;
+                track.setTimeSignature(s.numerator, s.denominator, this.defaultMidiClocksPerTick, this.defaultNotesPerMidiClock);
+            }
+            else
+                track.addEvent(this.getNoteEvent(element));
         }
 
         track.addEvent([new MidiWriter.NoteEvent({
@@ -85,6 +97,10 @@ class Track implements MusicElementI {
             case "Chord":
                 let chord = element as Chord;
                 return chord.noteEvent;
+                
+            case "Wait":
+                let wait = element as Wait;
+                return wait.noteEvent;
 
             case "PatternInvocation":
                 let patternInvoc = element as PatternInvocation;
