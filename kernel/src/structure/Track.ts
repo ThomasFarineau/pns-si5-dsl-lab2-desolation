@@ -48,7 +48,7 @@ class Track implements MusicElementI {
             .addInstrumentName(this.instrument.toString())
             .setTempo(this.tempo.tempo)
             // Parameters 3 and 4 ?
-            .setTimeSignature(signature.numerator, signature.denominator, 0, 0);
+            .setTimeSignature(signature.numerator, signature.denominator, 24, 8);
 
         track.addEvent([new MidiWriter.NoteEvent({
             pitch: ['E4', 'D4'], duration: '4'
