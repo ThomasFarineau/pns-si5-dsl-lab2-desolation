@@ -4,8 +4,10 @@ import Instrument from "./Instrument";
 import Pattern from "./Pattern";
 import MidiWriter from 'midi-writer-js';
 import {music} from "../index";
-import Tempo from "./Tempo";
-import Music from "./Music";
+import Note from "./Note";
+import Chord from "./Chord";
+import PatternInvocation from "./PatternInvocation";
+import pattern from "./Pattern";
 
 let trackNumber: number = 0;
 
@@ -39,6 +41,14 @@ class Track implements MusicElementI {
         return music.signature;
     }
 
+    pattern(patternId: string): Pattern {
+        let patternToReturn;
+        patternToReturn = this.patterns[patternId];
+        if (patternToReturn ===  undefined)
+            patternToReturn = music.patterns[patternId];
+        return patternToReturn;
+    }
+
     get midiTrack() {
         let track = new MidiWriter.Track();
         let signature = this.signature;
@@ -50,6 +60,10 @@ class Track implements MusicElementI {
             // Parameters 3 and 4 ?
             .setTimeSignature(signature.numerator, signature.denominator, 24, 8);
 
+        for (let element of this.elements) {
+            track.addEvent(this.getNoteEvent(element));
+        }
+
         track.addEvent([new MidiWriter.NoteEvent({
             pitch: ['E4', 'D4'], duration: '4'
         }), new MidiWriter.NoteEvent({pitch: ['C4'], duration: '2'}), new MidiWriter.NoteEvent({
@@ -60,6 +74,27 @@ class Track implements MusicElementI {
             return {sequential: true};
         });
         return track;
+    }
+
+    getNoteEvent(element: TrackElementI) {
+        switch (element.type) {
+            case "Note":
+                let note = element as Note;
+                return note.noteEvent;
+
+            case "Chord":
+                let chord = element as Chord;
+                return chord.noteEvent;
+
+            case "PatternInvocation":
+                let patternInvoc = element as PatternInvocation;
+                let pattern = this.pattern(patternInvoc.patternId);
+                // play pattern
+                break;
+
+            default:
+                throw ""
+        }
     }
 }
 
