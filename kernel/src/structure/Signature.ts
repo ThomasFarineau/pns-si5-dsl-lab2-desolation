@@ -7,9 +7,9 @@ class Signature implements MusicElementI, TrackElementI {
     numerator: number;
     denominator: number;
 
-    constructor(numerator: number, denominator: number) {
-        this.numerator = numerator;
-        this.denominator = denominator;
+    constructor(signature: Signature) {
+        this.numerator = signature.numerator;
+        this.denominator = signature.denominator;
     }
 }
 

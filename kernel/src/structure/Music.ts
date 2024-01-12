@@ -11,7 +11,7 @@ class Music {
     notation: NotationType;
     patterns: { [id: string]: Pattern} = {};
 
-    defaultTempo = new Tempo(125);
+    defaultTempo = new Tempo({type: "Tempo",tempo: 125});
 
     constructor(notation: NotationType) {
         this.notation = notation;
@@ -42,6 +42,7 @@ class Music {
             }
         });
         music.patterns = parse.patterns;
+        console.log(JSON.stringify(music, null, 2));
         return music;
     }
 

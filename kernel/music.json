@@ -13,8 +13,41 @@
       "type": "Track",
       "elements": [
         {
-          "type": "PatternInvocation",
-          "patternId": "motif A"
+          "type": "Note",
+          "note": "A",
+          "octave": 4,
+          "duration": 1,
+          "accidentalType": ""
+        },
+        {
+          "type": "Wait",
+          "duration": 1
+        },
+        {
+          "type": "Chord",
+          "notes": [
+            {
+              "type": "Note",
+              "note": "C",
+              "octave": 5,
+              "duration": 2,
+              "accidentalType": ""
+            },
+            {
+              "type": "Note",
+              "note": "B",
+              "octave": 5,
+              "duration": "2",
+              "accidentalType": ""
+            }
+          ]
+        },
+        {
+          "type": "Note",
+          "note": "A",
+          "octave": 4,
+          "duration": 2,
+          "accidentalType": ""
         }
       ],
       "patterns": {
@@ -96,10 +129,6 @@
     {
       "type": "Track",
       "elements": [
-        {
-          "type": "PatternInvocation",
-          "patternId": "motif A"
-        }
       ],
       "patterns": {
         "motif A": {

@@ -10,7 +10,6 @@ import PatternInvocation from "./PatternInvocation";
 import Tempo from "./Tempo";
 import Signature from "./Signature";
 import Wait from "./Wait";
-import NoteEventElement from "./NoteEventElement";
 
 let trackNumber: number = 0;
 
@@ -24,9 +23,11 @@ class Track implements MusicElementI {
     defaultMidiClocksPerTick: number = 24;
     defaultNotesPerMidiClock: number = 8;
 
-    constructor(instrument: Instrument) {
+    constructor(track: Track) {
         this.id = ++trackNumber;
-        this.instrument = instrument;
+        this.instrument = track.instrument;
+        this.elements = track.elements;
+        this.patterns = track.patterns;
     }
 
     addElement(element: MusicElementI) {
@@ -65,7 +66,10 @@ class Track implements MusicElementI {
             // Parameters 3 and 4 ?
             .setTimeSignature(signature.numerator, signature.denominator, this.defaultMidiClocksPerTick, this.defaultNotesPerMidiClock);
 
+        console.log("TRACK ELEMENTS", JSON.stringify(this.elements, null, 2));
+
         for (let element of this.elements) {
+            console.log("ELEMENT", element);
             if (element.type === "Tempo")
                 track.setTempo((element as Tempo).tempo);
             else if (element.type === "Signature") {
@@ -76,24 +80,21 @@ class Track implements MusicElementI {
                 track.addEvent(this.getNoteEvent(element));
         }
 
-        track.addEvent([new MidiWriter.NoteEvent({
-            pitch: ['E4', 'D4'], duration: '4'
-        }), new MidiWriter.NoteEvent({pitch: ['C4'], duration: '2'}), new MidiWriter.NoteEvent({
-            pitch: ['E4', 'D4'], duration: '4'
-        }), new MidiWriter.NoteEvent({
-            pitch: ['C4'], duration: '2'
-        })], function (event, index) {
-            return {sequential: true};
-        });
+        console.log("EVENTS", track.events);
+
         return track;
     }
 
     getNoteEvent(element: TrackElementI): any {
         switch (element.type) {
             case "Note":
+                return this.noteEvent(element as Note);
+
             case "Chord":
+                return this.chordEvent(element as Chord);
+
             case "Wait":
-                return (element as NoteEventElement).noteEvent();
+                return this.waitEvent(element as Wait);
 
             case "PatternInvocation":
                 let patternInvoc = element as PatternInvocation;
@@ -105,6 +106,36 @@ class Track implements MusicElementI {
                 return null;
         }
     }
+
+    noteEvent(note: Note): any {
+        console.log("PARSED NOTE", note);
+        return new MidiWriter.NoteEvent({
+            pitch: [this.parsedNote(note)], duration: note.duration,
+        });
+    }
+
+    chordEvent(chord: Chord): any {
+        console.log("PARSED CHORD", chord);
+        let notes = []
+        for (let note of chord.notes) {
+            notes.push(this.parsedNote(note));
+        }
+        return new MidiWriter.NoteEvent({
+            pitch: notes, duration: chord.notes[0].duration,
+        });
+    }
+
+    waitEvent(wait: Wait) {
+        console.log("WAIT", wait.duration);
+        return new MidiWriter.NoteEvent({
+            wait: wait.duration
+        });
+    }
+
+    parsedNote(note: Note): string {
+        return note.note + (note.accidentalType) + note.octave;
+    }
+
 }
 
 export default Track;
