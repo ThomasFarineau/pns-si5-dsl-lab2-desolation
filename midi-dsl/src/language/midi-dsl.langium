@@ -25,12 +25,11 @@ Track:
         instrument=Instrument
         (patterns+=Pattern)*
         (elements+=TrackElement)*
-        (playables+=PLAYABLE+)*
     '}';
 
 Pattern:
     'pattern' name=ID '{'
-        elements+=PLAYABLE+
+        elements+=Playable
     '}';
 
 PatternInvocation:
@@ -38,8 +37,10 @@ PatternInvocation:
 
 MusicElement: Tempo | Signature | Track;
 
-TrackElement: PatternInvocation;
+Playable:
+    elements+=(NOTE | DRUMKIT_NOTE | SEPARATOR | CHORD_OPENENER | CHORD_CLOSER)+;
 
+TrackElement: PatternInvocation | Playable;
 
 
 terminal NOTATION_ENGLISH: 'english';
@@ -59,19 +60,17 @@ terminal DRUMKIT_NOTE_RC: 'rc';
 terminal DRUMKIT_NOTE: ( DRUMKIT_NOTE_BD | DRUMKIT_NOTE_SD | DRUMKIT_NOTE_CH | DRUMKIT_NOTE_OH | DRUMKIT_NOTE_CC | DRUMKIT_NOTE_RC );
 
 terminal ENGLISH_NOTES: 'C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'B';
-terminal LATIN_NOTES: 'DO' | 'RE' | 'MI' | 'FA' | 'SOL' | 'LA' | 'SI';
+terminal LATIN_NOTES: 'Do' | 'Re' | 'Mi' | 'Fa' | 'Sol' | 'La' | 'Si';
+terminal SLAVS_NOTES: 'Ut' | 'Re' | 'Mi' | 'Fa' | 'Sol' | 'La' | 'Si';
 terminal GERMAN_NOTES: 'C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'H';
-terminal SLAVS_NOTES: 'UT' | 'RE' | 'MI' | 'FA' | 'SOL' | 'LA' | 'SI';
 
 terminal NOTE_DURATION: 'w' | 'h' | 'q' | 'e' | 's';
-terminal NOTE_OCTAVE: /[0-8]/;
+terminal NOTE_OCTAVE: /[0-9]/;
 terminal NOTE_A_SHARP: '#';
 terminal NOTE_A_FLAT: 'b';
-terminal NOTE: (ENGLISH_NOTES | LATIN_NOTES | GERMAN_NOTES | SLAVS_NOTES) (NOTE_A_SHARP | NOTE_A_FLAT)? NOTE_OCTAVE NOTE_DURATION;
-
-terminal PLAYABLE: (NOTE | DRUMKIT_NOTE | SEPARATOR );
-
-
+terminal NOTE: (ENGLISH_NOTES | LATIN_NOTES | SLAVS_NOTES | GERMAN_NOTES) (NOTE_A_SHARP | NOTE_A_FLAT)? NOTE_OCTAVE NOTE_DURATION;
+terminal CHORD_OPENENER: '[';
+terminal CHORD_CLOSER: ']';
 
 hidden terminal WS: /\s+/;
 
