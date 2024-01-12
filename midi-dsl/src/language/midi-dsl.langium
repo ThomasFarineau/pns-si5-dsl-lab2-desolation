@@ -9,7 +9,7 @@ Name:
     'name:' value=STRING;
 
 Notation:
-    'notation:' value=(NOTATION_LATIN | NOTATION_ENGLISH | NOTATION_GERMAN | NOTATION_SLAVS);
+    'notation:' value=(NOTATION_LATIN | NOTATION_ENGLISH | NOTATION_GERMAN);
 
 Tempo:
     'tempo:' value=INT;
@@ -46,7 +46,6 @@ TrackElement: PatternInvocation | Playable;
 terminal NOTATION_ENGLISH: 'english';
 terminal NOTATION_LATIN: 'latin';
 terminal NOTATION_GERMAN: 'german';
-terminal NOTATION_SLAVS: 'slavs';
 
 terminal SEPARATOR: '|';
 
@@ -60,15 +59,14 @@ terminal DRUMKIT_NOTE_RC: 'rc';
 terminal DRUMKIT_NOTE: ( DRUMKIT_NOTE_BD | DRUMKIT_NOTE_SD | DRUMKIT_NOTE_CH | DRUMKIT_NOTE_OH | DRUMKIT_NOTE_CC | DRUMKIT_NOTE_RC );
 
 terminal ENGLISH_NOTES: 'C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'B';
-terminal LATIN_NOTES: 'Do' | 'Re' | 'Mi' | 'Fa' | 'Sol' | 'La' | 'Si';
-terminal SLAVS_NOTES: 'Ut' | 'Re' | 'Mi' | 'Fa' | 'Sol' | 'La' | 'Si';
+terminal LATIN_NOTES: 'Do' | 'Re' | 'Mi' | 'Fa' | 'Sol' | 'La' | 'Si' | 'Ut';
 terminal GERMAN_NOTES: 'C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'H';
 
 terminal NOTE_DURATION: 'w' | 'h' | 'q' | 'e' | 's';
 terminal NOTE_OCTAVE: /[0-9]/;
 terminal NOTE_A_SHARP: '#';
 terminal NOTE_A_FLAT: 'b';
-terminal NOTE: (ENGLISH_NOTES | LATIN_NOTES | SLAVS_NOTES | GERMAN_NOTES) (NOTE_A_SHARP | NOTE_A_FLAT)? NOTE_OCTAVE NOTE_DURATION;
+terminal NOTE: (ENGLISH_NOTES | LATIN_NOTES | GERMAN_NOTES) (NOTE_A_SHARP | NOTE_A_FLAT)? NOTE_OCTAVE NOTE_DURATION;
 terminal CHORD_OPENENER: '[';
 terminal CHORD_CLOSER: ']';
 
