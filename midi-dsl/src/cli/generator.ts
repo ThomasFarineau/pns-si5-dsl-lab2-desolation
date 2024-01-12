@@ -3,26 +3,34 @@ import type {Model, Pattern} from '../language/generated/ast.js';
 const durationMap = new Map([["w", 1], ["h", 2], ["q", 4], ["e", 8], ["s", 16]]);
 const drumMap = new Map([["bd", "C1"], ["sd", "D1#"], ["ch", "F1#"], ["oh", "G1#"], ["cc", "C2#"], ["rc", "D2#"]])
 
-const getPatterns = (patterns: Array<Pattern>): any => {
+const latinToEnglish = new Map([["do", "C"], ["re", "D"], ["ré", "D"], ["mi", "E"], ["fa", "F"], ["sol", "G"], ["la", "A"], ["si", "B"], ["ut", "C"],]);
+const germanToEnglish = new Map([["c", "C"], ["d", "D"], ["e", "E"], ["f", "F"], ["g", "G"], ["a", "A"], ["h", "B"]]);
+
+
+const getPatterns = (patterns: Array<Pattern>, notation: string): any => {
     let newPatterns: any = {};
     patterns.forEach(pattern => {
         // @ts-ignore
-        newPatterns[pattern.name] = getElements(pattern.elements)
+        newPatterns[pattern.name] = getElements(pattern.elements, notation)
     });
     return newPatterns;
 };
 
-const parseNote = (note: string): any => {
+const parseNote = (note: string, notation: string): any => {
     let n = extractPart(note);
     return {
-        type: "Note", note: n.note, octave: n.octave, duration: convertDuration(n.duration), accidental: n.accidental
+        type: "Note",
+        note: convertNote(notation, n.note),
+        octave: n.octave,
+        duration: convertDuration(n.duration),
+        accidental: n.accidental
     }
 }
 
-const parseChord = (element: string): any => {
+const parseChord = (element: string, notation: string): any => {
     let newChord: any = [];
     element.slice(2, -2).split(" ").forEach(e => {
-        newChord.push(matchNote(e) ? parseNote(e) : parseNote(convertDrum(e)));
+        newChord.push(matchNote(e) ? parseNote(e, notation) : parseNote(convertDrum(e), notation));
     });
     return {type: "Chord", notes: newChord};
 };
@@ -31,17 +39,17 @@ const parseWait = (element: string): any => {
     return {type: "Wait", duration: convertDuration(element.slice(1))};
 }
 
-const parsePlayable = (elements: Array<string>): any => {
+const parsePlayable = (elements: Array<string>, notation: string): any => {
     let newElements: any = [];
     let result = elements.join(" ").match(/\[.*?]|\b\w+#?\d\w*\b|(\|\w?)|\b\w{2}\b/g)
     if (result !== null) result.forEach(element => {
         if (element.startsWith('[')) {
-            newElements.push(parseChord(element))
+            newElements.push(parseChord(element, notation))
         } else if (element.startsWith('|')) {
             newElements.push(parseWait(element))
         } else {
             console.log(element)
-            newElements.push(matchNote(element) ? parseNote(element) : parseNote(convertDrum(element)));
+            newElements.push(matchNote(element) ? parseNote(element, notation) : parseNote(convertDrum(element), notation));
         }
     });
     return newElements;
@@ -67,12 +75,23 @@ const matchNote = (str: string): string | null => {
 const convertDuration = (duration: string): number => durationMap.get(duration) || 4;
 const convertDrum = (drum: string): string => drumMap.get(drum) + "q" || "";
 
-const getElements = (elements: Array<any>): any => {
+const convertNote = (notation: string, note: string): string => {
+    switch (notation) {
+        case "latin":
+            return latinToEnglish.get(note) || note;
+        case "german":
+            return germanToEnglish.get(note) || note;
+        default:
+            return note;
+    }
+}
+
+const getElements = (elements: Array<any>, notation: string): any => {
     let newElements: any = [];
     elements.forEach(element => {
         if (element.$type === "Playable") {
             // @ts-ignore
-            parsePlayable(element.elements).forEach((e: any) => newElements.push(e));
+            parsePlayable(element.elements, notation).forEach((e: any) => newElements.push(e));
         } else {
             let elementToPush = {
                 type: element.$type,
@@ -113,8 +132,8 @@ export function generateJson(model: Model): string {
     let newModel = {
         name: model.name.value,
         notation: model.notation.value,
-        patterns: getPatterns(model.patterns),
-        elements: getElements(model.elements)
+        patterns: getPatterns(model.patterns, model.notation.value),
+        elements: getElements(model.elements, model.notation.value)
     };
 
     return JSON.stringify(newModel, null, 2);
