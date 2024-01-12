@@ -3,22 +3,23 @@ grammar MidiDsl
 entry Model:
     name=Name
     notation=Notation
+    (patterns+=Pattern)*
     (elements+=MusicElement)*;
 
 Name:
-    'name:' value=STRING;
+    'name' value=STRING;
 
 Notation:
-    'notation:' value=(NOTATION_LATIN | NOTATION_ENGLISH | NOTATION_GERMAN);
+    'notation' value=(NOTATION_LATIN | NOTATION_ENGLISH | NOTATION_GERMAN);
 
 Tempo:
-    'tempo:' value=INT;
+    'tempo' value=INT;
 
 Signature:
-    'signature:' numerator=INT '/' denominator=INT;
+    'signature' numerator=INT '/' denominator=INT;
 
 Instrument:
-    'instrument:' value=ID;
+    'instrument' value=ID;
 
 Track:
     'track' '{'
@@ -33,21 +34,21 @@ Pattern:
     '}';
 
 PatternInvocation:
-    'play:' repeat=INT Pattern=[Pattern];
+    'play' repeat=INT Pattern=[Pattern];
 
 MusicElement: Tempo | Signature | Track;
 
 Playable:
     elements+=(NOTE | DRUMKIT_NOTE | SEPARATOR | CHORD_OPENENER | CHORD_CLOSER)+;
 
-TrackElement: PatternInvocation | Playable;
+TrackElement: PatternInvocation | Playable | Tempo | Signature;
 
 
 terminal NOTATION_ENGLISH: 'english';
 terminal NOTATION_LATIN: 'latin';
 terminal NOTATION_GERMAN: 'german';
 
-terminal SEPARATOR: '|';
+terminal SEPARATOR: '|' NOTE_DURATION?;
 
 terminal DRUMKIT_NOTE_BD: 'bd';
 terminal DRUMKIT_NOTE_SD: 'sd';

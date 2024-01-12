@@ -1,0 +1,48 @@
+name "Billie Jean - Michael Jackson"
+notation english
+
+pattern Base {
+    A4q A5q A6q A7q
+}
+
+tempo 120
+signature 4/4
+
+track {
+    instrument drumkit
+
+    pattern Base {
+        bd | sd | bd | sd | |
+    }
+
+    play 17 Base
+}
+
+track {
+    instrument drumkit
+
+    pattern Base {
+        ch ch ch ch ch ch ch ch |
+    }
+
+    tempo 150
+    signature 3/4
+
+    |w |w
+    play 17 Base
+}
+
+track {
+    instrument bass
+
+    pattern Base {
+        A4q A5q A6q A7q
+    }
+
+    play 17 Base
+
+    Bb5q C#5q D#4h
+    B#5q C5q D#4q [D6q G7q] [D6q G7q]
+    
+    play 17 Base
+}

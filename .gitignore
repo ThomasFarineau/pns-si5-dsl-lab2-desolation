@@ -18,3 +18,4 @@ kernel/src/**/*.js
 kernel/music.json
 
 langium/MidiDSL/out/
+generated/

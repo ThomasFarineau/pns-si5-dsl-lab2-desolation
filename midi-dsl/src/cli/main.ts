@@ -4,7 +4,7 @@ import { Command } from 'commander';
 import { MidiDslLanguageMetaData } from '../language/generated/module.js';
 import { createMidiDslServices } from '../language/midi-dsl-module.js';
 import { extractAstNode } from './cli-util.js';
-import { generateJavaScript } from './generator.js';
+import { generateJson } from './generator.js';
 import { NodeFileSystem } from 'langium/node';
 import * as url from 'node:url';
 import * as fs from 'node:fs/promises';
@@ -17,8 +17,9 @@ const packageContent = await fs.readFile(packagePath, 'utf-8');
 export const generateAction = async (fileName: string, opts: GenerateOptions): Promise<void> => {
     const services = createMidiDslServices(NodeFileSystem).MidiDsl;
     const model = await extractAstNode<Model>(fileName, services);
-    const generatedFilePath = generateJavaScript(model, fileName, opts.destination);
-    console.log(chalk.green(`JavaScript code generated successfully: ${generatedFilePath}`));
+    const generatedFilePath = generateJson(model, fileName, opts.destination);
+    // ici on call le kernel pour générer le fichier midi et ouvrir un serveur web pour le jouer et le télécharger et l'afficher
+    console.log(chalk.green(`JSON file generated successfully: ${generatedFilePath}`));
 };
 
 export type GenerateOptions = {

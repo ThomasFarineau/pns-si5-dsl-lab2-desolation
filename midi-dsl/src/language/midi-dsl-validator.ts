@@ -18,21 +18,29 @@ export class MidiDslValidator {
     checkPlayable(playable: Playable, accept: ValidationAcceptor): void {
         // get notation from parent model
         let notation = this.getModelNotation(playable, accept);
-        let instrument = this.getTrackInstrument(playable, accept);
+        let isInTrack = this.isInTrack(playable);
+        let instrument = "";
+        if(isInTrack) {
+            instrument = this.getTrackInstrument(playable, accept);
+        }
         let isInChord = false;
         let chordElementCount = 0;
         for (let i = 0; i < playable.elements.length; i++) {
             let element = playable.elements[i];
             this.checkElementNotation(playable, element, i, notation, accept);
 
-            if (this.isDrumkitNote(element) && instrument !== InstrumentType.drumkit) {
-                accept('error', `Drumkit note ${element} is not valid for instrument ${instrument}`, {
-                    node: playable, property: 'elements', index: i
-                });
-            } else if ((!this.isDrumkitNote(element) && element !== "|") && instrument === InstrumentType.drumkit) {
-                accept('error', `Note ${element} is not valid for instrument ${instrument}`, {
-                    node: playable, property: 'elements', index: i
-                });
+            if(instrument !== ""){
+                if (this.isDrumkitNote(element) && instrument !== InstrumentType.drumkit) {
+                    accept('error', `Drumkit note ${element} is not valid for instrument ${instrument}`, {
+                        node: playable, property: 'elements', index: i
+                    });
+                } else if ((!this.isDrumkitNote(element) && element !== "|") && instrument === InstrumentType.drumkit) {
+                    accept('error', `Note ${element} is not valid for instrument ${instrument}`, {
+                        node: playable, property: 'elements', index: i
+                    });
+                }
+            } else {
+                // ici on verifie qu'on a pas de note de drumkit et de note normale dans le meme playable
             }
 
             if (element === '[') {
@@ -45,7 +53,6 @@ export class MidiDslValidator {
                 chordElementCount = 0;
                 continue;
             }
-            // Vérifier si nous sortons d'un accord
             if (element === ']') {
                 if (!isInChord) {
                     accept('error', `Unmatched chord closing at element ${i}`, {
@@ -78,6 +85,11 @@ export class MidiDslValidator {
 
     isDrumkitNote(element: any) {
         return !element.match(/[0-9]/) && element !== '|' && element !== '[' && element !== ']'
+    }
+
+    isInTrack(node: AstNode) {
+        let track = this.findParentTrack(node);
+        return track !== null;
     }
 
     checkElementNotation(playable: AstNode, element: any, index: number, notation: string, accept: ValidationAcceptor) {
