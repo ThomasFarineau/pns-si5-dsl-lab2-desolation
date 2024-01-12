@@ -3,13 +3,13 @@ import TrackElementI from "./TrackElement.i";
 import Instrument from "./Instrument";
 import Pattern from "./Pattern";
 import MidiWriter from 'midi-writer-js';
-import {music} from "../index";
 import Note from "./Note";
 import Chord from "./Chord";
 import PatternInvocation from "./PatternInvocation";
 import Tempo from "./Tempo";
 import Signature from "./Signature";
 import Wait from "./Wait";
+import music from "./Music";
 
 let trackNumber: number = 0;
 

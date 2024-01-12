@@ -6,7 +6,7 @@ import Track from "./Track";
 import Tempo from "./Tempo";
 import Signature from "./Signature";
 
-class Music {
+export class Music {
     elements: MusicElementI[] = [];
     notation: NotationType;
     patterns: { [id: string]: Pattern} = {};
@@ -69,4 +69,6 @@ class Music {
     }
 }
 
-export default Music;
+const music = new Music(NotationType.english);
+
+export default music;
