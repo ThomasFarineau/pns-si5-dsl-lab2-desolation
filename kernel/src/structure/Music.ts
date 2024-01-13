@@ -6,69 +6,75 @@ import Track from "./Track";
 import Tempo from "./Tempo";
 import Signature from "./Signature";
 
+const typeClassMapping: { [type: string]: any } = {
+    "Track": Track, "Tempo": Tempo, "Signature": Signature,
+};
+
 export class Music {
-    elements: MusicElementI[] = [];
+    static music = new Music("Default", NotationType.english);
+
+    name: string;
     notation: NotationType;
-    patterns: { [id: string]: Pattern} = {};
+    patterns: { [id: string]: Pattern } = {};
+    elements: MusicElementI[] = [];
 
-    defaultTempo = new Tempo({type: "Tempo",tempo: 125});
+    private defaultTempo = new Tempo(125);
+    private defaultSignature = new Signature(4, 4);
+    fileName: string = "";
 
-    constructor(notation: NotationType) {
+    constructor(name: string, notation: NotationType) {
+        this.name = name;
         this.notation = notation;
     }
 
-    addMusicElement(musicElement: MusicElementI) {
-        this.elements.push(musicElement);
+    get tracks() {
+        return this.elements.filter(element => element.type === "Track") as Track[];
+    }
+
+    get midiWriter() {
+        return new MidiWriter.Writer(this.tracks.map(track => track.midiTrack));
+    }
+
+    get tempo() {
+        return this.hasTempo() ? <Tempo>this.elements.find(element => element.type === "Tempo") : this.defaultTempo;
+    }
+
+    get signature() {
+        return this.hasSignature() ? <Signature>this.elements.find(element => element.type === "Signature") : this.defaultSignature;
+    }
+
+    static fromJSON(parse: any) {
+        this.music = new Music(parse.name, parse.notation);
+        this.music.fileName = this.music.sluggify(this.music.name)
+        for (const element of parse.elements) {
+            const eClass = typeClassMapping[element.type];
+            if (!eClass) {
+                console.log(`Unknown element type: ${element.type}`);
+                continue;
+            }
+            const {type, ...params} = element;
+            this.music.elements.push(new eClass(...Object.values(params)));
+        }
+        this.music.patterns = parse.patterns;
     }
 
     addPattern(pattern: Pattern) {
         this.patterns[pattern.id] = pattern;
     }
 
-    static typeClassMapping: { [type: string]: any } = {
-        "Track": Track,
-        "Tempo": Tempo,
-        "Signature": Signature,
-    };
-
-    static fromJSON(parse: any) {
-        let music = new Music(parse.notation);
-        parse.elements.forEach((element: any) => {
-            const ElementClass = Music.typeClassMapping[element.type];
-            if (ElementClass) {
-                music.elements.push(new ElementClass(element));
-            } else {
-                console.log(`Unknown element type: ${element.type}`);
-            }
-        });
-        music.patterns = parse.patterns;
-        console.log(JSON.stringify(music, null, 2));
-        return music;
-    }
-
-    get tracks() { return this.elements.filter(element => element.type === "Track") as Track[]; }
-
-    get midiWriter() {
-        return new MidiWriter.Writer(this.tracks.map(track => track.midiTrack));
-    }
-
     hasTempo() {
         return this.elements.find(element => element.type === "Tempo") !== undefined;
     }
 
-    get tempo() {
-        if (this.hasTempo())
-            return <Tempo>this.elements.find(element => element.type === "Tempo");
-        else
-            return this.defaultTempo;
+    hasSignature() {
+        return this.elements.find(element => element.type === "Signature") !== undefined;
     }
 
-    get signature() {
-        // Assumes there is a signature element because grammar should assert it
-        return <Signature>this.elements.find(element => element.type === "Signature");
+    sluggify(str: string): string {
+        return str
+            .normalize('NFD') // Décompose les caractères en leurs composants (ex: é -> e + ´)
+            .replace(/[\u0300-\u036f]/g, '') // Supprime les diacritiques (accents)
+            .replace(/\s+/g, '_') // Remplace les espaces par des tirets bas
+            .toLowerCase(); // Convertit en minuscules
     }
 }
-
-const music = new Music(NotationType.english);
-
-export default music;

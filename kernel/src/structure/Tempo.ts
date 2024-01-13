@@ -5,8 +5,8 @@ class Tempo implements MusicElementI, TrackElementI {
     type = "Tempo";
     tempo: number;
 
-    constructor(tempo: Tempo) {
-        this.tempo = tempo.tempo;
+    constructor(tempo: number) {
+        this.tempo = tempo;
     }
 }
 

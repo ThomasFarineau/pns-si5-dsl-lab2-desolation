@@ -1,4 +1,38 @@
 {
+  "name": "Billie Jean - Michael Jackson",
+  "notation": "english",
+  "patterns": {
+    "Base": [
+      {
+        "type": "Note",
+        "note": "A",
+        "octave": 4,
+        "duration": 4,
+        "accidental": ""
+      },
+      {
+        "type": "Note",
+        "note": "A",
+        "octave": 5,
+        "duration": 4,
+        "accidental": ""
+      },
+      {
+        "type": "Note",
+        "note": "A",
+        "octave": 6,
+        "duration": 4,
+        "accidental": ""
+      },
+      {
+        "type": "Note",
+        "note": "A",
+        "octave": 7,
+        "duration": 4,
+        "accidental": ""
+      }
+    ]
+  },
   "elements": [
     {
       "type": "Tempo",
@@ -11,202 +45,286 @@
     },
     {
       "type": "Track",
+      "instrument": "drumkit",
+      "patterns": {
+        "Base": [
+          {
+            "type": "Note",
+            "note": "C",
+            "octave": 1,
+            "duration": 4,
+            "accidental": ""
+          },
+          {
+            "type": "Wait",
+            "duration": 4
+          },
+          {
+            "type": "Note",
+            "note": "D",
+            "octave": 1,
+            "duration": 4,
+            "accidental": ""
+          },
+          {
+            "type": "Wait",
+            "duration": 4
+          },
+          {
+            "type": "Note",
+            "note": "C",
+            "octave": 1,
+            "duration": 4,
+            "accidental": ""
+          },
+          {
+            "type": "Wait",
+            "duration": 4
+          },
+          {
+            "type": "Note",
+            "note": "D",
+            "octave": 1,
+            "duration": 4,
+            "accidental": ""
+          },
+          {
+            "type": "Wait",
+            "duration": 4
+          },
+          {
+            "type": "Wait",
+            "duration": 4
+          }
+        ]
+      },
       "elements": [
         {
-          "type": "Note",
-          "note": "A",
-          "octave": 4,
-          "duration": 1,
-          "accidentalType": ""
+          "type": "PatternInvocation",
+          "repeat": 17,
+          "id": "Base"
+        }
+      ]
+    },
+    {
+      "type": "Track",
+      "instrument": "drumkit",
+      "patterns": {
+        "Base": [
+          {
+            "type": "Note",
+            "note": "F",
+            "octave": 1,
+            "duration": 4,
+            "accidental": ""
+          },
+          {
+            "type": "Note",
+            "note": "F",
+            "octave": 1,
+            "duration": 4,
+            "accidental": ""
+          },
+          {
+            "type": "Note",
+            "note": "F",
+            "octave": 1,
+            "duration": 4,
+            "accidental": ""
+          },
+          {
+            "type": "Note",
+            "note": "F",
+            "octave": 1,
+            "duration": 4,
+            "accidental": ""
+          },
+          {
+            "type": "Note",
+            "note": "F",
+            "octave": 1,
+            "duration": 4,
+            "accidental": ""
+          },
+          {
+            "type": "Note",
+            "note": "F",
+            "octave": 1,
+            "duration": 4,
+            "accidental": ""
+          },
+          {
+            "type": "Note",
+            "note": "F",
+            "octave": 1,
+            "duration": 4,
+            "accidental": ""
+          },
+          {
+            "type": "Note",
+            "note": "F",
+            "octave": 1,
+            "duration": 4,
+            "accidental": ""
+          },
+          {
+            "type": "Wait",
+            "duration": 4
+          }
+        ]
+      },
+      "elements": [
+        {
+          "type": "Tempo",
+          "tempo": 150
+        },
+        {
+          "type": "Signature",
+          "numerator": 3,
+          "denominator": 4
         },
         {
           "type": "Wait",
           "duration": 1
         },
         {
+          "type": "Wait",
+          "duration": 1
+        },
+        {
+          "type": "PatternInvocation",
+          "repeat": 17,
+          "id": "Base"
+        }
+      ]
+    },
+    {
+      "type": "Track",
+      "instrument": "bass",
+      "patterns": {
+        "Base": [
+          {
+            "type": "Note",
+            "note": "A",
+            "octave": 4,
+            "duration": 4,
+            "accidental": ""
+          },
+          {
+            "type": "Note",
+            "note": "A",
+            "octave": 5,
+            "duration": 4,
+            "accidental": ""
+          },
+          {
+            "type": "Note",
+            "note": "A",
+            "octave": 6,
+            "duration": 4,
+            "accidental": ""
+          },
+          {
+            "type": "Note",
+            "note": "A",
+            "octave": 7,
+            "duration": 4,
+            "accidental": ""
+          }
+        ]
+      },
+      "elements": [
+        {
+          "type": "PatternInvocation",
+          "repeat": 17,
+          "id": "Base"
+        },
+        {
+          "type": "Note",
+          "note": "B",
+          "octave": 5,
+          "duration": 4,
+          "accidental": "b"
+        },
+        {
+          "type": "Note",
+          "note": "C",
+          "octave": 5,
+          "duration": 4,
+          "accidental": "#"
+        },
+        {
+          "type": "Note",
+          "note": "D",
+          "octave": 4,
+          "duration": 2,
+          "accidental": "#"
+        },
+        {
+          "type": "Note",
+          "note": "B",
+          "octave": 5,
+          "duration": 4,
+          "accidental": "#"
+        },
+        {
+          "type": "Note",
+          "note": "C",
+          "octave": 5,
+          "duration": 4,
+          "accidental": ""
+        },
+        {
+          "type": "Note",
+          "note": "D",
+          "octave": 4,
+          "duration": 4,
+          "accidental": "#"
+        },
+        {
           "type": "Chord",
           "notes": [
             {
               "type": "Note",
-              "note": "C",
-              "octave": 5,
-              "duration": 2,
-              "accidentalType": ""
+              "note": "D",
+              "octave": 6,
+              "duration": 4,
+              "accidental": ""
             },
             {
               "type": "Note",
-              "note": "B",
-              "octave": 5,
-              "duration": "2",
-              "accidentalType": ""
+              "note": "G",
+              "octave": 7,
+              "duration": 4,
+              "accidental": ""
             }
           ]
         },
         {
-          "type": "Note",
-          "note": "A",
-          "octave": 4,
-          "duration": 2,
-          "accidentalType": ""
-        }
-      ],
-      "patterns": {
-        "motif A": {
-          "elements": [
+          "type": "Chord",
+          "notes": [
             {
               "type": "Note",
-              "note": 0,
-              "octave": 4,
-              "duration": 0,
-              "accidentalType": 0
+              "note": "D",
+              "octave": 6,
+              "duration": 4,
+              "accidental": ""
             },
             {
               "type": "Note",
-              "note": 3,
-              "octave": 4,
-              "duration": 0,
-              "accidentalType": 0
-            },
-            {
-              "type": "Note",
-              "note": 3,
-              "octave": 4,
-              "duration": 0,
-              "accidentalType": 0
-            },
-            {
-              "type": "Chord",
-              "notes": [
-                {
-                  "type": "Note",
-                  "note": 2,
-                  "octave": 4,
-                  "duration": 0,
-                  "accidentalType": 2
-                },
-                {
-                  "type": "Note",
-                  "note": 2,
-                  "octave": 4,
-                  "duration": 0,
-                  "accidentalType": 1
-                }
-              ]
+              "note": "G",
+              "octave": 7,
+              "duration": 4,
+              "accidental": ""
             }
-          ],
-          "id": "motif A"
+          ]
         },
-        "motif B": {
-          "elements": [
-            {
-              "type": "Note",
-              "note": 0,
-              "octave": 4,
-              "duration": 0,
-              "accidentalType": 0
-            },
-            {
-              "type": "Note",
-              "note": 3,
-              "octave": 4,
-              "duration": 0,
-              "accidentalType": 0
-            },
-            {
-              "type": "Note",
-              "note": 3,
-              "octave": 4,
-              "duration": 0,
-              "accidentalType": 0
-            }
-          ],
-          "id": "motif B"
+        {
+          "type": "PatternInvocation",
+          "repeat": 17,
+          "id": "Base"
         }
-      },
-      "id": 1,
-      "instrument": 1
-    },
-    {
-      "type": "Track",
-      "elements": [
-      ],
-      "patterns": {
-        "motif A": {
-          "elements": [
-            {
-              "type": "Note",
-              "note": 0,
-              "octave": 4,
-              "duration": 0,
-              "accidentalType": 0
-            },
-            {
-              "type": "Note",
-              "note": 3,
-              "octave": 4,
-              "duration": 0,
-              "accidentalType": 0
-            },
-            {
-              "type": "Note",
-              "note": 3,
-              "octave": 4,
-              "duration": 0,
-              "accidentalType": 0
-            },
-            {
-              "type": "Chord",
-              "notes": [
-                {
-                  "type": "Note",
-                  "note": 2,
-                  "octave": 4,
-                  "duration": 0,
-                  "accidentalType": 2
-                },
-                {
-                  "type": "Note",
-                  "note": 2,
-                  "octave": 4,
-                  "duration": 0,
-                  "accidentalType": 1
-                }
-              ]
-            }
-          ],
-          "id": "motif A"
-        },
-        "motif B": {
-          "elements": [
-            {
-              "type": "Note",
-              "note": 0,
-              "octave": 4,
-              "duration": 0,
-              "accidentalType": 0
-            },
-            {
-              "type": "Note",
-              "note": 3,
-              "octave": 4,
-              "duration": 0,
-              "accidentalType": 0
-            },
-            {
-              "type": "Note",
-              "note": 3,
-              "octave": 4,
-              "duration": 0,
-              "accidentalType": 0
-            }
-          ],
-          "id": "motif B"
-        }
-      },
-      "id": 2,
-      "instrument": 41
+      ]
     }
-  ],
-  "patterns": {},
-  "notation": 0
+  ]
 }

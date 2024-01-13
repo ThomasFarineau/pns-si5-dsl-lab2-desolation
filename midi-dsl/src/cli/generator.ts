@@ -48,7 +48,6 @@ const parsePlayable = (elements: Array<string>, notation: string): any => {
         } else if (element.startsWith('|')) {
             newElements.push(parseWait(element))
         } else {
-            console.log(element)
             newElements.push(matchNote(element) ? parseNote(element, notation) : parseNote(convertDrum(element), notation));
         }
     });

@@ -1,57 +1,85 @@
 import MusicElementI from "./MusicElement.i";
 import TrackElementI from "./TrackElement.i";
-import Instrument from "./Instrument";
 import Pattern from "./Pattern";
 import MidiWriter from 'midi-writer-js';
 import Note from "./Note";
 import Chord from "./Chord";
-import PatternInvocation from "./PatternInvocation";
 import Tempo from "./Tempo";
 import Signature from "./Signature";
 import Wait from "./Wait";
-import music from "./Music";
+import {fromString, Instrument} from "./Instrument";
+import {Music} from "./Music";
 
 let trackNumber: number = 0;
+
+const typeClassMapping: { [type: string]: any } = {
+    "Tempo": Tempo, "Signature": Signature, "Note": Note, "Chord": Chord, "Wait": Wait
+};
 
 class Track implements MusicElementI {
     type = "Track";
 
     id: number;
     instrument: Instrument;
-    elements: TrackElementI[] = [];
+
     patterns: { [id: string]: Pattern } = {};
+    elements: TrackElementI[] = [];
+
     defaultMidiClocksPerTick: number = 24;
     defaultNotesPerMidiClock: number = 8;
 
-    constructor(track: Track) {
+    constructor(instrument: string, patterns: any, elements: any) {
         this.id = ++trackNumber;
-        this.instrument = track.instrument;
-        this.elements = track.elements;
-        this.patterns = track.patterns;
+        this.instrument = fromString(instrument);
+        this.patterns = this.parsePatterns(patterns)
+        this.elements = this.parseElements(elements);
+
     }
 
-    addElement(element: MusicElementI) {
-        this.elements.push(element);
+    parseElements(elements: any) {
+        let toReturn = [];
+        for (let element of elements) {
+            const eClass = typeClassMapping[element.type];
+            if (!eClass) {
+                if(element.type === "PatternInvocation") {
+                    for (let i = 0; i < element.repeat; i++) {
+                        // @ts-ignore
+                        this.pattern(element.id).elements.forEach(patternElement => toReturn.push(patternElement));
+                    }
+                } else {
+                    console.log(`Unknown element type: ${element.type}`);
+                }
+            } else {
+                const {type, ...params} = element;
+                toReturn.push(new eClass(...Object.values(params)));
+            }
+        }
+        return toReturn;
     }
 
-    addPattern(pattern: Pattern) {
-        this.patterns[pattern.id] = pattern;
+    parsePatterns(patterns: any) {
+        let toReturn = {};
+        for (let patternId in patterns) {
+            // @ts-ignore
+            toReturn[patternId] = new Pattern(patternId, patterns[patternId]);
+        }
+        return toReturn;
     }
 
     get tempo() {
-        return music.tempo;
+        return Music.music.tempo;
         //return this.elements.find(element => element.type === "Tempo") ? <Tempo>this.elements.find(element => element.type === "Tempo") : music.hasTempo() ? music.tempo : music.defaultTempo;
     }
 
     get signature() {
-        return music.signature;
+        return Music.music.signature;
     }
 
     pattern(patternId: string): Pattern {
         let patternToReturn;
         patternToReturn = this.patterns[patternId];
         if (patternToReturn ===  undefined)
-            patternToReturn = music.patterns[patternId];
+            patternToReturn = Music.music.patterns[patternId];
         return patternToReturn;
     }
 
@@ -66,10 +94,10 @@ class Track implements MusicElementI {
             // Parameters 3 and 4 ?
             .setTimeSignature(signature.numerator, signature.denominator, this.defaultMidiClocksPerTick, this.defaultNotesPerMidiClock);
 
-        console.log("TRACK ELEMENTS", JSON.stringify(this.elements, null, 2));
+        //console.log("TRACK ELEMENTS", JSON.stringify(this.elements, null, 2));
 
         for (let element of this.elements) {
-            console.log("ELEMENT", element);
+            //console.log("ELEMENT", element);
             if (element.type === "Tempo")
                 track.setTempo((element as Tempo).tempo);
             else if (element.type === "Signature") {
@@ -80,7 +108,7 @@ class Track implements MusicElementI {
                 track.addEvent(this.getNoteEvent(element));
         }
 
-        console.log("EVENTS", track.events);
+        //console.log("EVENTS", track.events);
 
         return track;
     }
@@ -96,26 +124,20 @@ class Track implements MusicElementI {
             case "Wait":
                 return this.waitEvent(element as Wait);
 
-            case "PatternInvocation":
-                let patternInvoc = element as PatternInvocation;
-                let pattern = this.pattern(patternInvoc.patternId);
-                // play pattern
-                return null;
-
             default:
                 return null;
         }
     }
 
     noteEvent(note: Note): any {
-        console.log("PARSED NOTE", note);
+        //console.log("PARSED NOTE", note);
         return new MidiWriter.NoteEvent({
             pitch: [this.parsedNote(note)], duration: note.duration,
         });
     }
 
     chordEvent(chord: Chord): any {
-        console.log("PARSED CHORD", chord);
+        //console.log("PARSED CHORD", chord);
         let notes = []
         for (let note of chord.notes) {
             notes.push(this.parsedNote(note));
@@ -126,14 +148,14 @@ class Track implements MusicElementI {
     }
 
     waitEvent(wait: Wait) {
-        console.log("WAIT", wait.duration);
+        //console.log("WAIT", wait.duration);
         return new MidiWriter.NoteEvent({
             wait: wait.duration
         });
     }
 
     parsedNote(note: Note): string {
-        return note.note + (note.accidentalType) + note.octave;
+        return note.note + (note.accidental) + note.octave;
     }
 
 }

@@ -9,13 +9,13 @@ class Note implements TrackElementI, PatternElementI {
     note: NoteName;
     octave: number;
     duration: Duration;
-    accidentalType: AccidentalType;
+    accidental: AccidentalType;
 
-    constructor(note: NoteName, octave: number, duration: Duration, keySignature: AccidentalType) {
+    constructor(note: NoteName, octave: number, duration: Duration, accidental: AccidentalType) {
         this.note = note;
         this.octave = octave;
         this.duration = duration;
-        this.accidentalType = keySignature;
+        this.accidental = accidental;
     }
 }
 
