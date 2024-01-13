@@ -21,9 +21,13 @@ Signature:
 Instrument:
     'instrument' value=ID;
 
+Channel:
+    'channel' value=INT;
+
 Track:
     'track' '{'
         instrument=Instrument
+        (channel=Channel)?
         (patterns+=Pattern)*
         (elements+=TrackElement)*
     '}';

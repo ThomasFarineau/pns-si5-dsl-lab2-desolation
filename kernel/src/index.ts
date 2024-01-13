@@ -1,6 +1,7 @@
 import {Music} from "./structure/Music";
 import * as Path from "path";
 import * as fs from "fs";
+import express from "express";
 
 type buildOption = {
     path?: string, midiFile?: boolean, jsonFile?: boolean, webView?: {
@@ -9,7 +10,9 @@ type buildOption = {
 }
 
 const defaultOptions: buildOption = {
-    path: Path.resolve(__dirname, '../../generated'), midiFile: true, jsonFile: true
+    path: Path.resolve(__dirname, '../../generated'), midiFile: true, jsonFile: true, webView: {
+        use: true, multipleTracks: true,
+    }
 }
 
 export const build = (data: any, options: buildOption = defaultOptions) => {
@@ -17,7 +20,7 @@ export const build = (data: any, options: buildOption = defaultOptions) => {
     const writer = Music.music.midiWriter;
 
     if (options.path) {
-        let filePath = options.path + (!options.path.endsWith("/") ? "/" : "");
+        let filePath = options.path + (!options.path.endsWith(Path.sep) ? Path.sep : "");
         let fileName = `${Music.music.fileName}`;
         if (options.midiFile) {
             let file = writer.buildFile();
@@ -34,10 +37,40 @@ export const build = (data: any, options: buildOption = defaultOptions) => {
                 console.log('JSON file saved in ' + filePath + ' (' + fileName + ".json" + ')');
             });
         }
-
     } else {
         if (options.midiFile) {
-            console.warn("No path specified, please specify a path to save the midi file");
+            console.warn("No path specified, please specify a path to save the midi file.");
+        }
+        if (options.jsonFile) {
+            console.warn("No path specified, please specify a path to save the json file.");
+        }
+    }
+
+    if (options.webView) {
+        if (options.webView.use) {
+            const app = express();
+
+            app.get('/', (req, res) => {
+                res.sendFile(Path.resolve(__dirname, '../public/index.html'));
+            })
+
+            if(options.webView.multipleTracks) {
+                console.log("MULTIPLETRACKS -> NOT IMPLEMENTED YET");
+            }
+
+            app.get('/midi', (req, res) => {
+                res.type('audio/midi');
+                res.send(writer.dataUri());
+            });
+
+            const PORT = 3000; // Utilisez le port de votre choix
+            app.listen(PORT, () => {
+                console.log(`Webview running at http://localhost:${PORT}/`);
+            });
+        } else {
+            if (options.webView.multipleTracks) {
+                console.warn("Multiple tracks view need the web view to be enabled.");
+            }
         }
     }
 

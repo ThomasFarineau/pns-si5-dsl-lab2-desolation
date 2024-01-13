@@ -20,7 +20,7 @@ export class MidiDslValidator {
         let notation = this.getModelNotation(playable, accept);
         let isInTrack = this.isInTrack(playable);
         let instrument = "";
-        if(isInTrack) {
+        if (isInTrack) {
             instrument = this.getTrackInstrument(playable, accept);
         }
         let isInChord = false;
@@ -29,15 +29,17 @@ export class MidiDslValidator {
             let element = playable.elements[i];
             this.checkElementNotation(playable, element, i, notation, accept);
 
-            if(instrument !== ""){
-                if (this.isDrumkitNote(element) && instrument !== InstrumentType.drumkit) {
-                    accept('error', `Drumkit note ${element} is not valid for instrument ${instrument}`, {
-                        node: playable, property: 'elements', index: i
-                    });
-                } else if ((!this.isDrumkitNote(element) && element !== "|") && instrument === InstrumentType.drumkit) {
-                    accept('error', `Note ${element} is not valid for instrument ${instrument}`, {
-                        node: playable, property: 'elements', index: i
-                    });
+            if (instrument !== "") {
+                if (!element.startsWith("|")) {
+                    if (this.isDrumkitNote(element) && instrument !== InstrumentType.drumkit) {
+                        accept('error', `Drumkit note ${element} is not valid for instrument ${instrument}`, {
+                            node: playable, property: 'elements', index: i
+                        });
+                    } else if ((!this.isDrumkitNote(element)) && instrument === InstrumentType.drumkit) {
+                        accept('error', `Note ${element} is not valid for instrument ${instrument}`, {
+                            node: playable, property: 'elements', index: i
+                        });
+                    }
                 }
             } else {
                 // ici on verifie qu'on a pas de note de drumkit et de note normale dans le meme playable
@@ -84,7 +86,7 @@ export class MidiDslValidator {
     }
 
     isDrumkitNote(element: any) {
-        return !element.match(/[0-9]/) && element !== '|' && element !== '[' && element !== ']'
+        return !element.match(/[0-9]/) && element !== '[' && element !== ']'
     }
 
     isInTrack(node: AstNode) {
@@ -160,7 +162,7 @@ export class MidiDslValidator {
     }
 
     checkInstrument(instrument: Instrument, accept: ValidationAcceptor): void {
-        this.checkType(instrument, instrument.value, InstrumentType, "The instrument should be %values%", accept);
+        this.checkType(instrument, instrument.value, InstrumentType, "The chosen instrument is not valid. Please refer to the documentation to see the list of available instruments", accept);
     }
 
     isNoteValid(notation: string, note: string) {
@@ -188,5 +190,133 @@ enum NotationType {
 }
 
 enum InstrumentType {
-    piano = "piano", guitar = "guitar", drumkit = "drumkit", bass = "bass"
+    drumkit = "drumkit",
+    acoustic_grand_piano = "acoustic_grand_piano",
+    bright_acoustic_piano = "bright_acoustic_piano",
+    electric_grand_piano = "electric_grand_piano",
+    honky_tonk_piano = "honky_tonk_piano",
+    electric_piano_1 = "electric_piano_1",
+    electric_piano_2 = "electric_piano_2",
+    harpsichord = "harpsichord",
+    clavinet = "clavinet",
+    celesta = "celesta",
+    glockenspiel = "glockenspiel",
+    music_box = "music_box",
+    vibraphone = "vibraphone",
+    marimba = "marimba",
+    xylophone = "xylophone",
+    tubular_bells = "tubular_bells",
+    dulcimer = "dulcimer",
+    drawbar_organ = "drawbar_organ",
+    percussive_organ = "percussive_organ",
+    rock_organ = "rock_organ",
+    church_organ = "church_organ",
+    reed_organ = "reed_organ",
+    accordion = "accordion",
+    harmonica = "harmonica",
+    tango_accordion = "tango_accordion",
+    nylon_acoustic_guitar = "nylon_acoustic_guitar",
+    steel_acoustic_guitar = "steel_acoustic_guitar",
+    jazz_electric_guitar = "jazz_electric_guitar",
+    clean_electric_guitar = "clean_electric_guitar",
+    muted_electric_guitar = "muted_electric_guitar",
+    overdrive_guitar = "overdrive_guitar",
+    distorted_guitar = "distorted_guitar",
+    guitar_harmonics = "guitar_harmonics",
+    acoustic_bass = "acoustic_bass",
+    electric_fingered_bass = "electric_fingered_bass",
+    electric_picked_bass = "electric_picked_bass",
+    fretless_bass = "fretless_bass",
+    slap_bass_1 = "slap_bass_1",
+    slap_bass_2 = "slap_bass_2",
+    synth_bass_1 = "synth_bass_1",
+    synth_bass_2 = "synth_bass_2",
+    violin = "violin",
+    viola = "viola",
+    cello = "cello",
+    contrabass = "contrabass",
+    tremolo_strings = "tremolo_strings",
+    pizzicato_strings = "pizzicato_strings",
+    orchestral_harp = "orchestral_harp",
+    timpani = "timpani",
+    string_ensemble_1 = "string_ensemble_1",
+    string_ensemble_2_slow = "string_ensemble_2_slow",
+    synth_strings_1 = "synth_strings_1",
+    synth_strings_2 = "synth_strings_2",
+    choir_aahs = "choir_aahs",
+    voice_oohs = "voice_oohs",
+    syn_choir = "syn_choir",
+    orchestral_hit = "orchestral_hit",
+    trumpet = "trumpet",
+    trombone = "trombone",
+    tuba = "tuba",
+    muted_trumpet = "muted_trumpet",
+    french_horn = "french_horn",
+    brass_section = "brass_section",
+    syn_brass_1 = "syn_brass_1",
+    syn_brass_2 = "syn_brass_2",
+    soprano_sax = "soprano_sax",
+    alto_sax = "alto_sax",
+    tenor_sax = "tenor_sax",
+    baritone_sax = "baritone_sax",
+    oboe = "oboe",
+    english_horn = "english_horn",
+    bassoon = "bassoon",
+    clarinet = "clarinet",
+    piccolo = "piccolo",
+    flute = "flute",
+    recorder = "recorder",
+    pan_flute = "pan_flute",
+    bottle_blow = "bottle_blow",
+    shakuhachi = "shakuhachi",
+    whistle = "whistle",
+    ocarina = "ocarina",
+    synth_square_wave = "synth_square_wave",
+    synth_sawtooth_wave = "synth_sawtooth_wave",
+    synth_calliope = "synth_calliope",
+    synth_chiff = "synth_chiff",
+    synth_charang = "synth_charang",
+    synth_voice = "synth_voice",
+    synth_fifths_sawtooth_wave = "synth_fifths_sawtooth_wave",
+    synth_brass_and_lead = "synth_brass_and_lead",
+    new_age_synth_pad = "new_age_synth_pad",
+    warm_synth_pad = "warm_synth_pad",
+    polysynth_synth_pad = "polysynth_synth_pad",
+    choir_synth_pad = "choir_synth_pad",
+    bowed_synth_pad = "bowed_synth_pad",
+    metal_synth_pad = "metal_synth_pad",
+    halo_synth_pad = "halo_synth_pad",
+    sweep_synth_pad = "sweep_synth_pad",
+    sfx_rain = "sfx_rain",
+    sfx_soundtrack = "sfx_soundtrack",
+    sfx_crystal = "sfx_crystal",
+    sfx_atmosphere = "sfx_atmosphere",
+    sfx_brightness = "sfx_brightness",
+    sfx_goblins = "sfx_goblins",
+    sfx_echoes = "sfx_echoes",
+    sfx_sci_fi = "sfx_sci_fi",
+    sitar = "sitar",
+    banjo = "banjo",
+    shamisen = "shamisen",
+    koto = "koto",
+    kalimba = "kalimba",
+    bag_pipe = "bag_pipe",
+    fiddle = "fiddle",
+    shanai = "shanai",
+    tinkle_bell = "tinkle_bell",
+    agogo = "agogo",
+    steel_drums = "steel_drums",
+    woodblock = "woodblock",
+    taiko_drum = "taiko_drum",
+    melodic_tom = "melodic_tom",
+    synth_drum = "synth_drum",
+    reverse_cymbal = "reverse_cymbal",
+    guitar_fret_noise = "guitar_fret_noise",
+    breath_noise = "breath_noise",
+    seashore = "seashore",
+    bird_tweet = "bird_tweet",
+    telephone_ring = "telephone_ring",
+    helicopter = "helicopter",
+    applause = "applause",
+    gun_shot = "gun_shot"
 }

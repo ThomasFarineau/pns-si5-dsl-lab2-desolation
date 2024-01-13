@@ -1,7 +1,7 @@
 import type {Model, Pattern} from '../language/generated/ast.js';
 
 const durationMap = new Map([["w", 1], ["h", 2], ["q", 4], ["e", 8], ["s", 16]]);
-const drumMap = new Map([["bd", "C1"], ["sd", "D1#"], ["ch", "F1#"], ["oh", "G1#"], ["cc", "C2#"], ["rc", "D2#"]])
+const drumMap = new Map([["bd", "C2"], ["sd", "E2"], ["ch", "F#2"], ["oh", "G#2"], ["cc", "C#3"], ["rc", "D#3"]])
 
 const latinToEnglish = new Map([["do", "C"], ["re", "D"], ["ré", "D"], ["mi", "E"], ["fa", "F"], ["sol", "G"], ["la", "A"], ["si", "B"], ["ut", "C"],]);
 const germanToEnglish = new Map([["c", "C"], ["d", "D"], ["e", "E"], ["f", "F"], ["g", "G"], ["a", "A"], ["h", "B"]]);
@@ -72,7 +72,7 @@ const matchNote = (str: string): string | null => {
 };
 
 const convertDuration = (duration: string): number => durationMap.get(duration) || 4;
-const convertDrum = (drum: string): string => drumMap.get(drum) + "q" || "";
+const convertDrum = (drum: string): string => drumMap.get(drum) + "e" || "";
 
 const convertNote = (notation: string, note: string): string => {
     switch (notation) {
@@ -110,6 +110,10 @@ const getElements = (elements: Array<any>, notation: string): any => {
                 elementToPush["patterns"] = getPatterns(element.patterns);
                 // @ts-ignore
                 elementToPush["elements"] = getElements(element.elements);
+                if(element.channel) {
+                    // @ts-ignore
+                    elementToPush["channel"] = element.channel.value;
+                }
             } else if (element.$type === "PatternInvocation") {
                 // @ts-ignore
                 elementToPush["repeat"] = element.repeat;

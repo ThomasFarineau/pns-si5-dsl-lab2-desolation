@@ -8,20 +8,81 @@ track {
     instrument drumkit
 
     pattern Base {
-        bd | sd | bd | sd | |
+        bd |e sd |e
     }
 
-    play 17 Base
+    |w
+    play 33 Base
+    play 34 Base
 }
 
 track {
     instrument drumkit
 
     pattern Base {
-        ch ch ch ch ch ch ch ch |
+        ch ch ch ch
     }
 
-    |w |w
-    play 16 Base
-    ch ch ch ch |
+    |w
+    play 33 Base
+    play 34 Base
+}
+
+track {
+    instrument fretless_bass
+    channel 2
+
+    pattern Base {
+        F#2s |s C#2s |s E#2s |s F#2s |s E#2s |s C#2s |s B1s |s C#2s |s
+    }
+
+    pattern Second {
+        B2s |s F#2s |s A2s |s B2s |s |e F#2s |s E2s |s F#2s |s B2s |s F#2s |s A2s |s B2s |e F#2s |s E2s |s F#2s |s C#2s |s
+    }
+
+    |w |w |w
+    play 15 Base
+    play 1 Second
+    play 2 Base
+    play 1 Second
+    play 6 Base
+    play 1 Second
+    play 2 Base
+}
+
+track {
+    instrument synth_strings_1
+    channel 3
+
+    pattern Wait {
+        |w
+    }
+
+    pattern Base {
+        [A3s C#4s F#4s] |s |q [B3s D#4s G#4s] |s |h [C#4s E4s A4s] |s |q [B3s D#4s G#4s] |s |h
+    }
+
+    play 10 Wait
+    play 4 Base
+    [A3s C#4s F#4s] |s |q [A3s C#4s F#4s] |s |h
+    [A3s C#4s F#4s] |s |q [A3s C#4s F#4s] |e |h
+    play 1 Base
+    [A3s C#4s F#4s] |s |q [A3s C#4s F#4s] |s |h
+    [A3s C#4s F#4s] |s |q [A3h C#4h F#4h] |e |s
+    play 3 Base
+    [A3s C#4s F#4s] |s |q [A3s C#4s F#4s] |s |h
+    [A3s C#4s F#4s] |s |q [A3h C#4h F#4h] |e |s
+    play 1 Base
+}
+
+track {
+    instrument muted_electric_guitar
+    channel 11
+
+    pattern Base {
+        F#1e |q F#1e |h
+    }
+
+    |w |w |w
+    play 11 Base
 }
