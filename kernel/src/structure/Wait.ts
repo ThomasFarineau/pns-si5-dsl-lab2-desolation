@@ -1,12 +1,11 @@
 import TrackElementI from "./TrackElement.i";
 import PatternElementI from "./PatternElement.i";
-import Duration from "./Duration";
 
 class Wait implements TrackElementI, PatternElementI {
     type = "Wait"
-    duration: Duration;
+    duration: string;
 
-    constructor(duration: Duration) {
+    constructor(duration: string) {
         this.duration = duration;
     }
 }

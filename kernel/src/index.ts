@@ -54,32 +54,26 @@ export const build = (data: any, options: buildOption = defaultOptions) => {
     if (options.webView) {
         if (options.webView.use) {
             const app = express();
-            compileSass(Path.resolve(__dirname, '../public/style.sass')).then((css) => {
-                app.get('/style', (req, res) => {
-                    res.type('text/css');
-                    res.send(css);
-                })
-            })
+
+            compileSass(Path.resolve(__dirname, '../public/style.sass')).then((css) => app.get('/style', (req, res) => {
+                res.type('text/css');
+                res.send(css);
+            }))
 
             app.get('/script', (req, res) => {
                 res.sendFile(Path.resolve(__dirname, '../public/script.js'));
             })
 
             type webTrackData = {
-                id: number,
-                instrument: string,
-                channel: number,
+                id: number, instrument: string, channel: number,
             }
 
             type webData = {
-                name: string,
-                midi?: string,
-                json?: string,
-                tracks?: webTrackData[]
+                name: string, midi?: string, json?: string, tracks?: webTrackData[]
             }
 
             app.get('/download/:type/' + Music.music.fileName, (req, res) => {
-                if(req.params.type === "midi") {
+                if (req.params.type === "midi") {
                     res.type('audio/midi');
                     res.send(writer.dataUri());
                 } else {
@@ -94,11 +88,9 @@ export const build = (data: any, options: buildOption = defaultOptions) => {
                 let json: webData = {
                     "name": Music.music.name,
                 }
-                if(options.path) {
-                    if(options.midiFile)
-                        json["midi"] = "/download/midi/" + Music.music.fileName;
-                    if(options.jsonFile)
-                        json["json"] = "/download/json/" + Music.music.fileName;
+                if (options.path) {
+                    if (options.midiFile) json["midi"] = "/download/midi/" + Music.music.fileName;
+                    if (options.jsonFile) json["json"] = "/download/json/" + Music.music.fileName;
                 }
                 if (options.webView && options.webView.multipleTracks) {
                     json["tracks"] = Music.music.tracks.map(track => {
@@ -146,12 +138,11 @@ export const build = (data: any, options: buildOption = defaultOptions) => {
     }
 };
 
-const compileSass = async (sassFilePath: string) => {
+const compileSass = async (sassFilePath: string) => new Promise<string>((resolve, reject) => {
     const sassRender = promisify(sass.render);
-    try {
-        const result = await sassRender({ file: sassFilePath });
-        return result.css.toString();
-    } catch (error) {
-        console.error('Error compiling SASS:', error);
-    }
-};
+    sassRender({file: sassFilePath}).then((result) => {
+        resolve(result.css.toString());
+    }).catch((error) => {
+        reject('Error compiling SASS:' + error);
+    });
+});

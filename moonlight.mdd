@@ -1,0 +1,51 @@
+name "Moonlight Sonata"
+notation english
+
+tempo 50
+signature 4/4
+
+track {
+    instrument acoustic_grand_piano
+
+    pattern pattern1 {
+        G#3et  C#4et  E4et 
+    }
+
+    pattern pattern2 {
+        A3et  D4et  F#4et
+    }
+
+    pattern pattern3 {
+        G#3et  D#4et  F#4et
+    }
+
+    play 8 pattern1
+    A3et  C#4et  E4et  A3et  C#4et  E4et
+    play 2 pattern2
+    G#3et  C4et  F#4et  G#3et  C#4et  E4et 
+    G#3et  C#4et  D#4et  F#3et  C4et  D#4et
+    E3et G#3et C#4et
+    play 3 pattern1
+    play 4 pattern3
+    play 2 pattern1
+    A3et C#4et F#4et A3et C#4et F#4et
+    G#3et B3et E4et G#3et B3et E4et
+    [A3et F#4et] B3et D#4et |ts |ts |sf B3et D#4et
+    G#3et B3et |et
+    G#3et B3et E4et G#3et B3et E4et G#3et B3et E4et
+    G3et B3et E4et G3et B3et E4et G3et B3et E4et G3et B3et E4et
+}
+
+track {
+    instrument acoustic_grand_piano
+
+    [C#3w C#2w] [B2w B1w] [A2h A1h] [F#2h F#1h] [G#2h G#1h] [G#2q G#1h] |q
+    [C#3w G#2w C#2w] [C3w G#2w C2w] [C#3h C#2h] [F#2h F#1h] [B2h B1h] [B2h B1h]
+    [E3w E2w] [E3w E2w]
+}
+
+track {
+    instrument acoustic_grand_piano
+
+    |w |w |w |w |h |q G#4qt G#4et G#4dh G#4qt G#4et G#4h A4h G#4h |q B4q E4q |w |h G4qt G4et
+}
