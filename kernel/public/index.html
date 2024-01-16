@@ -4,18 +4,21 @@
     <title>MIDI Writer</title>
     <script
             src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.5.0"></script>
+    <link rel="stylesheet" href="./style">
 
 </head>
 
 <body>
-
-<section id="section3">
+<header>
+    <h1>Music Title</h1>
     <midi-player id="player" sound-font src="">
     </midi-player>
-
+</header>
+<section>
     <midi-visualizer id="v_roll" sound-font visualizer="#section3 midi-visualizer">
     </midi-visualizer>
-
+</section>
+<section>
     <midi-visualizer id="v_staff" src="" type="staff">
     </midi-visualizer>
 </section>
@@ -46,20 +49,6 @@
 
 
 <style>
-    /* Custom player style */
-    #section3 midi-player {
-        display: block;
-        width: inherit;
-        margin: 4px;
-        margin-bottom: 0;
-    }
-
-    #section3 midi-player::part(control-panel) {
-        background: #ff5;
-        border: 2px solid #000;
-        border-radius: 10px 10px 0 0;
-    }
-
     #section3 midi-player::part(play-button) {
         color: #353;
         border: 2px solid currentColor;
@@ -108,6 +97,8 @@
     #section3 midi-visualizer svg rect.note[data-is-drum="true"] {
         fill: #888;
         stroke: #888;
+        border-radius: 100px;
+        aspect-ratio: 1;
     }
 
     #section3 midi-visualizer svg rect.note.active {

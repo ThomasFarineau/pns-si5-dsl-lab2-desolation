@@ -1,0 +1,1067 @@
+{
+  "name": "Billie Jean - Michael Jackson",
+  "notation": "english",
+  "patterns": {},
+  "elements": [
+    {
+      "type": "Tempo",
+      "tempo": 120
+    },
+    {
+      "type": "Signature",
+      "numerator": 4,
+      "denominator": 4
+    },
+    {
+      "type": "Track",
+      "instrument": "drumkit",
+      "patterns": {
+        "Base": [
+          {
+            "type": "Note",
+            "note": "C",
+            "octave": 2,
+            "duration": 8,
+            "accidental": ""
+          },
+          {
+            "type": "Wait",
+            "duration": 8
+          },
+          {
+            "type": "Note",
+            "note": "E",
+            "octave": 2,
+            "duration": 8,
+            "accidental": ""
+          },
+          {
+            "type": "Wait",
+            "duration": 8
+          }
+        ]
+      },
+      "elements": [
+        {
+          "type": "Wait",
+          "duration": 1
+        },
+        {
+          "type": "PatternInvocation",
+          "repeat": 33,
+          "id": "Base"
+        },
+        {
+          "type": "PatternInvocation",
+          "repeat": 34,
+          "id": "Base"
+        }
+      ]
+    },
+    {
+      "type": "Track",
+      "instrument": "drumkit",
+      "patterns": {
+        "Base": [
+          {
+            "type": "Note",
+            "note": "F",
+            "octave": 2,
+            "duration": 8,
+            "accidental": "#"
+          },
+          {
+            "type": "Note",
+            "note": "F",
+            "octave": 2,
+            "duration": 8,
+            "accidental": "#"
+          },
+          {
+            "type": "Note",
+            "note": "F",
+            "octave": 2,
+            "duration": 8,
+            "accidental": "#"
+          },
+          {
+            "type": "Note",
+            "note": "F",
+            "octave": 2,
+            "duration": 8,
+            "accidental": "#"
+          }
+        ]
+      },
+      "elements": [
+        {
+          "type": "Wait",
+          "duration": 1
+        },
+        {
+          "type": "PatternInvocation",
+          "repeat": 33,
+          "id": "Base"
+        },
+        {
+          "type": "PatternInvocation",
+          "repeat": 34,
+          "id": "Base"
+        }
+      ]
+    },
+    {
+      "type": "Track",
+      "instrument": "fretless_bass",
+      "patterns": {
+        "Base": [
+          {
+            "type": "Note",
+            "note": "F",
+            "octave": 2,
+            "duration": 16,
+            "accidental": "#"
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Note",
+            "note": "C",
+            "octave": 2,
+            "duration": 16,
+            "accidental": "#"
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Note",
+            "note": "E",
+            "octave": 2,
+            "duration": 16,
+            "accidental": "#"
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Note",
+            "note": "F",
+            "octave": 2,
+            "duration": 16,
+            "accidental": "#"
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Note",
+            "note": "E",
+            "octave": 2,
+            "duration": 16,
+            "accidental": "#"
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Note",
+            "note": "C",
+            "octave": 2,
+            "duration": 16,
+            "accidental": "#"
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Note",
+            "note": "B",
+            "octave": 1,
+            "duration": 16,
+            "accidental": ""
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Note",
+            "note": "C",
+            "octave": 2,
+            "duration": 16,
+            "accidental": "#"
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          }
+        ],
+        "Second": [
+          {
+            "type": "Note",
+            "note": "B",
+            "octave": 2,
+            "duration": 16,
+            "accidental": ""
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Note",
+            "note": "F",
+            "octave": 2,
+            "duration": 16,
+            "accidental": "#"
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Note",
+            "note": "A",
+            "octave": 2,
+            "duration": 16,
+            "accidental": ""
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Note",
+            "note": "B",
+            "octave": 2,
+            "duration": 16,
+            "accidental": ""
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Wait",
+            "duration": 8
+          },
+          {
+            "type": "Note",
+            "note": "F",
+            "octave": 2,
+            "duration": 16,
+            "accidental": "#"
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Note",
+            "note": "E",
+            "octave": 2,
+            "duration": 16,
+            "accidental": ""
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Note",
+            "note": "F",
+            "octave": 2,
+            "duration": 16,
+            "accidental": "#"
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Note",
+            "note": "B",
+            "octave": 2,
+            "duration": 16,
+            "accidental": ""
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Note",
+            "note": "F",
+            "octave": 2,
+            "duration": 16,
+            "accidental": "#"
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Note",
+            "note": "A",
+            "octave": 2,
+            "duration": 16,
+            "accidental": ""
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Note",
+            "note": "B",
+            "octave": 2,
+            "duration": 16,
+            "accidental": ""
+          },
+          {
+            "type": "Wait",
+            "duration": 8
+          },
+          {
+            "type": "Note",
+            "note": "F",
+            "octave": 2,
+            "duration": 16,
+            "accidental": "#"
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Note",
+            "note": "E",
+            "octave": 2,
+            "duration": 16,
+            "accidental": ""
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Note",
+            "note": "F",
+            "octave": 2,
+            "duration": 16,
+            "accidental": "#"
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Note",
+            "note": "C",
+            "octave": 2,
+            "duration": 16,
+            "accidental": "#"
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          }
+        ]
+      },
+      "elements": [
+        {
+          "type": "Wait",
+          "duration": 1
+        },
+        {
+          "type": "Wait",
+          "duration": 1
+        },
+        {
+          "type": "Wait",
+          "duration": 1
+        },
+        {
+          "type": "PatternInvocation",
+          "repeat": 15,
+          "id": "Base"
+        },
+        {
+          "type": "PatternInvocation",
+          "repeat": 1,
+          "id": "Second"
+        },
+        {
+          "type": "PatternInvocation",
+          "repeat": 2,
+          "id": "Base"
+        },
+        {
+          "type": "PatternInvocation",
+          "repeat": 1,
+          "id": "Second"
+        },
+        {
+          "type": "PatternInvocation",
+          "repeat": 6,
+          "id": "Base"
+        },
+        {
+          "type": "PatternInvocation",
+          "repeat": 1,
+          "id": "Second"
+        },
+        {
+          "type": "PatternInvocation",
+          "repeat": 2,
+          "id": "Base"
+        }
+      ],
+      "channel": 2
+    },
+    {
+      "type": "Track",
+      "instrument": "synth_strings_1",
+      "patterns": {
+        "Wait": [
+          {
+            "type": "Wait",
+            "duration": 1
+          }
+        ],
+        "Base": [
+          {
+            "type": "Chord",
+            "notes": [
+              {
+                "type": "Note",
+                "note": "A",
+                "octave": 3,
+                "duration": 16,
+                "accidental": ""
+              },
+              {
+                "type": "Note",
+                "note": "C",
+                "octave": 4,
+                "duration": 16,
+                "accidental": "#"
+              },
+              {
+                "type": "Note",
+                "note": "F",
+                "octave": 4,
+                "duration": 16,
+                "accidental": "#"
+              }
+            ]
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Wait",
+            "duration": 4
+          },
+          {
+            "type": "Chord",
+            "notes": [
+              {
+                "type": "Note",
+                "note": "B",
+                "octave": 3,
+                "duration": 16,
+                "accidental": ""
+              },
+              {
+                "type": "Note",
+                "note": "D",
+                "octave": 4,
+                "duration": 16,
+                "accidental": "#"
+              },
+              {
+                "type": "Note",
+                "note": "G",
+                "octave": 4,
+                "duration": 16,
+                "accidental": "#"
+              }
+            ]
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Wait",
+            "duration": 2
+          },
+          {
+            "type": "Chord",
+            "notes": [
+              {
+                "type": "Note",
+                "note": "C",
+                "octave": 4,
+                "duration": 16,
+                "accidental": "#"
+              },
+              {
+                "type": "Note",
+                "note": "E",
+                "octave": 4,
+                "duration": 16,
+                "accidental": ""
+              },
+              {
+                "type": "Note",
+                "note": "A",
+                "octave": 4,
+                "duration": 16,
+                "accidental": ""
+              }
+            ]
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Wait",
+            "duration": 4
+          },
+          {
+            "type": "Chord",
+            "notes": [
+              {
+                "type": "Note",
+                "note": "B",
+                "octave": 3,
+                "duration": 16,
+                "accidental": ""
+              },
+              {
+                "type": "Note",
+                "note": "D",
+                "octave": 4,
+                "duration": 16,
+                "accidental": "#"
+              },
+              {
+                "type": "Note",
+                "note": "G",
+                "octave": 4,
+                "duration": 16,
+                "accidental": "#"
+              }
+            ]
+          },
+          {
+            "type": "Wait",
+            "duration": 16
+          },
+          {
+            "type": "Wait",
+            "duration": 2
+          }
+        ]
+      },
+      "elements": [
+        {
+          "type": "PatternInvocation",
+          "repeat": 10,
+          "id": "Wait"
+        },
+        {
+          "type": "PatternInvocation",
+          "repeat": 4,
+          "id": "Base"
+        },
+        {
+          "type": "Chord",
+          "notes": [
+            {
+              "type": "Note",
+              "note": "A",
+              "octave": 3,
+              "duration": 16,
+              "accidental": ""
+            },
+            {
+              "type": "Note",
+              "note": "C",
+              "octave": 4,
+              "duration": 16,
+              "accidental": "#"
+            },
+            {
+              "type": "Note",
+              "note": "F",
+              "octave": 4,
+              "duration": 16,
+              "accidental": "#"
+            }
+          ]
+        },
+        {
+          "type": "Wait",
+          "duration": 16
+        },
+        {
+          "type": "Wait",
+          "duration": 4
+        },
+        {
+          "type": "Chord",
+          "notes": [
+            {
+              "type": "Note",
+              "note": "A",
+              "octave": 3,
+              "duration": 16,
+              "accidental": ""
+            },
+            {
+              "type": "Note",
+              "note": "C",
+              "octave": 4,
+              "duration": 16,
+              "accidental": "#"
+            },
+            {
+              "type": "Note",
+              "note": "F",
+              "octave": 4,
+              "duration": 16,
+              "accidental": "#"
+            }
+          ]
+        },
+        {
+          "type": "Wait",
+          "duration": 16
+        },
+        {
+          "type": "Wait",
+          "duration": 2
+        },
+        {
+          "type": "Chord",
+          "notes": [
+            {
+              "type": "Note",
+              "note": "A",
+              "octave": 3,
+              "duration": 16,
+              "accidental": ""
+            },
+            {
+              "type": "Note",
+              "note": "C",
+              "octave": 4,
+              "duration": 16,
+              "accidental": "#"
+            },
+            {
+              "type": "Note",
+              "note": "F",
+              "octave": 4,
+              "duration": 16,
+              "accidental": "#"
+            }
+          ]
+        },
+        {
+          "type": "Wait",
+          "duration": 16
+        },
+        {
+          "type": "Wait",
+          "duration": 4
+        },
+        {
+          "type": "Chord",
+          "notes": [
+            {
+              "type": "Note",
+              "note": "A",
+              "octave": 3,
+              "duration": 16,
+              "accidental": ""
+            },
+            {
+              "type": "Note",
+              "note": "C",
+              "octave": 4,
+              "duration": 16,
+              "accidental": "#"
+            },
+            {
+              "type": "Note",
+              "note": "F",
+              "octave": 4,
+              "duration": 16,
+              "accidental": "#"
+            }
+          ]
+        },
+        {
+          "type": "Wait",
+          "duration": 8
+        },
+        {
+          "type": "Wait",
+          "duration": 2
+        },
+        {
+          "type": "PatternInvocation",
+          "repeat": 1,
+          "id": "Base"
+        },
+        {
+          "type": "Chord",
+          "notes": [
+            {
+              "type": "Note",
+              "note": "A",
+              "octave": 3,
+              "duration": 16,
+              "accidental": ""
+            },
+            {
+              "type": "Note",
+              "note": "C",
+              "octave": 4,
+              "duration": 16,
+              "accidental": "#"
+            },
+            {
+              "type": "Note",
+              "note": "F",
+              "octave": 4,
+              "duration": 16,
+              "accidental": "#"
+            }
+          ]
+        },
+        {
+          "type": "Wait",
+          "duration": 16
+        },
+        {
+          "type": "Wait",
+          "duration": 4
+        },
+        {
+          "type": "Chord",
+          "notes": [
+            {
+              "type": "Note",
+              "note": "A",
+              "octave": 3,
+              "duration": 16,
+              "accidental": ""
+            },
+            {
+              "type": "Note",
+              "note": "C",
+              "octave": 4,
+              "duration": 16,
+              "accidental": "#"
+            },
+            {
+              "type": "Note",
+              "note": "F",
+              "octave": 4,
+              "duration": 16,
+              "accidental": "#"
+            }
+          ]
+        },
+        {
+          "type": "Wait",
+          "duration": 16
+        },
+        {
+          "type": "Wait",
+          "duration": 2
+        },
+        {
+          "type": "Chord",
+          "notes": [
+            {
+              "type": "Note",
+              "note": "A",
+              "octave": 3,
+              "duration": 16,
+              "accidental": ""
+            },
+            {
+              "type": "Note",
+              "note": "C",
+              "octave": 4,
+              "duration": 16,
+              "accidental": "#"
+            },
+            {
+              "type": "Note",
+              "note": "F",
+              "octave": 4,
+              "duration": 16,
+              "accidental": "#"
+            }
+          ]
+        },
+        {
+          "type": "Wait",
+          "duration": 16
+        },
+        {
+          "type": "Wait",
+          "duration": 4
+        },
+        {
+          "type": "Chord",
+          "notes": [
+            {
+              "type": "Note",
+              "note": "A",
+              "octave": 3,
+              "duration": 2,
+              "accidental": ""
+            },
+            {
+              "type": "Note",
+              "note": "C",
+              "octave": 4,
+              "duration": 2,
+              "accidental": "#"
+            },
+            {
+              "type": "Note",
+              "note": "F",
+              "octave": 4,
+              "duration": 2,
+              "accidental": "#"
+            }
+          ]
+        },
+        {
+          "type": "Wait",
+          "duration": 8
+        },
+        {
+          "type": "Wait",
+          "duration": 16
+        },
+        {
+          "type": "PatternInvocation",
+          "repeat": 3,
+          "id": "Base"
+        },
+        {
+          "type": "Chord",
+          "notes": [
+            {
+              "type": "Note",
+              "note": "A",
+              "octave": 3,
+              "duration": 16,
+              "accidental": ""
+            },
+            {
+              "type": "Note",
+              "note": "C",
+              "octave": 4,
+              "duration": 16,
+              "accidental": "#"
+            },
+            {
+              "type": "Note",
+              "note": "F",
+              "octave": 4,
+              "duration": 16,
+              "accidental": "#"
+            }
+          ]
+        },
+        {
+          "type": "Wait",
+          "duration": 16
+        },
+        {
+          "type": "Wait",
+          "duration": 4
+        },
+        {
+          "type": "Chord",
+          "notes": [
+            {
+              "type": "Note",
+              "note": "A",
+              "octave": 3,
+              "duration": 16,
+              "accidental": ""
+            },
+            {
+              "type": "Note",
+              "note": "C",
+              "octave": 4,
+              "duration": 16,
+              "accidental": "#"
+            },
+            {
+              "type": "Note",
+              "note": "F",
+              "octave": 4,
+              "duration": 16,
+              "accidental": "#"
+            }
+          ]
+        },
+        {
+          "type": "Wait",
+          "duration": 16
+        },
+        {
+          "type": "Wait",
+          "duration": 2
+        },
+        {
+          "type": "Chord",
+          "notes": [
+            {
+              "type": "Note",
+              "note": "A",
+              "octave": 3,
+              "duration": 16,
+              "accidental": ""
+            },
+            {
+              "type": "Note",
+              "note": "C",
+              "octave": 4,
+              "duration": 16,
+              "accidental": "#"
+            },
+            {
+              "type": "Note",
+              "note": "F",
+              "octave": 4,
+              "duration": 16,
+              "accidental": "#"
+            }
+          ]
+        },
+        {
+          "type": "Wait",
+          "duration": 16
+        },
+        {
+          "type": "Wait",
+          "duration": 4
+        },
+        {
+          "type": "Chord",
+          "notes": [
+            {
+              "type": "Note",
+              "note": "A",
+              "octave": 3,
+              "duration": 2,
+              "accidental": ""
+            },
+            {
+              "type": "Note",
+              "note": "C",
+              "octave": 4,
+              "duration": 2,
+              "accidental": "#"
+            },
+            {
+              "type": "Note",
+              "note": "F",
+              "octave": 4,
+              "duration": 2,
+              "accidental": "#"
+            }
+          ]
+        },
+        {
+          "type": "Wait",
+          "duration": 8
+        },
+        {
+          "type": "Wait",
+          "duration": 16
+        },
+        {
+          "type": "PatternInvocation",
+          "repeat": 1,
+          "id": "Base"
+        }
+      ],
+      "channel": 3
+    },
+    {
+      "type": "Track",
+      "instrument": "muted_electric_guitar",
+      "patterns": {
+        "Base": [
+          {
+            "type": "Note",
+            "note": "F",
+            "octave": 1,
+            "duration": 8,
+            "accidental": "#"
+          },
+          {
+            "type": "Wait",
+            "duration": 4
+          },
+          {
+            "type": "Note",
+            "note": "F",
+            "octave": 1,
+            "duration": 8,
+            "accidental": "#"
+          },
+          {
+            "type": "Wait",
+            "duration": 2
+          }
+        ]
+      },
+      "elements": [
+        {
+          "type": "Wait",
+          "duration": 1
+        },
+        {
+          "type": "Wait",
+          "duration": 1
+        },
+        {
+          "type": "Wait",
+          "duration": 1
+        },
+        {
+          "type": "PatternInvocation",
+          "repeat": 11,
+          "id": "Base"
+        }
+      ],
+      "channel": 11
+    }
+  ]
+}

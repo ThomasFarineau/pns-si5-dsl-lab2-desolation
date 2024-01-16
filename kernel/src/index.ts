@@ -2,6 +2,8 @@ import {Music} from "./structure/Music";
 import * as Path from "path";
 import * as fs from "fs";
 import express from "express";
+import sass from 'node-sass';
+import { promisify } from 'util';
 
 type buildOption = {
     path?: string, midiFile?: boolean, jsonFile?: boolean, webView?: {
@@ -49,12 +51,19 @@ export const build = (data: any, options: buildOption = defaultOptions) => {
     if (options.webView) {
         if (options.webView.use) {
             const app = express();
+            compileSass(Path.resolve(__dirname, '../public/style.sass')).then((css) => {
+                app.get('/style', (req, res) => {
+                    res.type('text/css');
+                    res.send(css);
+                })
+            })
+
 
             app.get('/', (req, res) => {
                 res.sendFile(Path.resolve(__dirname, '../public/index.html'));
             })
 
-            if(options.webView.multipleTracks) {
+            if (options.webView.multipleTracks) {
                 console.log("MULTIPLETRACKS -> NOT IMPLEMENTED YET");
             }
 
@@ -73,24 +82,14 @@ export const build = (data: any, options: buildOption = defaultOptions) => {
             }
         }
     }
+};
 
-
-    /*
-
-        const app = express();
-
-        app.use(express.static('public'));
-        console.log(express.static('public'));
-
-        app.get('/midi', (req, res) => {
-            res.type('audio/midi');
-            res.send(writer.dataUri());
-        });
-
-        const PORT = 3000; // Utilisez le port de votre choix
-        app.listen(PORT, () => {
-            console.log(`Server running at http://localhost:${PORT}/`);
-        });
-
-     */
+const compileSass = async (sassFilePath: string) => {
+    const sassRender = promisify(sass.render);
+    try {
+        const result = await sassRender({ file: sassFilePath });
+        return result.css.toString();
+    } catch (error) {
+        console.error('Error compiling SASS:', error);
+    }
 };

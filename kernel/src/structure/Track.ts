@@ -28,12 +28,14 @@ class Track implements MusicElementI {
     defaultMidiClocksPerTick: number = 24;
     defaultNotesPerMidiClock: number = 8;
 
+    waits: number[] = [];
+
     constructor(instrument: string, patterns: any, elements: any, channel?: number) {
         this.id = ++trackNumber;
         this.instrument = Instrument.get(instrument)
         this.patterns = this.parsePatterns(patterns)
         this.elements = this.parseElements(elements)
-        if(channel) this.instrument.channel = channel;
+        if (channel) this.instrument.channel = channel;
     }
 
     get tempo() {
@@ -63,7 +65,10 @@ class Track implements MusicElementI {
             if (element.type === "Tempo") track.setTempo((element as Tempo).tempo); else if (element.type === "Signature") {
                 let s = element as Signature;
                 track.setTimeSignature(s.numerator, s.denominator, this.defaultMidiClocksPerTick, this.defaultNotesPerMidiClock);
-            } else track.addEvent(this.getNoteEvent(element, channel));
+            } else {
+                let noteEvent = this.getNoteEvent(element, channel);
+                if (noteEvent) track.addEvent(noteEvent);
+            }
         }
 
         //console.log("EVENTS", track.events);
@@ -109,25 +114,25 @@ class Track implements MusicElementI {
     }
 
     getNoteEvent(element: TrackElementI, channel: number): any {
-        switch (element.type) {
-            case "Note":
-                return this.noteEvent(element as Note, channel);
-
-            case "Chord":
-                return this.chordEvent(element as Chord, channel);
-
-            case "Wait":
-                return this.waitEvent(element as Wait);
-
-            default:
-                return null;
+        if (element.type === "Note") {
+            return this.noteEvent(element as Note, channel);
+        } else if (element.type === "Chord") {
+            return this.chordEvent(element as Chord, channel);
+        } else if (element.type === "Wait") {
+            this.waits.push(parseInt((element as Wait).duration))
         }
+        return null;
     }
 
     noteEvent(note: Note, channel: number): any {
         //console.log("PARSED NOTE", note);
+        let wait = this.waits;
+        this.waits = [];
         return new MidiWriter.NoteEvent({
-            pitch: [this.parsedNote(note)], duration: note.duration, channel: channel
+            pitch: [this.parsedNote(note)],
+            duration: note.duration,
+            channel: channel,
+            wait: wait
         });
     }
 
@@ -136,14 +141,13 @@ class Track implements MusicElementI {
         for (let note of chord.notes) {
             notes.push(this.parsedNote(note));
         }
+        let wait = this.waits;
+        this.waits = [];
         return new MidiWriter.NoteEvent({
-            pitch: notes, duration: chord.notes[0].duration, channel: channel
-        });
-    }
-
-    waitEvent(wait: Wait) {
-        return new MidiWriter.NoteEvent({
-            pitch: "", duration: wait.duration, channel: 0
+            pitch: notes,
+            duration: chord.notes[0].duration,
+            channel: channel,
+            wait: wait
         });
     }
 
