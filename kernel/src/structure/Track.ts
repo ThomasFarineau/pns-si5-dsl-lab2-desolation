@@ -47,6 +47,10 @@ class Track implements MusicElementI {
         return Music.music.signature;
     }
 
+    get trackWriter() {
+        return new MidiWriter.Writer(this.midiTrack);
+    }
+
     get midiTrack() {
         let track = new MidiWriter.Track();
         let signature = this.signature;

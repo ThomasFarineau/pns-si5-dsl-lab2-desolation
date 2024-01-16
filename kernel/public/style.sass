@@ -13,13 +13,31 @@ header
   color: white
   font-family: "Poppins", sans-serif
 
-
   h1
     text-align: center
     margin: 0
-    padding: 1rem 1rem 0
+    padding: 1rem 1rem 0.5rem
     font-weight: 400
     font-size: 2rem
+
+  .center
+    display: flex
+    justify-content: center
+    align-items: center
+    gap: 1rem
+
+    a
+      background: #84a98c
+      font-size: 1rem
+      padding: 0.75rem
+      color: white
+      border-radius: 0.25rem
+      text-decoration: none
+      display: block
+      transition: all ease 0.25s
+
+      &:hover
+        background: #81b29a
 
   midi-player
     display: block
@@ -31,12 +49,36 @@ header
       color: white
       border: none
       border-radius: 0
-      padding: 1rem
+      padding: 0.5rem 1rem 1rem
 
     &::part(play-button)
       background: #415a77
       color: white
       border-radius: 0.25rem
+      transition: all ease 0.25s
 
       &:hover
         background: #778da9
+
+section#partition
+  div[data-name="tracks"]
+    display: flex
+    flex-direction: column
+    gap: 0.5rem
+    div
+      background: white
+
+      h2
+        padding: 1rem
+        font-family: "Poppins", sans-serif
+        font-weight: 300
+        font-size: 1.25rem
+        display: flex
+        justify-content: space-between
+        margin: 0
+
+        span
+          flex: 1
+
+        span:first-child
+          font-weight: 500

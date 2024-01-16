@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>MIDI Writer</title>
+    <title>MIDI Player</title>
     <script
             src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.5.0"></script>
     <link rel="stylesheet" href="./style">
@@ -10,7 +10,15 @@
 
 <body>
 <header>
-    <h1>Music Title</h1>
+    <h1 data-name="name"></h1>
+    <div class="center">
+        <div data-name="midi" style="display: none">
+            <a href="" target="_blank">Download MIDI file</a>
+        </div>
+        <div data-name="json" style="display: none;">
+            <a href="" target="_blank">Download JSON file</a>
+        </div>
+    </div>
     <midi-player id="player" sound-font src="">
     </midi-player>
 </header>
@@ -18,58 +26,21 @@
     <midi-visualizer id="v_roll" sound-font visualizer="#section3 midi-visualizer">
     </midi-visualizer>
 </section>
-<section>
+<section id="partition">
     <midi-visualizer id="v_staff" src="" type="staff">
     </midi-visualizer>
+    <div data-name="tracks">
+    </div>
 </section>
 </body>
 </html>
 
-
-<script type="module">
-    // Quand la page est chargée
-    window.addEventListener('DOMContentLoaded', (event) => {
-        // Récupérer les éléments MIDI
-        let player = document.getElementById("player");
-        let v_staff = document.getElementById("v_staff");
-        let v_roll = document.getElementById("v_roll");
-
-        // Récupérer le MIDI du serveur
-        fetch('/midi').then(response => response.text()).then(dataUri => {
-            // Définir l'URI MIDI pour les visualiseurs et le lecteur
-            player.src = dataUri;
-            v_staff.src = dataUri;
-            v_roll.src = dataUri;
-
-            player.addVisualizer(v_staff);
-            player.addVisualizer(v_roll);
-        });
-    });
-</script>
-
+<script type="module" src="./script"></script>
 
 <style>
-    #section3 midi-player::part(play-button) {
-        color: #353;
-        border: 2px solid currentColor;
-        background-color: #4d4;
-        border-radius: 20px;
-        transition: all 0.2s;
-        content: 'hello';
-    }
-
-    #section3 midi-player::part(play-button):hover {
-        color: #0a0;
-        background-color: #5f5;
-        border-radius: 10px;
-    }
-
-    #section3 midi-player::part(time) {
-        font-family: monospace;
-    }
 
     /* Custom visualizer style */
-    #section3 midi-visualizer .piano-roll-visualizer {
+    midi-visualizer .piano-roll-visualizer {
         background: #ffd;
         border: 2px solid black;
         border-top: none;
@@ -79,29 +50,29 @@
         overflow: auto;
     }
 
-    #section3 midi-visualizer svg rect.note {
+    midi-visualizer svg rect.note {
         opacity: 0.6;
         stroke-width: 2;
     }
 
-    #section3 midi-visualizer svg rect.note[data-instrument="0"] {
+    midi-visualizer svg rect.note[data-instrument="0"] {
         fill: #e22;
         stroke: #500;
     }
 
-    #section3 midi-visualizer svg rect.note[data-instrument="2"] {
+    midi-visualizer svg rect.note[data-instrument="2"] {
         fill: #2ee;
         stroke: #055;
     }
 
-    #section3 midi-visualizer svg rect.note[data-is-drum="true"] {
+    midi-visualizer svg rect.note[data-is-drum="true"] {
         fill: #888;
         stroke: #888;
         border-radius: 100px;
         aspect-ratio: 1;
     }
 
-    #section3 midi-visualizer svg rect.note.active {
+    midi-visualizer svg rect.note.active {
         opacity: 0.9;
         stroke: #000;
     }

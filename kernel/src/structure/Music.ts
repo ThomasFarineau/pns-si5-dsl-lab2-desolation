@@ -45,7 +45,7 @@ export class Music {
 
     static fromJSON(parse: any) {
         this.music = new Music(parse.name, parse.notation);
-        this.music.fileName = this.music.sluggify(this.music.name)
+        this.music.fileName = this.music.slugify(this.music.name)
         for (const element of parse.elements) {
             const eClass = typeClassMapping[element.type];
             if (!eClass) {
@@ -57,11 +57,6 @@ export class Music {
         }
         this.music.patterns = parse.patterns;
     }
-
-    addPattern(pattern: Pattern) {
-        this.patterns[pattern.id] = pattern;
-    }
-
     hasTempo() {
         return this.elements.find(element => element.type === "Tempo") !== undefined;
     }
@@ -70,7 +65,7 @@ export class Music {
         return this.elements.find(element => element.type === "Signature") !== undefined;
     }
 
-    sluggify(str: string): string {
+    slugify(str: string): string {
         return str
             .normalize('NFD') // Décompose les caractères en leurs composants (ex: é -> e + ´)
             .replace(/[\u0300-\u036f]/g, '') // Supprime les diacritiques (accents)

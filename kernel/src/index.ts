@@ -3,7 +3,7 @@ import * as Path from "path";
 import * as fs from "fs";
 import express from "express";
 import sass from 'node-sass';
-import { promisify } from 'util';
+import {promisify} from 'util';
 
 type buildOption = {
     path?: string, midiFile?: boolean, jsonFile?: boolean, webView?: {
@@ -23,6 +23,9 @@ export const build = (data: any, options: buildOption = defaultOptions) => {
 
     if (options.path) {
         let filePath = options.path + (!options.path.endsWith(Path.sep) ? Path.sep : "");
+        if (!fs.existsSync(filePath)) {
+            fs.mkdirSync(filePath, {recursive: true});
+        }
         let fileName = `${Music.music.fileName}`;
         if (options.midiFile) {
             let file = writer.buildFile();
@@ -58,19 +61,78 @@ export const build = (data: any, options: buildOption = defaultOptions) => {
                 })
             })
 
+            app.get('/script', (req, res) => {
+                res.sendFile(Path.resolve(__dirname, '../public/script.js'));
+            })
+
+            type webTrackData = {
+                id: number,
+                instrument: string,
+                channel: number,
+            }
+
+            type webData = {
+                name: string,
+                midi?: string,
+                json?: string,
+                tracks?: webTrackData[]
+            }
+
+            app.get('/download/:type/' + Music.music.fileName, (req, res) => {
+                if(req.params.type === "midi") {
+                    res.type('audio/midi');
+                    res.send(writer.dataUri());
+                } else {
+                    res.type('application/json');
+                    res.send(JSON.stringify(Music.music, null, 2));
+                }
+            })
+
+
+            app.get('/data', (req, res) => {
+                res.type('application/json');
+                let json: webData = {
+                    "name": Music.music.name,
+                }
+                if(options.path) {
+                    if(options.midiFile)
+                        json["midi"] = "/download/midi/" + Music.music.fileName;
+                    if(options.jsonFile)
+                        json["json"] = "/download/json/" + Music.music.fileName;
+                }
+                if (options.webView && options.webView.multipleTracks) {
+                    json["tracks"] = Music.music.tracks.map(track => {
+                        return {
+                            "id": track.id,
+                            "instrument": track.instrument.name,
+                            "channel": track.instrument.channel,
+                            "tempo": track.tempo.tempo,
+                        }
+                    });
+                }
+                res.send(json);
+            })
 
             app.get('/', (req, res) => {
                 res.sendFile(Path.resolve(__dirname, '../public/index.html'));
             })
 
-            if (options.webView.multipleTracks) {
-                console.log("MULTIPLETRACKS -> NOT IMPLEMENTED YET");
-            }
-
             app.get('/midi', (req, res) => {
                 res.type('audio/midi');
                 res.send(writer.dataUri());
             });
+
+            if (options.webView.multipleTracks) {
+                app.get('/track/:id', (req, res) => {
+                    let track = Music.music.tracks.find(track => track.id === parseInt(req.params.id));
+                    if (track) {
+                        res.type('audio/midi');
+                        res.send(track.trackWriter.dataUri());
+                    } else {
+                        res.status(404).send("Track not found");
+                    }
+                })
+            }
 
             const PORT = 3000; // Utilisez le port de votre choix
             app.listen(PORT, () => {
