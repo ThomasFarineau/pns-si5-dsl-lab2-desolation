@@ -25,6 +25,15 @@
    2. [Syntaxe concrète sous forme BNF](#syntaxe-concrète-sous-forme-bnf)
    3. [Description du langage](#description-du-langage-1)
       - [Mise en oeuvre](#mise-en-oeuvre)
+3. Scénarios mis en œuvre
+   1. Faut
+   2. Trouver
+   3. Des
+   4. Scénarios
+4. Analyse critique
+   1. Mise en œuvre du DSL par rapport au cas d'utilisation MusicML
+   2. Technologie choisie pour la mise en œuvre du DSL
+5. [Responsabilités de chaque membre](#responsabilités-de-chaque-membre)
 
 \newpage
 
@@ -118,3 +127,37 @@ Pour mettre en œuvre MusicML, vous devez suivre les étapes suivantes :
 5. **Documentation :** Pour une mise en œuvre plus avancée, la documentation fournie dans le [README](https://github.com/ThomasFarineau/pns-si5-dsl-lab2-desolation/blob/main/README.md) explique en détail la syntaxe du langage MusicML, les éléments de composition, les instructions de musique, les notations disponibles et les instruments pris en charge. Cette documentation est essentielle pour créer des compositions complexes et personnalisées.
 
 https://github.com/ThomasFarineau/pns-si5-dsl-lab2-desolation/blob/main/README.md
+
+# Responsabilités de chaque membre
+
+- **Thomas FARINEAU**
+  - Mise en place du kernel
+    - Mise en place de la structure du projet
+      - Parsing des données reçues sur le kernel
+      - Implémentation de Midi Writer JS
+    - Tests sur la structure
+    - Mise en place du serveur Web pour l'écoute des fichiers MIDI
+      - Conception de l'interface Web de A à Z
+      - Mise en place de l'affichage multi-pistes
+  - Mise en place du projet Langium
+     - Mise en place de la grammaire
+       - Écriture au format BNF
+     - Mise en place des validateurs
+     - Mise en place des générateurs
+     - Tests sur la grammaire
+     - Tests sur les validateurs
+     - Tests sur les générateurs
+
+
+- **Léo KITABADJIAN**
+   - Mise en place de la structure du projet
+     - Parsing des données reçues sur le kernel
+     - Implémentation de Midi Writer JS
+       - Tests de Midi Writer JS
+
+
+- **Ludovic BAILET**
+
+
+- **Mohamed MAHJOUB**
+  - Diagramme de classe du modèle de domaine
