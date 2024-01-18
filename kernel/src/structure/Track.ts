@@ -28,7 +28,7 @@ class Track implements MusicElementI {
     defaultMidiClocksPerTick: number = 24;
     defaultNotesPerMidiClock: number = 8;
 
-    waits: number[] = [];
+    waits: string[] = [];
 
     constructor(instrument: string, patterns: any, elements: any, channel?: number) {
         this.id = ++trackNumber;
@@ -45,6 +45,10 @@ class Track implements MusicElementI {
 
     get signature() {
         return Music.music.signature;
+    }
+
+    get trackWriter() {
+        return new MidiWriter.Writer(this.midiTrack);
     }
 
     get midiTrack() {
@@ -119,7 +123,7 @@ class Track implements MusicElementI {
         } else if (element.type === "Chord") {
             return this.chordEvent(element as Chord, channel);
         } else if (element.type === "Wait") {
-            this.waits.push(parseInt((element as Wait).duration))
+            this.waits.push((element as Wait).duration)
         }
         return null;
     }

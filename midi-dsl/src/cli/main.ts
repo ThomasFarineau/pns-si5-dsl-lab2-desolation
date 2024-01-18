@@ -1,8 +1,8 @@
 import type {Model} from '../language/generated/ast.js';
 import chalk from 'chalk';
 import {Command} from 'commander';
-import {MidiDslLanguageMetaData} from '../language/generated/module.js';
-import {createMidiDslServices} from '../language/midi-dsl-module.js';
+import {MusicMLLanguageMetaData} from '../language/generated/module.js';
+import {createMusicMLServices} from '../language/musicml-module.js';
 import {extractAstNode} from './cli-util.js';
 import {generateJson} from './generator.js';
 import {NodeFileSystem} from 'langium/node';
@@ -17,7 +17,7 @@ const packagePath = path.resolve(__dirname, '..', '..', 'package.json');
 const packageContent = await fs.readFile(packagePath, 'utf-8');
 
 export const generateAction = async (fileName: string, opts: GenerateOptions): Promise<void> => {
-    const services = createMidiDslServices(NodeFileSystem).MidiDsl;
+    const services = createMusicMLServices(NodeFileSystem).MusicML;
     const model = await extractAstNode<Model>(fileName, services);
     const json = generateJson(model);
     // Building the MIDI File with kernel
@@ -35,7 +35,7 @@ export default function (): void {
 
     program.version(JSON.parse(packageContent).version);
 
-    const fileExtensions = MidiDslLanguageMetaData.fileExtensions.join(', ');
+    const fileExtensions = MusicMLLanguageMetaData.fileExtensions.join(', ');
     program
         .command('generate')
         .argument('<file>', `source file (possible file extensions: ${fileExtensions})`)

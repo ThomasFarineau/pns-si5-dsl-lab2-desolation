@@ -9,10 +9,6 @@ class Chord implements TrackElementI, PatternElementI {
     constructor(notes: Note[]) {
         this.notes = notes;
     }
-
-    addNote(note: Note) {
-        this.notes.push(note);
-    }
 }
 
 export default Chord;

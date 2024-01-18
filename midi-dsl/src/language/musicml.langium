@@ -1,4 +1,4 @@
-grammar MidiDsl
+grammar MusicML
 
 entry Model:
     name=Name
@@ -43,7 +43,7 @@ PatternInvocation:
 MusicElement: Tempo | Signature | Track;
 
 Playable:
-    elements+=(NOTE | DRUMKIT_NOTE | SEPARATOR | CHORD_OPENENER | CHORD_CLOSER)+;
+    elements+=(NOTE | DRUMKIT_NOTE | SEPARATOR | CHORD_OPENER | CHORD_CLOSER)+;
 
 TrackElement: PatternInvocation | Playable | Tempo | Signature;
 
@@ -67,12 +67,14 @@ terminal ENGLISH_NOTES: 'C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'B';
 terminal LATIN_NOTES: 'Do' | 'Re' | 'Mi' | 'Fa' | 'Sol' | 'La' | 'Si' | 'Ut';
 terminal GERMAN_NOTES: 'C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'H';
 
-terminal NOTE_DURATION: 'w' | 'h' | 'q' | 'e' | 's';
+terminal NOTE_DURATION_BASE: 'w' | 'h' | 'ts' | 'sf' | 's' | 'q' | 'e';
+terminal NOTE_DURATION_PLUS: 'dh'|'ddh'|'qt'|'dq'|'ddq'|'et'|'de'|'dde'|'st';
+terminal NOTE_DURATION: ( NOTE_DURATION_PLUS | NOTE_DURATION_BASE);
 terminal NOTE_OCTAVE: /[0-9]/;
 terminal NOTE_A_SHARP: '#';
 terminal NOTE_A_FLAT: 'b';
 terminal NOTE: (ENGLISH_NOTES | LATIN_NOTES | GERMAN_NOTES) (NOTE_A_SHARP | NOTE_A_FLAT)? NOTE_OCTAVE NOTE_DURATION;
-terminal CHORD_OPENENER: '[';
+terminal CHORD_OPENER: '[';
 terminal CHORD_CLOSER: ']';
 
 hidden terminal WS: /\s+/;

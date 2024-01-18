@@ -1,14 +1,14 @@
 {
-    "projectName": "MidiDsl",
+    "projectName": "MusicML",
     "languages": [{
-        "id": "midi-dsl",
-        "grammar": "src/language/midi-dsl.langium",
-        "fileExtensions": [".mdd", ".mididsl", ".midi-dsl"],
+        "id": "musicml",
+        "grammar": "src/language/musicml.langium",
+        "fileExtensions": [".mml", ".musicml"],
         "textMate": {
-            "out": "syntaxes/midi-dsl.tmLanguage.json"
+            "out": "syntaxes/musicml.tmLanguage.json"
         },
         "monarch": {
-            "out": "syntaxes/midi-dsl.monarch.ts"
+            "out": "syntaxes/musicml.monarch.ts"
         }
     }],
     "out": "src/language/generated"
