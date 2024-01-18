@@ -1,21 +1,16 @@
 .idea
+
 kernel/node_modules/
-
 kernel/kernel.iml
+kernel/src/**/*.js
 
-example/node_modules/
+midi-dsl/node_modules/
 
-langium/MidiDSL/node_modules/
 *.iml
-
-example/package-lock.json
-
 *.DS_Store
 
 *.vscode/
 
-kernel/src/**/*.js
-kernel/music.json
+docs/rapport.pdf
 
-langium/MidiDSL/out/
-generated/
+generated/*
