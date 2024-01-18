@@ -83,4 +83,34 @@ _L'image est cliquable pour pouvoir zoomer sur les différents points du modèle
 
 ## Description du langage
 
+MusicML est un langage spécifique au domaine musical, conçu pour simplifier la création de compositions musicales grâce à une syntaxe intuitive et flexible. Il se concentre sur la facilité d'expression musical en permettant aux utilisateurs de définir des éléments essentiels tels que des notes, des patterns et des pistes de manière organisée. MusicML offre des abstractions claires pour des concepts musicaux complexes, facilitant ainsi la composition musicale.
+
+Ce langage propose une structure claire pour la composition musicale, permettant aux compositeurs de définir le nom de la composition, la notation musicale (latin, english ou german), et de créer des patterns réutilisables. Les compositions sont structurées en éléments clés tels que le tempo, la signature rythmique et les pistes, chacun pouvant être personnalisé en fonction des besoins du compositeur.
+
+Les pistes sont un élément central de MusicML, chacune dispose son propre instrument, et potentiellement, un canal MIDI et des patterns uniques. Les compositeurs peuvent invoquer des patterns (issu de la musique ou de la piste) dans les pistes avec une fréquence de répétition spécifiée, ce qui facilite la création de compositions cohérentes et structurées.
+
+Les instructions de musique décrivent les notes, les accords, les pauses et les rythmes de la composition. Les compositeurs peuvent utiliser différentes notations pour représenter ces éléments, en fonction de leurs préférences. MusicML prend en charge une gamme diversifiée d'instruments, des instruments traditionnels aux instruments électroniques, offrant ainsi une variété d'options pour l'expression musicale.
+
+La durée des éléments musicaux est spécifiée à l'aide de symboles tels que "w" (noire), "h" (blanche), "q" (croche) et d'autres, permettant ainsi de créer des motifs rythmiques complexes. Les accords, les notes de batterie et les pauses sont également pris en charge, offrant une variété d'expressions musicales.
+
+MusicML offre également la possibilité de générer des fichiers JSON à partir des compositions, ce qui facilite le débogage et la visualisation des détails de la composition. Cela permet aux compositeurs de vérifier le contenu musical de manière pratique, même si les fichiers JSON générés sont assez longs.
+
+En résumé, MusicML est un langage spécifique au domaine musical qui simplifie la composition musicale en offrant une syntaxe intuitive, une structure claire et une variété d'options pour l'expression musicale. Il permet aux compositeurs de créer des compositions cohérentes et personnalisées, que ce soit pour des compositions simples ou complexes, tout en offrant des outils de débogage pratiques pour le processus de création musicale.
+
 ### Mise en oeuvre
+
+La mise en œuvre de MusicML se réalise grâce à une approche logicielle, reposant sur Node.js (version 18.4.0 minimum) et un système d'exploitation Linux (ou Windows avec quelques limitations, en utilisant WSL pour l'exécution des scripts).
+
+Pour mettre en œuvre MusicML, vous devez suivre les étapes suivantes :
+
+1. **Clonage du Projet :** La première étape consiste à cloner le projet `pns-si5-dsl-lab2-desolation` à partir du repo GitHub. Cela peut être réalisé en utilisant la commande git clone suivie de l'URL du référentiel, comme indiqué dans le [README](https://github.com/ThomasFarineau/pns-si5-dsl-lab2-desolation/blob/main/README.md). Cette action télécharge tous les fichiers et scripts nécessaires localement.
+
+2. **Préparation de l'Environnement :** Après le clonage du projet, l'étape suivante est la préparation de l'environnement. Pour ce faire, exécutez le script prepare.sh à l'aide de la commande `sh prepare.sh`. Ce script se charge de mettre en place les dépendances nécessaires et de préparer l'environnement de travail.
+
+3. **Utilisation :** Une fois que l'environnement est prêt, vous pouvez commencer à utiliser MusicML pour composer de la musique. Utilisez la commande sh run.sh en spécifiant le chemin vers le fichier MML que vous souhaitez convertir en fichier MIDI. Vous pouvez également utiliser des options facultatives telles que -d pour spécifier le dossier de destination, -j pour générer un fichier JSON, -w pour ouvrir un serveur web pour l'écoute, et -mt pour afficher les pistes multiples sur le serveur web.
+
+4. **Exemples :** Le [README](https://github.com/ThomasFarineau/pns-si5-dsl-lab2-desolation/blob/main/README.md) propose des exemples d'utilisation pour illustrer comment composer des morceaux musicaux avec MusicML. Vous pouvez vous référer à ces exemples pour comprendre comment utiliser efficacement le langage.
+
+5. **Documentation :** Pour une mise en œuvre plus avancée, la documentation fournie dans le [README](https://github.com/ThomasFarineau/pns-si5-dsl-lab2-desolation/blob/main/README.md) explique en détail la syntaxe du langage MusicML, les éléments de composition, les instructions de musique, les notations disponibles et les instruments pris en charge. Cette documentation est essentielle pour créer des compositions complexes et personnalisées.
+
+https://github.com/ThomasFarineau/pns-si5-dsl-lab2-desolation/blob/main/README.md
