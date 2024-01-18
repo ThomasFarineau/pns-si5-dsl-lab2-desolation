@@ -30,6 +30,10 @@
 
 # Introduction
 
+Ce projet se concentre sur la création d'un DSL (Domain Specific Language) destiné à faciliter la composition musicale. Ce DSL offre une interface intuitive pour la création de pièces musicales, en mettant l'accent sur la flexibilité et la simplicité. Il permet aux compositeurs de définir des pistes, des notes et des éléments de batterie dans un cadre temporel précis. Chaque piste représente une séquence de notes, tandis que le temps est organisé en signatures, mesures, battements et tics. Notre DSL prend également en charge le tempo, permettant aux compositeurs de contrôler la dynamique de leur musique.
+
+L'une de ses caractéristiques notables est la gestion des pistes de batterie, où chaque élément de batterie est associé à une note MIDI spécifique. En résumé, notre projet vise à simplifier le processus de composition musicale en offrant un outil flexible et intuitif pour l'expression artistique. Les détails de son fonctionnement seront explorés plus en profondeur dans les sections suivantes.
+
 # Description du langage
 
 ## Modèle de domaine

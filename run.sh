@@ -10,7 +10,7 @@ fi
 # Extract command-line arguments
 MML_FILE_PATH=$1
 shift  # Shift arguments to left
-DESTINATION_PATH="./"  # Default destination path
+DESTINATION_PATH=$(readlink -f "./generated")
 JSON_FLAG=""
 WEB_FLAG=""
 MULTI_TRACK_FLAG=""
@@ -18,9 +18,6 @@ MULTI_TRACK_FLAG=""
 # Parse additional options
 while [ "$#" -gt 0 ]; do
     case "$1" in
-        -d=*|--destination=*)
-            DESTINATION_PATH="${1#*=}"
-            ;;
         -j|--json)
             JSON_FLAG="-j"
             ;;
@@ -29,6 +26,11 @@ while [ "$#" -gt 0 ]; do
             ;;
         -mt|--multi-track)
             MULTI_TRACK_FLAG="-mt"
+            ;;
+        -d=*|--destination=*)
+            DESTINATION_PATH="${1#*=}"
+            # Use readlink to get an absolute path
+            DESTINATION_PATH=$(readlink -f "$DESTINATION_PATH")
             ;;
         *)
             echo "Error: Invalid option $1"

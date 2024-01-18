@@ -10,6 +10,7 @@ import * as url from 'node:url';
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import {build} from 'desolation-kernel';
+import {buildOption} from "desolation-kernel/src/index.js";
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
@@ -20,14 +21,26 @@ export const generateAction = async (fileName: string, opts: GenerateOptions): P
     const services = createMusicMLServices(NodeFileSystem).MusicML;
     const model = await extractAstNode<Model>(fileName, services);
     const json = generateJson(model);
-    // Building the MIDI File with kernel
-    build(json)
-    // ici on call le kernel pour générer le fichier midi et ouvrir un serveur web pour le jouer et le télécharger et l'afficher
+    let destination = opts.destination;
+    const options: buildOption = {
+        path: destination.slice(1, destination.length),
+        midiFile: true,
+        jsonFile: opts.json || false,
+        webView: {
+            use: opts.web || false,
+            multipleTracks: opts.multiTrack || false,
+        }
+    }
+
+    build(json, options)
     console.log(chalk.green(`MIDI file generated successfully`));
 };
 
 export type GenerateOptions = {
-    destination?: string;
+    json?: boolean;
+    destination: string;
+    web?: boolean;
+    multiTrack?: boolean;
 }
 
 export default function (): void {
@@ -40,7 +53,10 @@ export default function (): void {
         .command('generate')
         .argument('<file>', `source file (possible file extensions: ${fileExtensions})`)
         .option('-d, --destination <dir>', 'destination directory of generating')
-        .description('generates JavaScript code that prints "Hello, {name}!" for each greeting in a source file')
+        .option('-j, --json', 'generate the json file of the midi file')
+        .option('-w, --web', 'open a web server to play the midi file')
+        .option('-mt, --multi-track', 'show multiple tracks in the web server')
+        .description('generate the midi file from the source file')
         .action(generateAction);
 
     program.parse(process.argv);

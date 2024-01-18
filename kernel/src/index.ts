@@ -5,19 +5,13 @@ import express from "express";
 import sass from 'node-sass';
 import {promisify} from 'util';
 
-type buildOption = {
+export type buildOption = {
     path?: string, midiFile?: boolean, jsonFile?: boolean, webView?: {
         use?: boolean, multipleTracks?: boolean,
     }
 }
 
-const defaultOptions: buildOption = {
-    path: Path.resolve(__dirname, '../../generated'), midiFile: true, jsonFile: true, webView: {
-        use: true, multipleTracks: true,
-    }
-}
-
-export const build = (data: any, options: buildOption = defaultOptions) => {
+export const build = (data: any, options: buildOption) => {
     Music.fromJSON(JSON.parse(data));
     const writer = Music.music.midiWriter;
 
