@@ -35,7 +35,7 @@
 ## Modèle de domaine
 
 _L'image est cliquable pour pouvoir zoomer sur les différents points du modèle de domaine._  
-[![Domain Model](domain_model.png)](https://github.com/ThomasFarineau/pns-si5-dsl-lab2-desolation/docs/domain_model.png)
+[![Domain Model](domain_model.png)](https://raw.githubusercontent.com/ThomasFarineau/pns-si5-dsl-lab2-desolation/main/docs/domain_model.png?raw=true)
 
 ## Syntaxe concrète sous forme BNF
 
