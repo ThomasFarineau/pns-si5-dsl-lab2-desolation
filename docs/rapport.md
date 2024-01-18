@@ -25,14 +25,14 @@
    2. [Syntaxe concrète sous forme BNF](#syntaxe-concrète-sous-forme-bnf)
    3. [Description du langage](#description-du-langage-1)
       - [Mise en oeuvre](#mise-en-oeuvre)
-3. Scénarios mis en œuvre
+3. [Scénarios mis en œuvre](#scénarios-mis-en-œuvre)
    1. Faut
    2. Trouver
    3. Des
    4. Scénarios
-4. Analyse critique
-   1. Mise en œuvre du DSL par rapport au cas d'utilisation MusicML
-   2. Technologie choisie pour la mise en œuvre du DSL
+4. [Analyse critique](#analyse-critique)
+   1. [Mise en œuvre du DSL par rapport au cas d'utilisation MusicML](#mise-en-œuvre-du-dsl-par-rapport-au-cas-dutilisation-musicml)
+   2. [Technologie choisie pour la mise en œuvre du DSL](#technologie-choisie-pour-la-mise-en-œuvre-du-dsl)
 5. [Responsabilités de chaque membre](#responsabilités-de-chaque-membre)
 
 \newpage
@@ -127,6 +127,13 @@ Pour mettre en œuvre MusicML, vous devez suivre les étapes suivantes :
 5. **Documentation :** Pour une mise en œuvre plus avancée, la documentation fournie dans le [README](https://github.com/ThomasFarineau/pns-si5-dsl-lab2-desolation/blob/main/README.md) explique en détail la syntaxe du langage MusicML, les éléments de composition, les instructions de musique, les notations disponibles et les instruments pris en charge. Cette documentation est essentielle pour créer des compositions complexes et personnalisées.
 
 https://github.com/ThomasFarineau/pns-si5-dsl-lab2-desolation/blob/main/README.md
+
+# Scénarios mis en œuvre
+
+
+# Analyse critique
+## Mise en œuvre du DSL par rapport au cas d'utilisation MusicML
+## Technologie choisie pour la mise en œuvre du DSL
 
 # Responsabilités de chaque membre
 
