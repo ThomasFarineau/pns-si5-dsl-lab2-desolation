@@ -1,26 +1,15 @@
 {
-    "name": "midi-dsl",
-    "description": "Please enter a brief description here",
-    "version": "0.0.1",
+    "name": "musicml",
+    "description": "MusicML is a DSL for music composition made with Langium.",
+    "author": "Thomas Farineau",
+    "version": "1.0.0",
     "files": [
         "bin"
     ],
     "type": "module",
     "scripts": {
         "build": "tsc -b tsconfig.json && node esbuild.mjs",
-        "watch": "concurrently -n tsc,esbuild -c blue,yellow \"tsc -b tsconfig.json --watch\" \"node esbuild.mjs --watch\"",
-        "lint": "eslint src --ext ts",
         "langium:generate": "langium generate",
-        "langium:watch": "langium generate --watch",
-        "vscode:prepublish": "npm run build && npm run lint",
-        "prepare:static": "node ./scripts/prepare.js",
-        "build:web": "npm run build && npm run prepare:static && npm run build:monarch && npm run build:worker && npm run build:bundle",
-        "build:monarch": "tsc -b tsconfig.monarch.json",
-        "build:bundle": "vite --config ./vite.bundle.config.ts build",
-        "build:worker": "esbuild --minify ./out/language/main-browser.js --bundle --format=iife --outfile=./static/worker/midi-dsl-server-worker.js",
-        "dev": "vite",
-        "dev:debug": "vite --debug --force",
-        "serve": "npm run dev",
         "reload:kernel": "npm uninstall desolation-kernel && npm install desolation-kernel@file:../kernel"
     },
     "dependencies": {

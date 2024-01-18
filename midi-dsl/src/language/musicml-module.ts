@@ -1,14 +1,14 @@
 import type { DefaultSharedModuleContext, LangiumServices, LangiumSharedServices, Module, PartialLangiumServices } from 'langium';
 import { createDefaultModule, createDefaultSharedModule, inject } from 'langium';
-import { MidiDslGeneratedModule, MidiDslGeneratedSharedModule } from './generated/module.js';
-import { MidiDslValidator, registerValidationChecks } from './midi-dsl-validator.js';
+import { MusicMLGeneratedModule, MusicMLGeneratedSharedModule } from './generated/module.js';
+import {MusicMLValidator, registerValidationChecks} from './musicml-validator.js';
 
 /**
  * Declaration of custom services - add your own service classes here.
  */
-export type MidiDslAddedServices = {
+export type MusicMLAddedServices = {
     validation: {
-        MidiDslValidator: MidiDslValidator
+        MusicMLValidator: MusicMLValidator
     }
 }
 
@@ -16,16 +16,16 @@ export type MidiDslAddedServices = {
  * Union of Langium default services and your custom services - use this as constructor parameter
  * of custom service classes.
  */
-export type MidiDslServices = LangiumServices & MidiDslAddedServices
+export type MusicMLServices = LangiumServices & MusicMLAddedServices
 
 /**
  * Dependency injection module that overrides Langium default services and contributes the
  * declared custom services. The Langium defaults can be partially specified to override only
  * selected services, while the custom services must be fully specified.
  */
-export const MidiDslModule: Module<MidiDslServices, PartialLangiumServices & MidiDslAddedServices> = {
+export const MusicmlModule: Module<MusicMLServices, PartialLangiumServices & MusicMLAddedServices> = {
     validation: {
-        MidiDslValidator: () => new MidiDslValidator()
+        MusicMLValidator: () => new MusicMLValidator()
     }
 };
 
@@ -44,20 +44,20 @@ export const MidiDslModule: Module<MidiDslServices, PartialLangiumServices & Mid
  * @param context Optional module context with the LSP connection
  * @returns An object wrapping the shared services and the language-specific services
  */
-export function createMidiDslServices(context: DefaultSharedModuleContext): {
+export function createMusicMLServices(context: DefaultSharedModuleContext): {
     shared: LangiumSharedServices,
-    MidiDsl: MidiDslServices
+    MusicML: MusicMLServices
 } {
     const shared = inject(
         createDefaultSharedModule(context),
-        MidiDslGeneratedSharedModule
+        MusicMLGeneratedSharedModule
     );
     const MidiDsl = inject(
         createDefaultModule({ shared }),
-        MidiDslGeneratedModule,
-        MidiDslModule
+        MusicMLGeneratedModule,
+        MusicmlModule
     );
     shared.ServiceRegistry.register(MidiDsl);
     registerValidationChecks(MidiDsl);
-    return { shared, MidiDsl };
+    return { shared, MusicML: MidiDsl };
 }

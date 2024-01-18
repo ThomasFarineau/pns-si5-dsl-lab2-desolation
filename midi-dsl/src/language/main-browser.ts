@@ -1,6 +1,6 @@
 import { EmptyFileSystem, startLanguageServer } from 'langium';
 import { BrowserMessageReader, BrowserMessageWriter, createConnection } from 'vscode-languageserver/browser.js';
-import { createMidiDslServices } from './midi-dsl-module.js';
+import { createMusicMLServices } from './musicml-module.js';
 
 declare const self: DedicatedWorkerGlobalScope;
 
@@ -9,6 +9,6 @@ const messageWriter = new BrowserMessageWriter(self);
 
 const connection = createConnection(messageReader, messageWriter);
 
-const { shared } = createMidiDslServices({ connection, ...EmptyFileSystem });
+const { shared } = createMusicMLServices({ connection, ...EmptyFileSystem });
 
 startLanguageServer(shared);

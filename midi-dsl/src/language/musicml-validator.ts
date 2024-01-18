@@ -1,11 +1,11 @@
 import type {AstNode, ValidationAcceptor, ValidationChecks} from 'langium';
-import {Instrument, MidiDslAstType, Model, Notation, Playable, Track} from './generated/ast.js';
-import type {MidiDslServices} from './midi-dsl-module.js';
+import {Instrument, MusicMLAstType, Model, Notation, Playable, Track} from './generated/ast.js';
+import type {MusicMLServices} from './musicml-module.js';
 
-export function registerValidationChecks(services: MidiDslServices) {
+export function registerValidationChecks(services: MusicMLServices) {
     const registry = services.validation.ValidationRegistry;
-    const validator = services.validation.MidiDslValidator;
-    const checks: ValidationChecks<MidiDslAstType> = {
+    const validator = services.validation.MusicMLValidator;
+    const checks: ValidationChecks<MusicMLAstType> = {
         Notation: validator.checkNotation, Instrument: validator.checkInstrument, Playable: validator.checkPlayable,
     };
     registry.register(checks, validator);
@@ -14,7 +14,7 @@ export function registerValidationChecks(services: MidiDslServices) {
 /**
  * Implementation of custom validations.
  */
-export class MidiDslValidator {
+export class MusicMLValidator {
     checkPlayable(playable: Playable, accept: ValidationAcceptor): void {
         // get notation from parent model
         let notation = this.getModelNotation(playable, accept);

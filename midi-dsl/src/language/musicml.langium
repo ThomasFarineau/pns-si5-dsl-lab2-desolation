@@ -1,4 +1,4 @@
-grammar MidiDsl
+grammar MusicML
 
 entry Model:
     name=Name
