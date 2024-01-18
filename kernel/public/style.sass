@@ -61,12 +61,21 @@ header
         background: #778da9
 
 section#partition
+  #v_staff
+    margin-bottom: 2rem
+    padding: 1rem
+    background: white
+
   div[data-name="tracks"]
     display: flex
     flex-direction: column
     gap: 0.5rem
+
     div
       background: white
+
+      .staff-visualizer
+        padding: 0.75rem
 
       h2
         padding: 1rem
@@ -82,3 +91,32 @@ section#partition
 
         span:first-child
           font-weight: 500
+
+
+midi-visualizer
+  .piano-roll-visualizer
+    background: #fff
+    border: 0
+    overflow: auto
+    padding: 1rem
+
+  svg
+    rect.note
+      opacity: 0.6
+      stroke-width: 2
+
+      &[data-instrument="0"]
+        fill: #e22
+        stroke: #500
+
+      &[data-instrument="2"]
+        fill: #2ee
+        stroke: #055
+
+      &[data-is-drum="true"]
+        fill: #888
+        stroke: #888
+
+      &.active
+        opacity: 0.9
+        stroke: #000
