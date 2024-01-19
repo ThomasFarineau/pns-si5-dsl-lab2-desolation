@@ -106,6 +106,8 @@ Dans le but de rendre notre application plus user-friendly nous avons décidé d
 
 Nous avons choisi d'implémenter l'extension User Input. Pour cela, nous avons modifié la syntaxe de notre DSL pour y ajouter la notion de bindings. L'utilisateur définit donc un instrument ainsi qu'une liste de bindings avec une lettre du clavier suivie d'une note. Ainsi, lorsque l'on se rend sur la page web on peut, en même temps que la musique se joue, jouer les notes définies précédemment sur l'instrument choisi. On peut jouer plusieurs notes à la fois et les notes sont allongées tant que l'utilisateur ne relâche pas la touche, après quoi la note s'arrête.
 
+Pour le moment, on ne permet de définir qu'un instrument pour tous les bindings. Une amélioration serait de permettre de définir des instruments différents pour certains bindings (par exemple la lettre 'a' en piano mais la lettre 'r' en violon). De plus, on ne gère pas encore les notes liées à la batterie (ch, bd, sd, etc...).
+
 \subsubsection{Mise en oeuvre}
 
 La mise en œuvre de MusicML se réalise grâce à une approche logicielle, reposant sur Node.js (version 18.4.0 minimum) et un système d'exploitation Linux (ou Windows avec quelques limitations, en utilisant WSL pour l'exécution des scripts).

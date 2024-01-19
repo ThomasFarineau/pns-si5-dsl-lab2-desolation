@@ -62,6 +62,15 @@ Spécifiez la notation musicale (latin, english ou german) :
 ```
 notation english
 ```
+#### Création de bindings
+Spécifiez une liste de bindings qui vous permettront de jouer de la musique en direct
+```
+bindings {
+    instrument acoustic_grand_piano
+    bind 'a' C#5
+    bind 'f' D3
+}
+```
 #### Création de Patterns
 Enregistrez des patterns réutilisables dans la composition :
 ```
