@@ -155,7 +155,7 @@ export function generateJson(model: Model): string {
         name: model.name.value,
         notation: model.notation.value,
         patterns: getPatterns(model.patterns, model.notation.value),
-        bindings: getBindings(model.bindings, model.notation.value),
+        bindings: model.bindings ? getBindings(model.bindings, model.notation.value) : {},
         elements: getElements(model.elements, model.notation.value)
     };
 

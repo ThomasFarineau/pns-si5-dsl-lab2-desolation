@@ -97,11 +97,13 @@ export const build = (data: any, options: buildOption) => {
                     });
                 }
                 let bindings = Music.music.bindings;
-                let bindingsMap:{ [id: string]: string } = {}
-                bindings.bindings.forEach(element => {
-                    bindingsMap[element.key] = element.note;
-                })
-                json["bindings"] = {"instrument": bindings.instrument, "bindings": bindingsMap};
+                if (bindings.bindings) {
+                    let bindingsMap: { [id: string]: string } = {}
+                    bindings.bindings.forEach(element => {
+                        bindingsMap[element.key] = element.note;
+                    })
+                    json["bindings"] = {"instrument": bindings.instrument, "bindings": bindingsMap};
+                }
                 res.send(json);
             })
 
