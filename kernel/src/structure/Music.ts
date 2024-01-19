@@ -5,6 +5,7 @@ import MidiWriter from "midi-writer-js";
 import Track from "./Track";
 import Tempo from "./Tempo";
 import Signature from "./Signature";
+import Bindings from "./Bindings";
 
 const typeClassMapping: { [type: string]: any } = {
     "Track": Track, "Tempo": Tempo, "Signature": Signature,
@@ -16,6 +17,7 @@ export class Music {
     name: string;
     notation: NotationType;
     patterns: { [id: string]: Pattern } = {};
+    bindings: Bindings = new Bindings("", []);
     elements: MusicElementI[] = [];
 
     private defaultTempo = new Tempo(125);
@@ -56,7 +58,9 @@ export class Music {
             this.music.elements.push(new eClass(...Object.values(params)));
         }
         this.music.patterns = parse.patterns;
+        this.music.bindings = parse.bindings;
     }
+
     hasTempo() {
         return this.elements.find(element => element.type === "Tempo") !== undefined;
     }

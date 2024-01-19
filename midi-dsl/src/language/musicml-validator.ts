@@ -1,12 +1,12 @@
 import type {AstNode, ValidationAcceptor, ValidationChecks} from 'langium';
-import {Instrument, MusicMLAstType, Model, Notation, Playable, Track} from './generated/ast.js';
+import {MusicMLAstType, Model, Notation, Playable, Track, Instrument} from './generated/ast.js';
 import type {MusicMLServices} from './musicml-module.js';
 
 export function registerValidationChecks(services: MusicMLServices) {
     const registry = services.validation.ValidationRegistry;
     const validator = services.validation.MusicMLValidator;
     const checks: ValidationChecks<MusicMLAstType> = {
-        Notation: validator.checkNotation, Instrument: validator.checkInstrument, Playable: validator.checkPlayable,
+        Notation: validator.checkNotation, Instrument: validator.checkInstrument, Playable: validator.checkPlayable
     };
     registry.register(checks, validator);
 }

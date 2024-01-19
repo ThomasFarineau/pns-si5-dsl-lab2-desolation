@@ -63,7 +63,7 @@ export const build = (data: any, options: buildOption) => {
             }
 
             type webData = {
-                name: string, midi?: string, json?: string, tracks?: webTrackData[]
+                name: string, midi?: string, json?: string, tracks?: webTrackData[], bindings?: any
             }
 
             app.get('/download/:type/' + Music.music.fileName, (req, res) => {
@@ -95,6 +95,14 @@ export const build = (data: any, options: buildOption) => {
                             "tempo": track.tempo.tempo,
                         }
                     });
+                }
+                let bindings = Music.music.bindings;
+                if (bindings.bindings) {
+                    let bindingsMap: { [id: string]: string } = {}
+                    bindings.bindings.forEach(element => {
+                        bindingsMap[element.key] = element.note;
+                    })
+                    json["bindings"] = {"instrument": bindings.instrument, "bindings": bindingsMap};
                 }
                 res.send(json);
             })

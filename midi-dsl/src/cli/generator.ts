@@ -27,6 +27,12 @@ const parseNote = (note: string, notation: string): any => {
     }
 }
 
+const parseBindingNote = (note: string, notation: string): any => {
+    const regex = /([A-Zac-z]{1,3})([b#]?)(\d)/;
+    const match = note.match(regex);
+    return match ? convertNote(notation, match[1]) + match[2] + match[3] : "";
+}
+
 const parseChord = (element: string, notation: string): any => {
     let newChord: any = [];
     element.slice(2, -2).split(" ").forEach(e => {
@@ -78,9 +84,9 @@ const convertDrum = (drum: string): string => drumMap.get(drum) + "e" || "";
 const convertNote = (notation: string, note: string): string => {
     switch (notation) {
         case "latin":
-            return latinToEnglish.get(note) || note;
+            return latinToEnglish.get(note.toLowerCase()) || note;
         case "german":
-            return germanToEnglish.get(note) || note;
+            return germanToEnglish.get(note.toLowerCase()) || note;
         default:
             return note;
     }
@@ -131,12 +137,25 @@ const getElements = (elements: Array<any>, notation: string): any => {
     return newElements;
 };
 
+const getBindings = (bindings: any, notation: string): any => {
+    let newElements: any = {
+        instrument: bindings.instrument.value,
+        bindings: []
+    };
+    // @ts-ignore
+    bindings.binds.forEach(element => {
+        newElements.bindings.push({key: element.key[1], note: parseBindingNote(element.note, notation)});
+    })
+    return newElements;
+}
+
 export function generateJson(model: Model): string {
 
     let newModel = {
         name: model.name.value,
         notation: model.notation.value,
         patterns: getPatterns(model.patterns, model.notation.value),
+        bindings: model.bindings ? getBindings(model.bindings, model.notation.value) : {},
         elements: getElements(model.elements, model.notation.value)
     };
 
