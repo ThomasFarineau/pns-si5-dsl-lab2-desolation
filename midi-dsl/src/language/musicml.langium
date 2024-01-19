@@ -4,6 +4,7 @@ entry Model:
     name=Name
     notation=Notation
     (patterns+=Pattern)*
+    (bindings=Bindings)?
     (elements+=MusicElement)*;
 
 Name:
@@ -23,6 +24,15 @@ Instrument:
 
 Channel:
     'channel' value=INT;
+
+Bindings:
+    'bindings' '{'
+        instrument=Instrument
+        (binds+=Bind)*
+    '}';
+
+Bind:
+    'bind' key=LETTER note=BINDING_NOTE;
 
 Track:
     'track' '{'
@@ -76,12 +86,14 @@ terminal NOTE_A_FLAT: 'b';
 terminal NOTE: (ENGLISH_NOTES | LATIN_NOTES | GERMAN_NOTES) (NOTE_A_SHARP | NOTE_A_FLAT)? NOTE_OCTAVE NOTE_DURATION;
 terminal CHORD_OPENER: '[';
 terminal CHORD_CLOSER: ']';
+terminal BINDING_NOTE: (ENGLISH_NOTES | LATIN_NOTES | GERMAN_NOTES) (NOTE_A_SHARP | NOTE_A_FLAT)? NOTE_OCTAVE;
 
 hidden terminal WS: /\s+/;
 
 terminal ID: /[_a-zA-Z][\w_]*/;
 terminal INT returns number: /[0-9]+/;
 terminal STRING: /"[^"]*"/;
+terminal LETTER: /'[a-zA-Z]'/;
 
 hidden terminal ML_COMMENT: /\/\*[\s\S]*?\*\//;
 hidden terminal SL_COMMENT: /\/\/[^\n\r]*/;

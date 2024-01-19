@@ -1,3 +1,5 @@
+import { Soundfont } from "https://unpkg.com/smplr/dist/index.mjs"; // needs to be a url
+
 window.addEventListener('DOMContentLoaded', (event) => {
     let dataElement = document.querySelectorAll('[data-name]');
 
@@ -46,6 +48,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 fetch('/track/' + track.id).then(response => response.text()).then(dataUri => midiVisualizer.src = dataUri);
             })
         }
+        if (parsedData.bindings) {
+            handleInputs(parsedData.bindings.instrument, parsedData.bindings.bindings);
+        }
     })
 
     // Récupérer le MIDI du serveur
@@ -58,4 +63,33 @@ window.addEventListener('DOMContentLoaded', (event) => {
         player.addVisualizer(v_staff);
         player.addVisualizer(v_roll);
     });
+
+    function handleInputs(instrument, map) {
+        const context = new AudioContext();
+        const instrumentUsed = new Soundfont(context, {
+            instrument: instrument
+        });
+
+        const pressedKeys = {};
+
+        console.log(map);
+
+        document.addEventListener('keydown', (event) => {
+            const key = event.key.toLowerCase();
+            if (map.hasOwnProperty(key)) {
+                if (!pressedKeys[key]) {
+                    instrumentUsed.start({note: map[key], velocity: 50});
+                    pressedKeys[key] = true;
+                }
+            }
+        });
+
+        document.addEventListener('keyup', (event) => {
+            const key = event.key.toLowerCase();
+            if (map.hasOwnProperty(key)) {
+                instrumentUsed.stop({note: map[key]});
+                pressedKeys[key] = false;
+            }
+        });
+    }
 });
