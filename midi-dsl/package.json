@@ -13,15 +13,10 @@
         "reload:kernel": "npm uninstall desolation-kernel && npm install desolation-kernel@file:../kernel"
     },
     "dependencies": {
-        "@codingame/monaco-vscode-editor-service-override": "~1.83.2",
-        "@codingame/monaco-vscode-keybindings-service-override": "~1.83.2",
         "chalk": "~5.3.0",
         "commander": "~11.0.0",
         "desolation-kernel": "file:../kernel",
         "langium": "~2.1.0",
-        "monaco-editor-workers": "~0.44.0",
-        "monaco-editor-wrapper": "~3.3.0",
-        "monaco-languageclient": "~6.6.0",
         "vscode": "npm:@codingame/monaco-vscode-api@>=1.83.2 <1.84.0",
         "vscode-languageclient": "~9.0.1",
         "vscode-languageserver": "~9.0.1"
