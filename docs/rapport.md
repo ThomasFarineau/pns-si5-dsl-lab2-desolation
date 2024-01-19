@@ -153,11 +153,18 @@ https://github.com/ThomasFarineau/pns-si5-dsl-lab2-desolation/blob/main/README.m
      - Tests sur les générateurs
 
 
-- **Léo KITABADJIAN**
+- **Léo KITABDJIAN**
    - Mise en place de la structure du projet
      - Parsing des données reçues sur le kernel
      - Implémentation de Midi Writer JS
+       - Construction du modèle de données et mise en place des éléments dans Midi Writer
+         - Tempo / Signature / Note / Accord / Silence
        - Tests de Midi Writer JS
+   - Mise en place de l'extension
+     - Modification de la syntaxe et du validateur du DSL
+     - Parsing des nouvelles données dans le kernel
+     - Récupération des bindings sur la page web
+     - Mise en place du système permettant de jouer des notes avec les bindings
 
 
 - **Ludovic BAILET**
