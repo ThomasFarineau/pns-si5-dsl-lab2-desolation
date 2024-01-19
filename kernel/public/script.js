@@ -78,7 +78,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
             const key = event.key.toLowerCase();
             if (map.hasOwnProperty(key)) {
                 if (!pressedKeys[key]) {
-                    instrumentUsed.start({note: map[key], velocity: 50});
+                    instrumentUsed.start({note: map[key], velocity: 100});
                     pressedKeys[key] = true;
                 }
             }
