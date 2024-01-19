@@ -96,6 +96,16 @@ MusicML offre également la possibilité de générer des fichiers JSON à parti
 
 En résumé, MusicML est un langage spécifique au domaine musical qui simplifie la composition musicale en offrant une syntaxe intuitive, une structure claire et une variété d'options pour l'expression musicale. Il permet aux compositeurs de créer des compositions cohérentes et personnalisées, que ce soit pour des compositions simples ou complexes, tout en offrant des outils de débogage pratiques pour le processus de création musicale.
 
+\subsubsection{User Acceptance}
+
+Dans le but de rendre notre application plus user-friendly nous avons décidé de mettre en place 2 éléments pour les utilisateurs :
+- Un système de validateur compatbile avec VScode qui permet de donner du feedback à l'utilisateur en direct sur les valeurs entrées dans le fichier. Par exemple, il sera informé si le nom de l'instrument est invalide ou si l'utilisateur écrit des notes incompatibles avec un instrument (notes classiques pour une batterie par exemple) ou alors écrites dans une notation différente de celle définie précédemment (english/latin/etc...), et d'autres fonctionnalités.
+- Un serveur web qui permet de visualiser et de jouer en direct la musique créée par notre DSL. Il peut afficher toutes les tracks indépendamment et la partition complète avec toutes les notes sur un lecteur. De plus, ce serveur web nous a permis d'implémenter notre extension.
+
+\subsubsection{Extension : User input}
+
+Nous avons choisi d'implémenter l'extension User Input. Pour cela, nous avons modifié la syntaxe de notre DSL pour y ajouter la notion de bindings. L'utilisateur définit donc un instrument ainsi qu'une liste de bindings avec une lettre du clavier suivie d'une note. Ainsi, lorsque l'on se rend sur la page web on peut, en même temps que la musique se joue, jouer les notes définies précédemment sur l'instrument choisi. On peut jouer plusieurs notes à la fois et les notes sont allongées tant que l'utilisateur ne relâche pas la touche, après quoi la note s'arrête.
+
 \subsubsection{Mise en oeuvre}
 
 La mise en œuvre de MusicML se réalise grâce à une approche logicielle, reposant sur Node.js (version 18.4.0 minimum) et un système d'exploitation Linux (ou Windows avec quelques limitations, en utilisant WSL pour l'exécution des scripts).
