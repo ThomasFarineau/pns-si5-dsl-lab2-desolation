@@ -1,6 +1,7 @@
 ---
   geometry: margin=2cm
 ---
+
 \newpage 
 \vspace*{\fill}
 \begin{center}
@@ -17,40 +18,25 @@
 \vspace*{\fill} 
 \newpage
 
-# Table des matières
-
-1. [Introduction](#introduction)
-2. [Description du langage](#description-du-langage)
-   1. [Modèle de domaine](#modèle-de-domaine)
-   2. [Syntaxe concrète sous forme BNF](#syntaxe-concrète-sous-forme-bnf)
-   3. [Description du langage](#description-du-langage-1)
-      - [Mise en oeuvre](#mise-en-oeuvre)
-3. [Scénarios mis en œuvre](#scénarios-mis-en-œuvre)
-   1. Faut
-   2. Trouver
-   3. Des
-   4. Scénarios
-4. [Analyse critique](#analyse-critique)
-   1. [Mise en œuvre du DSL par rapport au cas d'utilisation MusicML](#mise-en-œuvre-du-dsl-par-rapport-au-cas-dutilisation-musicml)
-   2. [Technologie choisie pour la mise en œuvre du DSL](#technologie-choisie-pour-la-mise-en-œuvre-du-dsl)
-5. [Responsabilités de chaque membre](#responsabilités-de-chaque-membre)
+\renewcommand*\contentsname{Table des matières}
+\tableofcontents
 
 \newpage
 
-# Introduction
+\section{Introduction}
 
 Ce projet se concentre sur la création d'un DSL (Domain Specific Language) destiné à faciliter la composition musicale. Ce DSL offre une interface intuitive pour la création de pièces musicales, en mettant l'accent sur la flexibilité et la simplicité. Il permet aux compositeurs de définir des pistes, des notes et des éléments de batterie dans un cadre temporel précis. Chaque piste représente une séquence de notes, tandis que le temps est organisé en signatures, mesures, battements et tics. Notre DSL prend également en charge le tempo, permettant aux compositeurs de contrôler la dynamique de leur musique.
 
 L'une de ses caractéristiques notables est la gestion des pistes de batterie, où chaque élément de batterie est associé à une note MIDI spécifique. En résumé, notre projet vise à simplifier le processus de composition musicale en offrant un outil flexible et intuitif pour l'expression artistique. Les détails de son fonctionnement seront explorés plus en profondeur dans les sections suivantes.
 
-# Description du langage
+\section{Description du langage}
 
-## Modèle de domaine
+\subsection{Modèle de domaine}
 
 _L'image est cliquable pour pouvoir zoomer sur les différents points du modèle de domaine._  
 [![Domain Model](domain_model.png)](https://raw.githubusercontent.com/ThomasFarineau/pns-si5-dsl-lab2-desolation/main/docs/domain_model.png?raw=true)
 
-## Syntaxe concrète sous forme BNF
+\subsection{Syntaxe concrète sous forme BNF}
 
 ```xml
 <Model> ::= 'name' <Name> 'notation' <Notation> { <Pattern> }* { <MusicElement> }*
@@ -94,7 +80,7 @@ _L'image est cliquable pour pouvoir zoomer sur les différents points du modèle
 <STRING> ::= /"[^"]*"/
 ```
 
-## Description du langage
+\subsection{Description du langage}
 
 MusicML est un langage spécifique au domaine musical, conçu pour simplifier la création de compositions musicales grâce à une syntaxe intuitive et flexible. Il se concentre sur la facilité d'expression musical en permettant aux utilisateurs de définir des éléments essentiels tels que des notes, des patterns et des pistes de manière organisée. MusicML offre des abstractions claires pour des concepts musicaux complexes, facilitant ainsi la composition musicale.
 
@@ -110,7 +96,7 @@ MusicML offre également la possibilité de générer des fichiers JSON à parti
 
 En résumé, MusicML est un langage spécifique au domaine musical qui simplifie la composition musicale en offrant une syntaxe intuitive, une structure claire et une variété d'options pour l'expression musicale. Il permet aux compositeurs de créer des compositions cohérentes et personnalisées, que ce soit pour des compositions simples ou complexes, tout en offrant des outils de débogage pratiques pour le processus de création musicale.
 
-### Mise en oeuvre
+\subsubsection{Mise en oeuvre}
 
 La mise en œuvre de MusicML se réalise grâce à une approche logicielle, reposant sur Node.js (version 18.4.0 minimum) et un système d'exploitation Linux (ou Windows avec quelques limitations, en utilisant WSL pour l'exécution des scripts).
 
@@ -128,14 +114,15 @@ Pour mettre en œuvre MusicML, vous devez suivre les étapes suivantes :
 
 https://github.com/ThomasFarineau/pns-si5-dsl-lab2-desolation/blob/main/README.md
 
-# Scénarios mis en œuvre
+\section{Scénarios mis en œuvre}
 
+\section{Analyse critique}
 
-# Analyse critique
-## Mise en œuvre du DSL par rapport au cas d'utilisation MusicML
-## Technologie choisie pour la mise en œuvre du DSL
+\subsection{Mise en œuvre du DSL par rapport au cas d'utilisation MusicML}
 
-# Responsabilités de chaque membre
+\subsection{Technologie choisie pour la mise en œuvre du DSL}
+
+\section{Responsabilités de chaque membre}
 
 - **Thomas FARINEAU**
   - Mise en place du kernel
