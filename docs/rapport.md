@@ -215,3 +215,6 @@ Pour rédiger notre DSL, nous avons d'abord choisi d'utiliser Langium. Pour notr
     
 - **Mohamed MAHJOUB**
   - Diagramme de classe du modèle de domaine
+  - Implémentation initial du projet langium
+  - Réadaction de la grammaire langium
+  - Rédaction du rapport 
