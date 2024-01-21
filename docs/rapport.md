@@ -165,6 +165,8 @@ Enfin, il est aussi possible de définir des Bindings. Ceci sert à la fonctionn
 
 \subsection{Mise en œuvre du DSL par rapport au cas d'utilisation MusicML}
 
+Notre BNF nous permet une implémentation simple de tous les critères demandés par le projet MusicML. Nous avons une lecture de pistes de musique, toutes parallèles et indépendantes les unes des autres. Nous respectons également les principes de la musique basée sur les beats et les bars. Il est également possible d'avoir des notes de toutes les longueurs utilisées en musique. Il comporte également différentes notations pour les différents utilisateurs qui n'utilisent pas les mêmes notes (Do Ré Mi / A B C). Nous avons aussi défini les différentes notes couramment utilisées en batterie sans avoir à faire appel à leur appellation MIDI (par exemple, il est possible d'écrire "sd" pour avoir la caisse claire au lieu du code MIDI).
+
 \subsection{Technologie choisie pour la mise en œuvre du DSL}
 
 Pour rédiger notre DSL, nous avons d'abord choisi d'utiliser Langium. Pour notre kernel, nous avons opté pour l'écriture en TypeScript. Nous avons choisi Langium pour notre DSL car il simplifie les choses en fournissant des outils qui permettent de générer le langage de manière simple en utilisant la BNF. Nous avons choisi TypeScript comme langage pour le kernel afin d'optimiser la collaboration entre notre kernel et Langium. De plus, nous l'avons également choisi pour les ressources qu'il offre dans l'écriture de fichiers MIDI simplifiée à l'aide de librairies.
