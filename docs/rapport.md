@@ -145,6 +145,15 @@ https://github.com/ThomasFarineau/pns-si5-dsl-lab2-desolation/blob/main/README.m
 
 \section{Scénarios mis en œuvre}
 
+Scénario 1 : Billie Jean - Michael Jackson
+Ce scénario met en place les fonctionnalités de base de notre DSL. Il nous permet de montrer l'utilisation de patterns simples et l'utilisation des différentes Tracks. Il met également en avant les accords et les "pauses" utilisées.
+
+Scénario 2 : Moonlight Sonata
+Ce scénario met en place des fonctionnalités plus avancées de notre DSL. Il nous montre l'utilisation de notes plus complexes avec des durées plus particulières que les simples notes noires.
+
+Scénario 3 : Tempo and Sig switch
+Ce scénario met en place des fonctionnalités plus avancées de notre DSL. Il nous montre la possibilité de changer de tempo et de signature en plein milieu d'une track, passant, par exemple, d'une signature 4/4 avec un tempo lent à une valse en 3/4 avec un tempo plus rapide.
+
 \section{Analyse critique}
 
 \subsection{Mise en œuvre du DSL par rapport au cas d'utilisation MusicML}
