@@ -170,6 +170,10 @@ https://github.com/ThomasFarineau/pns-si5-dsl-lab2-desolation/blob/main/README.m
 
 
 - **Ludovic BAILET**
+  - Implémentation initial du projet langium
+  - Réalisation du diagramme de classe et du domaine model
+  - Réalisation de la première grammaire
+
 
 
 - **Mohamed MAHJOUB**
