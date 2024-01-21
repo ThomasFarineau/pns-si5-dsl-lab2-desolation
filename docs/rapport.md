@@ -156,6 +156,13 @@ Ce scénario met en place des fonctionnalités plus avancées de notre DSL. Il n
 
 \section{Analyse critique}
 
+On peut analyser notre BNF en le séparant en 2 parties principales.
+
+Nous avons tout d'abord une partie "composition". Cette section nous permet d'éditer les pistes qui peuvent être utilisées par plusieurs pistes pour des instruments différents. Elle contient également le nom de la musique et la notation utilisée pour celle-ci dans le futur (Do, Re, Mi... / A, B, C...). Il est aussi possible de déclarer un tempo et une signature globale pour toutes les futures pistes audio.
+
+Une fois la composition terminée, nous arrivons sur la partie "édition". Celle-ci nous permet de définir les différentes pistes avec les instruments joués dans celles-ci et les patterns "composés" que l'on souhaite jouer. Il est aussi possible de créer de nouveaux patterns dans les pistes, ils seront donc locaux à celles-ci et ne pourront pas être joués ailleurs. Il est important de noter qu'il est possible de changer dans chaque piste le tempo et la signature de celle-ci. Il nous est possible d'avoir des changements de tempo et de signature à n'importe quel moment grâce à notre BNF qui indique que la source (TrackElements) de ces changements est la même que celle des notes. Il est possible, à la place d'une note, à n'importe quel moment, de changer la signature ou le tempo de notre musique.
+Enfin, il est aussi possible de définir des Bindings. Ceci sert à la fonctionnalité de la carte qui nous permet de définir des touches pour les lier à des notes.
+
 \subsection{Mise en œuvre du DSL par rapport au cas d'utilisation MusicML}
 
 \subsection{Technologie choisie pour la mise en œuvre du DSL}
