@@ -160,6 +160,9 @@ Ce scénario met en place des fonctionnalités plus avancées de notre DSL. Il n
 
 \subsection{Technologie choisie pour la mise en œuvre du DSL}
 
+Pour rédiger notre DSL, nous avons d'abord choisi d'utiliser Langium. Pour notre kernel, nous avons opté pour l'écriture en TypeScript. Nous avons choisi Langium pour notre DSL car il simplifie les choses en fournissant des outils qui permettent de générer le langage de manière simple en utilisant la BNF. Nous avons choisi TypeScript comme langage pour le kernel afin d'optimiser la collaboration entre notre kernel et Langium. De plus, nous l'avons également choisi pour les ressources qu'il offre dans l'écriture de fichiers MIDI simplifiée à l'aide de librairies.
+
+
 \section{Responsabilités de chaque membre}
 
 - **Thomas FARINEAU**
