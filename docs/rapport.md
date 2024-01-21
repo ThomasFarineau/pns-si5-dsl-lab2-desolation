@@ -1,5 +1,17 @@
 ---
   geometry: margin=2cm
+  header-includes:
+    - \usepackage{enumitem}
+    - \setlistdepth{20}
+    - \renewlist{itemize}{itemize}{20}
+    - \renewlist{enumerate}{enumerate}{20}
+    - \setlist[itemize]{label=$\cdot$}
+    - \setlist[itemize,1]{label=\textbullet}
+    - \setlist[itemize,2]{label=--}
+    - \setlist[itemize,3]{label=*}
+  output:
+    rmarkdown::pdf_document:
+      keep_tex: yes
 ---
 
 \newpage 
@@ -39,13 +51,15 @@ _L'image est cliquable pour pouvoir zoomer sur les différents points du modèle
 \subsection{Syntaxe concrète sous forme BNF}
 
 ```xml
-<Model> ::= 'name' <Name> 'notation' <Notation> { <Pattern> }* { <MusicElement> }*
+<Model> ::= 'name' <Name> 'notation' <Notation> { <Pattern> }* [ <Bindings> ] { <MusicElement> }*
 <Name> ::= 'name' <STRING>
 <Notation> ::= 'notation' ( 'NOTATION_LATIN' | 'NOTATION_ENGLISH' | 'NOTATION_GERMAN' )
 <Tempo> ::= 'tempo' <INT>
 <Signature> ::= 'signature' <INT> '/' <INT>
 <Instrument> ::= 'instrument' <ID>
 <Channel> ::= 'channel' <INT>
+<Bindings> ::= 'bindings' '{' <Instrument> { <Binds> }* '}'
+<Binds> ::= 'bind' <LETTER> <BINDING_NOTE>
 <Track> ::= 'track' '{' <Instrument> [ <Channel> ] { <Pattern> }* { <TrackElement> }* '}'
 <Pattern> ::= 'pattern' <ID> '{' { <Playable> }+ '}'
 <PatternInvocation> ::= 'play' <INT> <Pattern>
@@ -74,10 +88,13 @@ _L'image est cliquable pour pouvoir zoomer sur les différents points du modèle
     ( <NOTE_A_SHARP> | <NOTE_A_FLAT> )? <NOTE_OCTAVE> <NOTE_DURATION>
 <CHORD_OPENER> ::= '['
 <CHORD_CLOSER> ::= ']'
-
+<BINDING_NOTE> ::= (ENGLISH_NOTES | LATIN_NOTES | GERMAN_NOTES) 
+    (NOTE_A_SHARP | NOTE_A_FLAT)? NOTE_OCTAVE;
+    
 <ID> ::= /[_a-zA-Z][\w_]*/
 <INT> ::= /[0-9]+/
 <STRING> ::= /"[^"]*"/
+<LETTER> ::= /'[a-zA-Z]'/
 ```
 
 \subsection{Description du langage}
@@ -172,9 +189,8 @@ https://github.com/ThomasFarineau/pns-si5-dsl-lab2-desolation/blob/main/README.m
 - **Ludovic BAILET**
   - Implémentation initial du projet langium
   - Réalisation du diagramme de classe et du domaine model
-  - Réalisation de la première grammaire
+  - Réalisation de la première grammaire langium
 
-
-
+    
 - **Mohamed MAHJOUB**
   - Diagramme de classe du modèle de domaine
